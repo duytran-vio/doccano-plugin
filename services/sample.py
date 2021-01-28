@@ -45,6 +45,7 @@ def extract_request(request):
     sample_size = body['sampleSize']
     new_project_name = body['newProjectName']
     username = body['username']
+    print(doccano_client.get_project_detail(project_id))
 
     if start < 0:
         raise Exception('Start must be greater than 0.')

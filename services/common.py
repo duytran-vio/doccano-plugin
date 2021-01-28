@@ -1,6 +1,20 @@
 import json
 from doccano_api_client import DoccanoClient
 
+def to_sequence(documents):
+    # if 'start_offset' not in documents[0]['annotations'][0].keys(): return documents
+    new_doc = []
+    for doc in documents:
+        text = doc['text']
+        for annotation in doc['annotations']:
+            new_sequence = {'text': '', 'annotations': []}
+            start = annotation['start_offset']
+            end = annotation['end_offset']
+            str = text[start: end]
+            new_sequence['text'] = str
+            new_sequence['annotations'].append(annotation)
+            new_doc.append(new_sequence)
+    return new_doc
 
 def map_labels(labels_map, documents):
     for doc in documents:
