@@ -14,7 +14,7 @@ function createSampleProject(e) {
         projectId,
     }), {
         method: 'GET',
-        cache: "no-cache"
+        cache: 'no-cache'
     })
         .then((response) => {
             if (response.status === 500) {

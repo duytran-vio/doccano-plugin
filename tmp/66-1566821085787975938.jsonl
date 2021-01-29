@@ -1,0 +1,5 @@
+{"text": "nhổ", "labels": ["entity_label2"]}
+{"text": "cái chổ trống", "labels": ["entity_label2"]}
+{"text": "@", "labels": ["intent_label1"]}
+{"text": "@", "labels": ["intent_label2"]}
+{"text": "để lại gốc", "labels": ["entity_label3"]}

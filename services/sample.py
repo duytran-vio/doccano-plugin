@@ -2,7 +2,7 @@ import json
 import random
 import jsonlines
 
-from .common import build_label_map, map_labels
+from .common import build_label_map, map_labels, to_sequence
 
 doccano_client = None
 
@@ -19,6 +19,7 @@ def handle_request(request, client):
     response = doccano_client.create_project(
         name=f'{new_project_name}-{start}-{end}',
         description=file_name,
+        project_type='SequenceLabeling',
         collaborative_annotation=True,
     )
     new_project_id = response['id']
@@ -78,6 +79,7 @@ def sample_documents(project_id, start, end, sample_size):
         })
         response['results'][0]['meta'] = json.loads(response['results'][0]['meta'])
         documents.extend(response['results'])
+    documents = to_sequence(documents)
     return indexes, documents
 
 
