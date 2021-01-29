@@ -1,0 +1,6 @@
+{"text": "@@@@@ Nên tôi đành phải để lại gốc đợi khi nào ra trường đi làm rồi tính tiếp.", "labels": [[0, 1, "intent_label2"]]}
+{"text": "@@@@@ Nên tôi đành phải để lại gốc đợi khi nào ra trường đi làm rồi tính tiếp.", "labels": [[24, 34, "entity_label3"]]}
+{"text": "@@@@@ Mà tôi đánh răng ngày 2 lần, có súc nước muối,", "labels": [[12, 22, "entity_label3"]]}
+{"text": "@@@@@ Mà tôi đánh răng ngày 2 lần, có súc nước muối,", "labels": [[0, 1, "intent_label1"]]}
+{"text": "@@@@@ Mà tôi đánh răng ngày 2 lần, có súc nước muối,", "labels": [[1, 2, "intent_label2"]]}
+{"text": "@@@@@ Mà tôi đánh răng ngày 2 lần, có súc nước muối,", "labels": [[38, 51, "entity_label3"]]}

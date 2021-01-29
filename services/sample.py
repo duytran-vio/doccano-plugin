@@ -2,7 +2,7 @@ import json
 import random
 import jsonlines
 
-from .common import build_label_map, map_labels, to_sequence
+from .common import build_label_map, map_labels, to_input_sequence
 
 doccano_client = None
 
@@ -12,7 +12,7 @@ def handle_request(request, client):
     doccano_client = client
     project_id, start, end, sample_size, new_project_name, username = extract_request(request)
     labels_map = build_label_map(doccano_client, project_id)
-    indexes, documents = sample_documents(project_id, start, end, sample_size)
+    indexes, documents = sample_documents(project_id, start, end, sample_size, labels_map)
     file_name = f'{project_id}-{abs(hash(" ".join(map(str, indexes))))}.jsonl'
     file_path = f'tmp/{file_name}'
 
@@ -20,13 +20,14 @@ def handle_request(request, client):
         name=f'{new_project_name}-{start}-{end}',
         description=file_name,
         project_type='SequenceLabeling',
+        resourcetype= "SequenceLabelingProject",
         collaborative_annotation=True,
     )
     new_project_id = response['id']
     create_labels(new_project_id)
     assign_user(new_project_id, username)
 
-    map_labels(labels_map, documents)
+    # map_labels(labels_map, documents)
 
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(documents)
@@ -69,7 +70,7 @@ def extract_request(request):
     return project_id, start, end, sample_size, new_project_name, username
 
 
-def sample_documents(project_id, start, end, sample_size):
+def sample_documents(project_id, start, end, sample_size, labels_map):
     indexes = sorted(random.sample(range(start, end), sample_size))
     documents = []
     for index in indexes:
@@ -79,7 +80,8 @@ def sample_documents(project_id, start, end, sample_size):
         })
         response['results'][0]['meta'] = json.loads(response['results'][0]['meta'])
         documents.extend(response['results'])
-    documents = to_sequence(documents)
+    # labels_map = build_label_map(doccano_client, project_id)
+    documents = to_input_sequence(documents, labels_map)
     return indexes, documents
 
 

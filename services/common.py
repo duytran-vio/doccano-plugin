@@ -16,6 +16,18 @@ def to_sequence(documents):
             new_doc.append(new_sequence)
     return new_doc
 
+def to_input_sequence(documents, labels_map):
+    # if 'start_offset' not in documents[0]['annotations'][0].keys(): return documents
+    new_doc = []
+    for doc in documents:
+        new_sequence = {'id': doc['id'], 'text': doc['text'], 'labels': []}
+        for annotation in doc['annotations']:
+            start = annotation['start_offset']
+            end = annotation['end_offset']
+            new_sequence['labels'].append([start, end, labels_map[ annotation['label'] ] ])
+        new_doc.append(new_sequence)
+    return new_doc
+
 def map_labels(labels_map, documents):
     for doc in documents:
         doc['labels'] = []
