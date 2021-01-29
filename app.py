@@ -1,3 +1,5 @@
+# import sys
+# sys.path.append('d:\Github\doccano_client')
 import os
 import logging
 from flask import Flask, jsonify, render_template, request as flask_request, send_file
