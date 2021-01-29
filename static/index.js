@@ -17,6 +17,7 @@ function createSampleProject(e) {
 
     fetch('/api/sample', {
         method: 'POST',
+        cache: 'no-cache',
         body: JSON.stringify({
             projectId,
             start,
