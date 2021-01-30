@@ -4,7 +4,7 @@ import numpy as np
 from typing import List
 from sklearn.metrics import classification_report
 
-from .common import build_label_map, map_labels
+from .common import build_label_map, map_labels, get_all_documents
 
 doccano_client = None
 labels = list(map(lambda x: x['text'], json.load(
@@ -16,19 +16,16 @@ def handle_request(request, client):
     doccano_client = client
 
     project_id = extract_request_2(request)
+    initial_project_id = int(doccano_client.get_project_detail(project_id)["description"][0:2])
 
-    truth_documents = doccano_client.get_document_list(project_id, {
+    truth_documents = doccano_client.get_document_list(initial_project_id, {
         'limit': [doccano_client.get_project_statistics(project_id)['total']],
         'offset': [0],
     })['results']
     for doc in truth_documents:
         doc['meta'] = json.loads(doc['meta'])
 
-    predict_documents = list(jsonlines.open(f'tmp/{doccano_client.get_project_detail(project_id)["description"]}'))
-
-    labels_map = build_label_map(doccano_client, project_id)
-
-    map_labels(labels_map, truth_documents)
+    predict_documents = get_all_documents(doccano_client, project_id)
 
     y_true, y_pred = extract_prediction(truth_documents, predict_documents)
     return calculate_macro_f1_score(y_true, y_pred)
