@@ -61,7 +61,7 @@ def handle_request(request, client):
     file_name = f'Tesing_{initial_project_id}_Sample_{project_id}.xlsx'
     file_path = os.path.join(download_dir, file_name)
     pd.DataFrame(summary).to_excel(file_path, index=False, engine='xlsxwriter')
-    print("Done")
+
     return file_name
 
 def preprocess_intents(truth_intents, predict_intents, truth_labels_map, predict_labels_map):

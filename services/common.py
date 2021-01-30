@@ -3,10 +3,13 @@ from doccano_api_client import DoccanoClient
 import pandas as pd
 
 def replace_double_quotes(file_path):
-    docs = pd.read_csv(file_path, sep = '.\n', header=None).values
+    docs = pd.read_csv(file_path, sep = '.\n', header=None, encoding="utf-8").values
+    print("DOCS:")
+    print(docs)
     new_docs = [s[0].replace('"', "'") for s in docs]
     output = '\n'.join(new_docs)
-    text_file = open(file_path, "w")
+    print(output)
+    text_file = open(file_path, "w", encoding="utf-8")
     text_file.write(output)
     text_file.close
 

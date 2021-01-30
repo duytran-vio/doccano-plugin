@@ -53,7 +53,10 @@ def evaluate_test_project():
     try:
         print('Evaluate test project')
         refresh_client()
-        return jsonify(handle_evaluate_request(flask_request, Client.doccano_client)), 200
+        file_name = handle_evaluate_request(flask_request, Client.doccano_client)
+        file_path = os.path.join('download', file_name)
+        return send_file(file_path, as_attachment=True)
+
     except Exception as e:
         logging.exception(e)
         return jsonify({'error': str(e)}), 500
