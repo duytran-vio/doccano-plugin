@@ -1,8 +1,9 @@
 import json
 import random
 import jsonlines
+import pandas as pd
 
-from .common import build_label_map, map_labels, to_input_sequence
+from .common import build_label_map, map_labels, to_input_sequence, replace_double_quotes
 
 doccano_client = None
 
@@ -31,6 +32,9 @@ def handle_request(request, client):
 
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(documents)
+
+    replace_double_quotes(file_path)
+
     try:
         doccano_client.post_doc_upload(new_project_id, 'json', file_name, 'tmp')
     except json.JSONDecodeError:
