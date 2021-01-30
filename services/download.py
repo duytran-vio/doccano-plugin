@@ -31,8 +31,7 @@ def to_label_table(documents, labels_map):
     new_documents = []
     max_intent = 5
     for doc in documents:
-        new_doc = {}
-        new_doc['text'] = doc['text'][max_intent:]
+        new_doc = {'id' : doc['id'], 'text': doc['text'][max_intent:]}
         new_doc.update((labels_map[k], list()) for k in labels_map)
         for annotation in doc['annotations']:
             start = annotation['start_offset']
