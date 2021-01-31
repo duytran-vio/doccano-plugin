@@ -24,6 +24,7 @@ function createSampleProject(e) {
     }
     lock = true;
     const projectId = document.getElementById('projectId').value;
+    const initialProjectId = document.getElementById('initialProjectId').value;
 
     document.getElementById('notify').innerHTML = 'Processing...';
 
@@ -31,16 +32,27 @@ function createSampleProject(e) {
         projectId,
     }), {
         method: 'GET',
+        cache: 'no-cache'
     })
-        .then((response) => response.json())
-        .then((data) => {
-            if ('error' in data) {
-                throw new Error(data.error);
+        .then((response) => {
+            if (response.status === 500) {
+                return response.json().then((data) => {
+                    throw new Error(data['error']);
+                });
             }
+            return response.blob();
+        })
+        .then((blob) => {
             lock = false;
-            document.getElementById('notify').innerHTML = `<br/>F1-score: ${data['f1-score']}`;
-            console.log(data)
-            document.getElementById('result').innerHTML = header + json2html.transform(data['categories'], transform);
+            document.getElementById('notify').innerHTML = 'Done';
+
+            let url = window.URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = `Tesing_${initialProjectId}_Sample_${projectId}.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
         })
         .catch((error) => {
             lock = false;
