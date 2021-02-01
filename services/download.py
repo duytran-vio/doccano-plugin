@@ -8,6 +8,7 @@ from .common import build_label_map, map_labels, get_all_documents
 
 doccano_client: DoccanoClient = None
 download_dir = 'download'
+max_intent = 5
 
 
 def handle_request(request, client: DoccanoClient):
@@ -29,7 +30,6 @@ def handle_request(request, client: DoccanoClient):
 
 def to_label_table(documents, labels_map):
     new_documents = []
-    max_intent = 5
     for doc in documents:
         new_doc = {'id' : doc['id'], 'text': doc['text'][max_intent:]}
         new_doc.update((labels_map[k], list()) for k in labels_map)
