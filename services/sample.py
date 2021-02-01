@@ -33,8 +33,6 @@ def handle_request(request, client):
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(documents)
 
-    replace_double_quotes(file_path)
-
     try:
         doccano_client.post_doc_upload(new_project_id, 'json', file_name, 'tmp')
     except json.JSONDecodeError:
