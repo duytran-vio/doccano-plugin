@@ -1,0 +1,3 @@
+{"id": 315532, "text": "@@@@@ Huỳnh VũVũ nhổ thì dễ rồi nhưng nhổ xong phải làm gì với cái chổ trống đấy mới là vấn đề đấy ông,", "labels": [[17, 20, "entity_label2"], [63, 76, "entity_label2"], [0, 1, "intent_label1"]]}
+{"id": 315533, "text": "@@@@@ niềng hoặc trồng răng thì ít nhất phải có 20tr, làm cầu răng sứ thì có hại lắm.", "labels": [[17, 27, "entity_label2"], [54, 69, "entity_label1"]]}
+{"id": 315535, "text": "@@@@@ Mà tôi đánh răng ngày 2 lần, có súc nước muối,", "labels": [[12, 22, "entity_label3"], [0, 1, "intent_label1"], [1, 2, "intent_label2"], [38, 51, "entity_label3"]]}

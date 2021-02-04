@@ -1,0 +1,5 @@
+{"id": 315823, "text": "**** Conversation: Khách 1", "labels": []}
+{"id": 315824, "text": "Khách 1: Còn size s không shop", "labels": [[13, 19, "size_product"]]}
+{"id": 315826, "text": "Shop: dạ khi ko có đơn trên live những mẫu này ạ", "labels": []}
+{"id": 315828, "text": "Khách 2: 4a 2/4 Vĩnh hải nhtrang", "labels": [[9, 32, "Connect"]]}
+{"id": 315829, "text": "Khách 2: E jo này 165 k còn k ch lấy 2 cái", "labels": [[18, 23, "cost_product"], [37, 42, "amount_product"]]}

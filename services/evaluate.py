@@ -22,14 +22,19 @@ def handle_request(request, client):
     project_id = extract_request_2(request)
     initial_project_id = int(doccano_client.get_project_detail(project_id)["description"][0:2])
 
-    truth_documents = doccano_client.get_document_list(initial_project_id, {
-        'limit': [doccano_client.get_project_statistics(project_id)['total']],
-        'offset': [0],
-    })['results']
-    for doc in truth_documents:
-        doc['meta'] = json.loads(doc['meta'])
-
+    truth_documents = get_all_documents(doccano_client, initial_project_id)
     predict_documents = get_all_documents(doccano_client, project_id)
+            
+    evaluate_documents = []
+    k = 0
+    for doc in truth_documents:
+        if doc['text'] == predict_documents[k]['text']:
+            k = k + 1
+            evaluate_documents.append(doc)
+            if k == len(predict_documents):
+                break
+    truth_documents = evaluate_documents
+    
     predict_labels_map = build_label_map(doccano_client, project_id)
     truth_labels_map = build_label_map(doccano_client, initial_project_id)
 
