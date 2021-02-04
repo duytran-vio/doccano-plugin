@@ -8,8 +8,7 @@ from .common import build_label_map, map_labels, get_all_documents
 
 doccano_client: DoccanoClient = None
 download_dir = 'download'
-max_intent = 5
-
+intent_boundary = 6 # max_intent + 1
 
 def handle_request(request, client: DoccanoClient):
     global doccano_client
@@ -31,14 +30,14 @@ def handle_request(request, client: DoccanoClient):
 def to_label_table(documents, labels_map):
     new_documents = []
     for doc in documents:
-        new_doc = {'id' : doc['id'], 'text': doc['text'][max_intent:]}
+        new_doc = {'id' : doc['id'], 'text': doc['text'][intent_boundary:]}
         new_doc.update((labels_map[k], list()) for k in labels_map)
         for annotation in doc['annotations']:
             start = annotation['start_offset']
             end = annotation['end_offset']
             sequence = doc['text'][start:end]
-            if sequence[0] == '@' and end < max_intent: 
-                sequence = doc['text'][max_intent:]
+            if sequence[0] == '@' and end <= intent_boundary: 
+                sequence = doc['text'][intent_boundary:]
             sequence_label_id = annotation['label']
             label = labels_map[sequence_label_id]
             new_doc[label].append(sequence)
