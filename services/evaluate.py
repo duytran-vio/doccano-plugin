@@ -13,18 +13,20 @@ labels = list(map(lambda x: x['text'], json.load(
     open('./category.labels.json', encoding='utf-8'))))
 
 download_dir = 'download'
-max_intent = 5
+intent_boundary = 6 # max_intent + 1
 
 def handle_request(request, client):
     global doccano_client
     doccano_client = client
 
     project_id = extract_request_2(request)
-    initial_project_id = int(doccano_client.get_project_detail(project_id)["description"][0:2])
-
-    truth_documents = get_all_documents(doccano_client, initial_project_id)
-    predict_documents = get_all_documents(doccano_client, project_id)
+    # initial_project_id = int(doccano_client.get_project_detail(project_id)["description"][0:3])
+    description = doccano_client.get_project_detail(project_id)["description"]
+    initial_project_id = int(description[:description.find('-')])
             
+    predict_documents = get_all_documents(doccano_client, project_id)
+    truth_documents = get_all_documents(doccano_client, initial_project_id)
+
     evaluate_documents = []
     k = 0
     for doc in truth_documents:
@@ -34,7 +36,7 @@ def handle_request(request, client):
             if k == len(predict_documents):
                 break
     truth_documents = evaluate_documents
-    
+ 
     predict_labels_map = build_label_map(doccano_client, project_id)
     truth_labels_map = build_label_map(doccano_client, initial_project_id)
 
@@ -47,7 +49,7 @@ def handle_request(request, client):
         text = truth_documents[i]['text']
         if truth_intents != predict_intents:
             intent_summary = {
-                'text': text[max_intent:], 
+                'text': text[intent_boundary:], 
                 'Wrong Label': truth_intents, 
                 'True Label': predict_intents
             }
@@ -62,7 +64,7 @@ def handle_request(request, client):
                 'Wrong Label': sequence['Wrong Label'], 
                 'True Label': sequence['True Label']
             }
-            summary.append(entity_summary)
+           summary.append(entity_summary)
     file_name = f'Tesing_{initial_project_id}_Sample_{project_id}.xlsx'
     file_path = os.path.join(download_dir, file_name)
     pd.DataFrame(summary).to_excel(file_path, index=False, engine='xlsxwriter')
@@ -137,7 +139,7 @@ def get_sequence(document):
         sequence['start_offset'] = annotation['start_offset']
         sequence['end_offset'] = annotation['end_offset']
         sequence['label'] = annotation['label']
-        if sequence['end_offset'] < max_intent:
+        if sequence['end_offset'] <= intent_boundary:
             intents.append(sequence['label'])
         else:
             list_sequence.append(sequence)
