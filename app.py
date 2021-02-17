@@ -6,6 +6,7 @@ from services.client import refresh_client, Client
 from services.sample import handle_request as handle_sample_request
 from services.evaluate import handle_request as handle_evaluate_request
 from services.download import handle_request as handle_download_request
+from services.create import handle_request as handle_create_request
 
 
 HOST = '0.0.0.0'
@@ -30,6 +31,10 @@ def evaluate():
 @app.route('/download')
 def download():
     return render_template('download.html')
+
+@app.route('/create')
+def create():
+    return render_template('create.html')
 
 
 @app.route('/api/sample', methods=['POST'])
@@ -70,6 +75,21 @@ def download_test_project():
         file_name = handle_download_request(flask_request, Client.doccano_client)
         file_path = os.path.join('download', file_name)
         return send_file(file_path, as_attachment=True)
+    except Exception as e:
+        logging.exception(e)
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/create', methods=['POST'])
+def create_create_project():
+    try:
+        print('Create project')
+        refresh_client()
+        new_project_id = handle_create_request(flask_request, Client.doccano_client)
+        print(f'Project ID: {new_project_id}')
+        return jsonify({
+            'status': 'OK',
+            'link': f'http://103.113.81.36:8000/projects/{new_project_id}',
+        }), 200
     except Exception as e:
         logging.exception(e)
         return jsonify({'error': str(e)}), 500
