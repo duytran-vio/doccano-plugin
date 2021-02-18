@@ -14,3 +14,76 @@
 [2021-02-18 03:40:51 +0000] [585972] [INFO] Listening at: http://0.0.0.0:5500 (585972)
 [2021-02-18 03:40:51 +0000] [585972] [INFO] Using worker: sync
 [2021-02-18 03:40:51 +0000] [586010] [INFO] Booting worker with pid: 586010
+[2021-02-18 07:53:18 +0000] [586010] [INFO] Worker reloading: /home/uadmin/docker-plugin/services/sample.py modified
+[2021-02-18 07:53:18 +0000] [586010] [INFO] Worker exiting (pid: 586010)
+[2021-02-18 07:53:18 +0000] [594186] [INFO] Booting worker with pid: 594186
+[2021-02-18 07:53:19 +0000] [594186] [ERROR] invalid syntax (sample.py, line 51)
+Traceback (most recent call last):
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+    return self.load_wsgiapp()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/util.py", line 358, in import_app
+    mod = importlib.import_module(module)
+  File "/home/uadmin/.pyenv/versions/3.6.12/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/uadmin/docker-plugin/wsgi.py", line 1, in <module>
+    from app import app
+  File "/home/uadmin/docker-plugin/app.py", line 6, in <module>
+    from services.sample import handle_request as handle_sample_request
+  File "/home/uadmin/docker-plugin/services/sample.py", line 51
+    <<<<<<< HEAD
+     ^
+SyntaxError: invalid syntax
+[2021-02-18 07:53:19 +0000] [594186] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+    return self.load_wsgiapp()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/util.py", line 358, in import_app
+    mod = importlib.import_module(module)
+  File "/home/uadmin/.pyenv/versions/3.6.12/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/uadmin/docker-plugin/wsgi.py", line 1, in <module>
+    from app import app
+  File "/home/uadmin/docker-plugin/app.py", line 6, in <module>
+    from services.sample import handle_request as handle_sample_request
+  File "/home/uadmin/docker-plugin/services/sample.py", line 51
+    <<<<<<< HEAD
+     ^
+SyntaxError: invalid syntax
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/workers/base.py", line 119, in init_process
+    self.load_wsgi()
+  File "/home/uadmin/.pyenv/versions/3.6.12/envs/venv/lib/python3.6/site-packages/gunicorn/workers/base.py", line 157, in load_wsgi
+    self.reloader.add_extra_file(exc_val.filename)
+AttributeError: 'NoneType' object has no attribute 'add_extra_file'
+[2021-02-18 07:53:19 +0000] [594186] [INFO] Worker exiting (pid: 594186)
+[2021-02-18 07:53:19 +0000] [585972] [INFO] Shutting down: Master
+[2021-02-18 07:53:19 +0000] [585972] [INFO] Reason: Worker failed to boot.
