@@ -139,7 +139,7 @@ def get_sequence(document):
         sequence['start_offset'] = annotation['start_offset']
         sequence['end_offset'] = annotation['end_offset']
         sequence['label'] = annotation['label']
-        if sequence['end_offset'] <= intent_boundary:
+        if document['text'][0] == '@' and sequence['end_offset'] <= intent_boundary:
             intents.append(sequence['label'])
         else:
             list_sequence.append(sequence)

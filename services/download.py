@@ -30,7 +30,10 @@ def handle_request(request, client: DoccanoClient):
 def to_label_table(documents, labels_map):
     new_documents = []
     for doc in documents:
-        new_doc = {'id' : doc['id'], 'text': doc['text'][intent_boundary:]}
+        text = doc['text']
+        if doc['text'][0] == '@':
+            text = doc['text'][intent_boundary:]
+        new_doc = {'id' : doc['id'], 'text': text}
         new_doc.update((labels_map[k], list()) for k in labels_map)
         for annotation in doc['annotations']:
             start = annotation['start_offset']
