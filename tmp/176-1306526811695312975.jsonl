@@ -1,0 +1,85 @@
+{"id": 392204, "text": "Shop: dạ e còn ạ", "labels": []}
+{"id": 392223, "text": "@@@@@ Khách 195: Mẫu này còn k shopxxxxx", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 392234, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 392243, "text": "@@@@@ Khách 195: Áo sơ mi đenxxxxx +số 60 quốc lộ 1 khóm 2 phường 7 tp.sóc trăng", "labels": [[17, 25, "ID_product"], [25, 29, "color_product"], [36, 80, "addr member"], [0, 1, "Inform"]]}
+{"id": 392250, "text": "Shop: Hãy để lại tin nhắn và Đỗ Hoài Phương Boutique sẽ trả lời Bạn trong thời gian sớm nhất.", "labels": []}
+{"id": 392280, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 392282, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 392295, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 392312, "text": "@@@@@ Khách 195: Size m", "labels": [[17, 23, "size_product"], [0, 1, "Inform"]]}
+{"id": 392314, "text": "60 quốc lộ 1 khóm 2 phường 7 tp.sóc trăng", "labels": [[0, 41, "addr member"]]}
+{"id": 392322, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 392327, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 392340, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 392342, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 392375, "text": "@@@@@ Khách 195: Mình đặt 2 mẫu này nhe", "labels": [[26, 31, "amount_product"], [0, 1, "Order"]]}
+{"id": 392377, "text": "@@@@@ Khách 195: Có đặt trên live mà k chốt đc", "labels": [[0, 1, "Other"]]}
+{"id": 392388, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 392404, "text": "@@@@@ Khách 197: Dong ho de chi", "labels": [[17, 24, "ID_product"], [0, 1, "Order"]]}
+{"id": 392413, "text": "@@@@@ Khách 197: Ko e don don hom qua c mua luon nha", "labels": [[0, 1, "Other"]]}
+{"id": 392416, "text": "Shop: Dạ vâng ạ", "labels": []}
+{"id": 392426, "text": "Shop: Dạ mẫu này còn màu kem thôi ạ", "labels": [[21, 28, "color_product"]]}
+{"id": 392446, "text": "@@@@@ Khách 197: Q m16 sai m", "labels": [[19, 22, "ID_product"], [23, 28, "size_product"], [0, 1, "Inform"]]}
+{"id": 392450, "text": "@@@@@ Khách 197: C ban ko nge may e dc khi c goi lai cho e ko ai nge may do cua c em gui ve dc cu cho c nha", "labels": [[0, 1, "Other"]]}
+{"id": 392455, "text": "@@@@@ Khách 197: Ao 165 c den trang nha p m 19", "labels": [[20, 23, "cost_product"], [26, 35, "color_product"], [0, 1, "Inform"], [41, 46, "ID_product"]]}
+{"id": 392458, "text": "Cám ơn chị ạ", "labels": []}
+{"id": 392461, "text": "Shop: nên ko biết c nói màu nào", "labels": []}
+{"id": 392466, "text": "@@@@@ Khách 197: Lay c da voi mau xanh nha p", "labels": [[30, 38, "color_product"], [0, 1, "Order"]]}
+{"id": 392468, "text": "Shop: Chào anh/chị Phượng Hưng !!!Cảm ơn anh/chị đã liên hệ với Đỗ Hoài Phương Boutique. Hãy gửi cho chúng tôi bất kì câu hỏi nào anh/chị đang thắc mắc nhé", "labels": []}
+{"id": 392475, "text": "@@@@@ Khách 197: Dam xanh v nu nha p", "labels": [[17, 25, "color_product"], [0, 1, "Inform"]]}
+{"id": 392478, "text": "Shop: Đỗ Hoài Phương Boutique thường phản hồi lại trong 24h. Nếu Bạn muốn hỏi điều gì, hãy click vào nút \"Liên hệ tư vấn viên\" nhé.", "labels": []}
+{"id": 392481, "text": "Shop: Chào mừng Bạn Phượng Hưng!! Cảm ơn Bạn đã liên hệ với Đỗ Hoài Phương Boutique. Chúng tôi có thể giúp gì cho Bạn ạ?.", "labels": []}
+{"id": 392484, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 392491, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 392494, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 392528, "text": "@@@@@ Khách 197: Ao nay con de cho chi 3ao du mau nhanp", "labels": [[39, 42, "amount_product"], [0, 1, "Order"]]}
+{"id": 392546, "text": "Shop: Chị có đơn trên live k ạ ?", "labels": []}
+{"id": 392548, "text": "Shop: dạ còn ạ", "labels": []}
+{"id": 392549, "text": "@@@@@ Khách 197: Con de cho c 1 dam nha p", "labels": [[0, 1, "Order"]]}
+{"id": 392575, "text": "@@@@@ Khách 198: Vì bên e chốt nói bằng mic", "labels": [[0, 1, "Other"]]}
+{"id": 392604, "text": "@@@@@ Khách 198: Áo này còn k sh", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 392608, "text": "Shop: Em chốt đơn hàng cho mình rồi chị nhé .Vì đơn hàng chốt qua tin nhắn nên bên e sẽ không gọi điện lại .Hàng chốt sẽ gói đi hàng liền nên chị tổng bill một lần giúp em .( Lưu ý bên em không ktra hàng trước khi nhận ,CÓ ĐƠN TRÊN LIVE c nhớ nhăc ạ , sau khi nhận hàng có vấn đề liên hệ hotline bên e để giải quyết ) Cám ơn chị ạ", "labels": []}
+{"id": 392612, "text": "@@@@@ Khách 199: Set này giá nhiêu e", "labels": [[0, 1, "Request"], [1, 2, "cost_product"]]}
+{"id": 392645, "text": "Shop: Chị lưu ý giúp e: shop KHÔNG HỖ TRỢ KIỂM TRA HÀNG TRƯỚC KHI NHẬN ạ! Trường hợp sau khi nhận hàng sai mẫu, sai gia tiền, bị lỗi chị liên hệ hotline 0251.730.9099 bên e hỗ trợ đổi trả cho mình bình thường nha chị!", "labels": []}
+{"id": 392661, "text": "Shop: Dạ chị mẫu này bên shop tạm hết ạ. Khi nào về lại chị Phương sẽ live lại ạ, lúc đó chị đặt lại giúp e nha", "labels": []}
+{"id": 392675, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 392682, "text": "@@@@@ Khách 203: Cảm ơn e", "labels": [[0, 1, "Other"]]}
+{"id": 392702, "text": "Shop: Cảm ơn bạn đã nhắn tin. Chúng tôi hiện đang vắng mặt và sẽ trả lời bạn trong giờ làm việc.", "labels": []}
+{"id": 392722, "text": "@@@@@ Khách 203: Còn bao c biết với nha", "labels": [[0, 1, "Other"]]}
+{"id": 392729, "text": "@@@@@ Khách 203: Ok e", "labels": [[0, 1, "Other"]]}
+{"id": 392733, "text": "Shop: Em chốt đơn hàng cho mình rồi chị nhé .Vì đơn hàng chốt qua tin nhắn nên bên e sẽ không gọi điện lại .Hàng chốt sẽ gói đi hàng liền nên chị tổng bill một lần giúp em .( Lưu ý bên em không ktra hàng trước khi nhận ,CÓ ĐƠN TRÊN LIVE c nhớ nhăc ạ , sau khi nhận hàng có vấn đề liên hệ hotline bên e để giải quyết ) Cám ơn chị ạ", "labels": []}
+{"id": 392735, "text": "@@@@@ Khách 203: Long Phi, Long Thuận, Bến Cầu, Tây Ninhxxxxx", "labels": [[17, 61, "phone member"], [0, 1, "Inform"]]}
+{"id": 392745, "text": "@@@@@ Khách 204: Ok e", "labels": [[0, 1, "Other"]]}
+{"id": 392759, "text": "Shop: dạ shop còn quần thôi ạ", "labels": []}
+{"id": 392762, "text": "@@@@@ Khách 204: Áo mã 08 mình mặc vừa k shop?", "labels": [[20, 25, "ID_product"], [0, 1, "Request"]]}
+{"id": 392789, "text": "@@@@@ Khách 206: Size M á", "labels": [[17, 23, "size_product"], [0, 1, "Inform"]]}
+{"id": 392798, "text": "@@@@@ Khách 206: Mừng quá", "labels": [[0, 1, "Other"]]}
+{"id": 392808, "text": "@@@@@ Khách 206: Cảm ơn em.", "labels": [[0, 1, "Other"]]}
+{"id": 392832, "text": "@@@@@ Khách 206: Alo Phúc ơi! Nước hoa bikini có thể lấy thêm cho chị 1 chai nữa không?", "labels": [[30, 45, "ID_product"], [70, 76, "amount_product"], [0, 1, "Order"]]}
+{"id": 392842, "text": "@@@@@ Khách 206: Alo có Phúc đó không? Giúp chị với.", "labels": [[0, 1, "Other"]]}
+{"id": 392848, "text": "@@@@@ Khách 206: Alo em ơi!", "labels": [[0, 1, "Other"]]}
+{"id": 392866, "text": "@@@@@ Khách 206: Cảm ơn em thật nhiều", "labels": [[0, 1, "Other"]]}
+{"id": 392869, "text": "Shop: DẠ mình có đơn hàng sau thì nhớ nhắc các bạn chốt đơn là có bạn Phúc giữ hàng cho chị 1 set áo lông chân váy nhung sz M chị nhé", "labels": [[92, 97, "amount_product"], [98, 105, "ID_product"], [106, 120, "ID_product"], [120, 125, "size_product"]]}
+{"id": 392877, "text": "@@@@@ Khách 206: Chị chuyển khoản nhờ em giữ đơn giúp chị dc không?", "labels": [[0, 1, "Other"]]}
+{"id": 392881, "text": "@@@@@ Khách 206: Hic", "labels": [[0, 1, "Other"]]}
+{"id": 392893, "text": "@@@@@ Khách 206: Nhờ em xem giúp chị với.", "labels": [[0, 1, "Other"]]}
+{"id": 392902, "text": "Cám ơn anh/chị đã tin tưởng và ủng hộ shop! Chúng em đang làm việc chăm chỉ để mang đến cho anh/chị dịch vụ tốt hơn. Hotline: 0251.730.9099", "labels": []}
+{"id": 392916, "text": "Shop: còn quần đó soạn hàng xong e báo lại c nha", "labels": []}
+{"id": 392918, "text": "Shop: ck của c e nhận rồi nè", "labels": []}
+{"id": 392929, "text": "Cám ơn anh/chị đã tin tưởng và ủng hộ shop! Chúng em đang làm việc chăm chỉ để mang đến cho anh/chị dịch vụ tốt hơn. Hotline: 0251.730.9099", "labels": []}
+{"id": 392951, "text": "Cám ơn anh/chị đã tin tưởng và ủng hộ shop! Chúng em đang làm việc chăm chỉ để mang đến cho anh/chị dịch vụ tốt hơn. Hotline: 0251.730.9099", "labels": []}
+{"id": 392959, "text": "Shop: e đi đơn c luôn nha", "labels": []}
+{"id": 392960, "text": "Shop: e nhận rồi nè c", "labels": []}
+{"id": 392964, "text": "Cám ơn anh/chị đã tin tưởng và ủng hộ shop! Chúng em đang làm việc chăm chỉ để mang đến cho anh/chị dịch vụ tốt hơn. Hotline: 0251.730.9099", "labels": []}
+{"id": 392970, "text": "@@@@@ Khách 206: Cảm ơn em.", "labels": [[0, 1, "Other"]]}
+{"id": 392975, "text": "@@@@@ Khách 206: Alo Châu ơi! Nhờ em xem giúp chị còn mẫu đầm này ko nha.", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 392977, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 392998, "text": "@@@@@ Khách 206: Hic chuyển tiền online bên hệ thống ngân hàng của chị đang bị bảo dưỡng tối nay 8h mới hoạt động chở lại đc. Nhờ Châu giữ hàng giúp chị tối chị ck dc không?", "labels": [[0, 1, "Other"]]}
+{"id": 393007, "text": "Shop: soạn hàng ra rồi e báo c nha <3", "labels": []}
+{"id": 393008, "text": "@@@@@ Khách 206: Alo Châu ơi! Chị muốn mua 2 mẫu áo này. Nhờ em xem giúp chị nha.", "labels": [[43, 48, "amount_product"], [0, 1, "Other"]]}
+{"id": 393010, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 393024, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 393035, "text": "@@@@@ Khách 206: Hihi vậy lấy chị màu nâu hen.", "labels": [[34, 41, "color_product"], [0, 1, "Order"]]}
+{"id": 393039, "text": "@@@@@ Khách 206: Cho chị hỏi áo khoác da còn size L không?", "labels": [[29, 40, "ID_product"], [45, 51, "size_product"], [0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 393047, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 393054, "text": "@@@@@ Khách 206: Nhờ Châu check tk giúp chị nha.", "labels": [[0, 1, "Other"]]}

@@ -1,0 +1,27 @@
+{"id": 380276, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 380290, "text": "@@@@@ Khách 43: Mình có đơn hàng tuần trước mà chưa thấy ai gọi ak, thấy kêu tên mà ko thấy liên hệ", "labels": [[1, 2, "Other"]]}
+{"id": 380297, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 380325, "text": "@@@@@ Khách 45: 1m50 nặng 46kg mặc size gì ạ", "labels": [[0, 1, "Request"], [16, 21, "height customer"], [26, 31, "weight customer"], [35, 40, "size_product"]]}
+{"id": 380327, "text": "Shop: Dạ ! e chào chị Yu Ri ! Em cám ơn chị đã thương yêu và lựa chọn nhà em . Chị muốn đặt mẫu này chị giúp em gửi hình vào phần inbox kèm số điện thoại và địa chỉ cụ thể ! để các bạn hỗ trợ kiểm tra hàng . ( Nếu được thì mình inbox xong mình gọi hotline 1900.633.973 báo các bạn kiểm tra tin nhắn mình cho nhanh nhé ) Nếu còn hàng các bạn sẽ lên đơn cho mình nhé ! Em cám ơn chị nhiều ạ ! Chúc chị luôn xinh đẹp  .", "labels": [[256, 268, "phone store"]]}
+{"id": 380332, "text": "@@@@@ Khách 46: Áo còn không c", "labels": [[0, 1, "Request"], [2, 3, "amount_product"]]}
+{"id": 380335, "text": "2/ Do lượng đơn hàng nhiều nên nhiều khi các bạn chưa gọi tới chị thông cảm đợi thêm giúp e nha ạ .", "labels": []}
+{"id": 380338, "text": ". Chúc chị luôn xinh đẹp ạ", "labels": []}
+{"id": 380344, "text": "@@@@@ Khách 48: Chị ơi,Đơn hàng em đi chưa ạ!", "labels": [[0, 1, "Other"]]}
+{"id": 380360, "text": "@@@@@ Khách 49: Địa chixxxxx Trường mn ánh sao - đường số 23- khu phố 2- hoà phú- thủ dầu một- bình dương", "labels": [[0, 1, "Inform"], [29, 126, "addr member"]]}
+{"id": 380363, "text": "Shop: Dạ chị mẫu này bên shop tạm hết ạ. Khi nào về lại chị Phương sẽ live lại ạ, lúc đó chị đặt lại giúp e nha", "labels": []}
+{"id": 380365, "text": "Trường mn ánh sao - đường số 23- khu phố 2- hoà phú- thủ dầu một- bình dương", "labels": [[0, 76, "addr member"]]}
+{"id": 380413, "text": "**** Conversation: Khách 51", "labels": []}
+{"id": 380414, "text": "@@@@@ Khách 51: Zay mai c nt lai shop sau", "labels": [[1, 2, "Other"]]}
+{"id": 380421, "text": "@@@@@ Khách 51: Quan nay có chua e", "labels": [[0, 1, "Request"], [2, 3, "amount_product"]]}
+{"id": 380437, "text": "@@@@@ Khách 52: Khoác da sai L còn k vay sop", "labels": [[0, 1, "Request"], [2, 3, "ID_product"], [25, 30, "size_product"]]}
+{"id": 380445, "text": "@@@@@ Khách 52: Chốt hàng chi đi e", "labels": [[1, 2, "Order"]]}
+{"id": 380462, "text": "@@@@@ Khách 52: Sao k thấy gọi em", "labels": [[0, 1, "Connect"]]}
+{"id": 380478, "text": "Shop: dạ đơn ngày 18 bên shop chưa gọi ạ", "labels": []}
+{"id": 380482, "text": "**** Conversation: Khách 53", "labels": []}
+{"id": 380484, "text": "Shop: Dạ mong chị thông cảm giúp em nhé", "labels": []}
+{"id": 380488, "text": "Shop: Dạ khi nào mẫu này về bên shop sẽ lấy lại cho chị yêu nhé", "labels": []}
+{"id": 380494, "text": "@@@@@ Khách 53: Giờ k có", "labels": [[1, 2, "feedback"]]}
+{"id": 380498, "text": "Shop: ĐƠN SAU TRỪ 180K", "labels": [[18, 22, "cost_product"]]}
+{"id": 380504, "text": "@@@@@ Khách 53: C gởi rồi nhé e oie", "labels": [[0, 1, "Other"]]}
+{"id": 380525, "text": "@@@@@ Khách 53: C ckhoan", "labels": [[1, 2, "Other"]]}
+{"id": 380534, "text": "@@@@@ Khách 53: Có k.", "labels": [[0, 1, "Other"]]}

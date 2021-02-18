@@ -1,0 +1,5 @@
+{"id": 376881, "text": "**** Conversation: Khách 1", "labels": []}
+{"id": 376883, "text": "**** Conversation: Khách 2", "labels": []}
+{"id": 376886, "text": "@@@@@ Khách 2: 4a 2/4 Vĩnh hải nhtrang", "labels": [[0, 1, "Inform"], [15, 38, "addr member"]]}
+{"id": 376888, "text": "Shop: dạ giá 185k ạ", "labels": [[13, 17, "cost_product"]]}
+{"id": 376890, "text": "@@@@@ Khách 2: Cai đầm đó bnhiu j e", "labels": [[0, 1, "Request"], [1, 2, "cost_product"]]}

@@ -54,7 +54,6 @@ def handle_request(request, client):
                 'True Label': predict_intents
             }
             summary.append(intent_summary)
-
         update_sqs = compair(truth_sequences, predict_sequences, truth_labels_map, predict_labels_map)
         for sequence in update_sqs:
             start = sequence['start_offset']
@@ -64,7 +63,7 @@ def handle_request(request, client):
                 'Wrong Label': sequence['Wrong Label'], 
                 'True Label': sequence['True Label']
             }
-           summary.append(entity_summary)
+            summary.append(entity_summary)
     file_name = f'Tesing_{initial_project_id}_Sample_{project_id}.xlsx'
     file_path = os.path.join(download_dir, file_name)
     pd.DataFrame(summary).to_excel(file_path, index=False, engine='xlsxwriter')

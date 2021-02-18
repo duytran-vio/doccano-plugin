@@ -1,0 +1,150 @@
+{"id": 387037, "text": "Shop: Hãy để lại tin nhắn và Đỗ Hoài Phương Boutique sẽ trả lời Bạn trong thời gian sớm nhất.", "labels": []}
+{"id": 387039, "text": "Shop: Đỗ Hoài Phương Boutique thường phản hồi lại trong 24h. Nếu Bạn muốn hỏi điều gì, hãy click vào nút \"Liên hệ tư vấn viên\" nhé.", "labels": []}
+{"id": 387040, "text": "@@@@@ Khách 144: 2 váy này giá bnhiu vậy ạ", "labels": [[27, 36, "cost_product"], [3, 4, "Request"], [17, 22, "amount_product"]]}
+{"id": 387041, "text": "Shop: Chào anh/chị ChipBaby ChipBaby !!!Cảm ơn anh/chị đã liên hệ với Đỗ Hoài Phương Boutique. Hãy gửi cho chúng tôi bất kì câu hỏi nào anh/chị đang thắc mắc nhé", "labels": []}
+{"id": 387043, "text": "Shop: Cảm ơn bạn đã nhắn tin. Chúng tôi hiện đang vắng mặt và sẽ trả lời bạn trong giờ làm việc.", "labels": []}
+{"id": 387044, "text": "@@@@@ Khách 144: Bắt đầu", "labels": [[0, 1, "Hello"]]}
+{"id": 387045, "text": "**** Conversation: Khách 145", "labels": []}
+{"id": 387046, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387047, "text": "@@@@@ Khách 145: Rồi e", "labels": [[0, 1, "Other"]]}
+{"id": 387048, "text": "@@@@@ Khách 145: Ok e", "labels": [[0, 1, "Other"]]}
+{"id": 387049, "text": "Shop: còn 1071k nha c", "labels": [[10, 15, "cost_product"]]}
+{"id": 387050, "text": "Shop: ĐÃ TRỪ LỖI 195K", "labels": []}
+{"id": 387051, "text": "Shop: ĐƠN SAU TRỪ 195K", "labels": []}
+{"id": 387052, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387054, "text": "@@@@@ Khách 145: Chắc mai mới gửi đc e", "labels": [[2, 3, "Other"]]}
+{"id": 387055, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387056, "text": "@@@@@ Khách 145: Vậy set này còn k e", "labels": [[1, 2, "Request"], [2, 3, "amount_product"]]}
+{"id": 387058, "text": "Cám ơn anh/chị đã tin tưởng và ủng hộ shop! Chúng em đang làm việc chăm chỉ để mang đến cho anh/chị dịch vụ tốt hơn. Hotline: 0251.730.9099", "labels": [[126, 139, "phone store"]]}
+{"id": 387064, "text": "Shop: Đỗ Hoài Phương Boutique thường phản hồi lại trong 24h. Nếu Bạn muốn hỏi điều gì, hãy click vào nút \"Liên hệ tư vấn viên\" nhé.", "labels": []}
+{"id": 387066, "text": "Shop: Tường Vi vui lòng chụp màn hình mẫu muốn đặt kèm thông tin giúp em nhé ( địa chỉ + điện thoại ) để tiện cho việc chốt hàng  hoặc có thể liên hệ hotline : 0251.730.9099 ấn phím 1 để Đỗ Hoài Phương Boutique hỗ trợ nhanh nhất nhé . thanks Tường Vi", "labels": []}
+{"id": 387067, "text": "@@@@@ Khách 145: Đặt Hàng", "labels": []}
+{"id": 387069, "text": "Shop: Chào mừng Bạn Tường Vi!! Cảm ơn Bạn đã liên hệ với Đỗ Hoài Phương Boutique. Chúng tôi có thể giúp gì cho Bạn ạ?.", "labels": []}
+{"id": 387072, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 387073, "text": "Call 0251.730.9099.", "labels": [[5, 18, "phone store"]]}
+{"id": 387074, "text": "@@@@@ Khách 145: Get Started", "labels": [[1, 2, "Hello"]]}
+{"id": 387075, "text": "**** Conversation: Khách 146", "labels": []}
+{"id": 387078, "text": "Shop: Chị chuyển khoản vui lòng để nội dung là tên facebook đặt hàng Ngọc Nhung và gửi giúp em màn hình giao dịch để bên em check cho chị nhanh hơn nhé!", "labels": []}
+{"id": 387079, "text": "@@@@@ Khách 146: Ok chuyển cho số tk nào bạn", "labels": [[2, 3, "Other"]]}
+{"id": 387080, "text": "Shop: tổng đơn là 897k ạ", "labels": [[18, 22, "cost_product"]]}
+{"id": 387081, "text": "@@@@@ Khách 146: Bạn tổng hợp bill dùm mình", "labels": []}
+{"id": 387084, "text": "@@@@@ Khách 146: Ok shop", "labels": []}
+{"id": 387087, "text": "@@@@@ Khách 146: Thấy chưa chị", "labels": [[3, 4, "Other"]]}
+{"id": 387089, "text": "@@@@@ Khách 146: Cho e số tài khoản, e chuyển", "labels": [[2, 3, "Other"]]}
+{"id": 387090, "text": "@@@@@ Khách 146: Người Nhận: Ngọc Nhung", "labels": [[2, 3, "Inform"], [17, 39, "Id member"]]}
+{"id": 387091, "text": "Đc: 436 A Nguyễn Thị Thập, P6, TP Mỹ Tho, Tiền Giang", "labels": [[4, 52, "addr member"]]}
+{"id": 387093, "text": "@@@@@ Khách 146: Chị ơi, e đặt 5 cái đầm này", "labels": [[1, 2, "Order"], [30, 40, "amount_product"]]}
+{"id": 387094, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387096, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 387097, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 387101, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387102, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 387103, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 387107, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387108, "text": "@@@@@ Khách 147: Gửi bill số tiền dùm c?", "labels": [[0, 1, "Request"], [1, 2, "cost_product"]]}
+{"id": 387109, "text": "Shop: Chị chuyển khoản vui lòng để nội dung là tên facebook đặt hàng Vanessa Le và gửi giúp em màn hình giao dịch để bên em check cho chị nhanh hơn nhé!", "labels": []}
+{"id": 387110, "text": "@@@@@ Khách 147: Gọi lại chốt đơn dùm mình nhé", "labels": [[0, 1, "Connect"]]}
+{"id": 387111, "text": "@@@@@ Khách 147: Shop ơi", "labels": [[1, 2, "Hello"]]}
+{"id": 387112, "text": "@@@@@ Khách 147: Ok", "labels": [[2, 3, "Other"]]}
+{"id": 387113, "text": "Shop: Dạ mẫu này tạm hết ạ", "labels": []}
+{"id": 387116, "text": "@@@@@ Khách 147: Áo khoác Hồng này còn ko?", "labels": []}
+{"id": 387117, "text": "@@@@@ Khách 147: Alo", "labels": []}
+{"id": 387118, "text": "@@@@@ Khách 147: Thanks", "labels": []}
+{"id": 387119, "text": "@@@@@ Khách 147: 53 Nguyễn Văn Luông, P10, Q6, TpHCM", "labels": []}
+{"id": 387120, "text": "@@@@@ Khách 147: Đầm trắng trên còn hàng bỏ vô đơn gửi dùm chị lun nhé", "labels": [[0, 1, "Request"], [1, 2, "amount_product"], [21, 26, "color_product"]]}
+{"id": 387123, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 387126, "text": "@@@@@ Khách 147: Alo", "labels": [[2, 3, "Hello"]]}
+{"id": 387127, "text": "@@@@@ Khách 147: Get Started", "labels": [[3, 4, "Hello"]]}
+{"id": 387130, "text": "@@@@@ Khách 148: C đã ck xong, e ktra giúp c nhé", "labels": []}
+{"id": 387131, "text": "Shop: Chị chuyển khoản vui lòng để nội dung là tên facebook đặt hàng Khương Thảo Thảo và gửi giúp em màn hình giao dịch để bên em check cho chị nhanh hơn nhé!", "labels": []}
+{"id": 387132, "text": "@@@@@ Khách 148: Ok e", "labels": []}
+{"id": 387134, "text": "@@@@@ Khách 148: C đã chuyển khoản xong, e kiểm tra giúp c nhé", "labels": []}
+{"id": 387139, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387143, "text": "@@@@@ Khách 148: Chào shop", "labels": [[1, 2, "Hello"]]}
+{"id": 387144, "text": "**** Conversation: Khách 149", "labels": []}
+{"id": 387148, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387150, "text": "@@@@@ Khách 149: Báo dùm c số tiền luôn", "labels": [[1, 2, "Request"], [2, 3, "cost_product"]]}
+{"id": 387151, "text": "**** Conversation: Khách 150", "labels": []}
+{"id": 387154, "text": "Shop: 178k là set mask nha c", "labels": [[6, 10, "cost_product"], [13, 22, "ID_product"]]}
+{"id": 387155, "text": "Shop: e nhận dc ck r ạ", "labels": []}
+{"id": 387156, "text": "@@@@@ Khách 150: Nhớ freeship chị nha", "labels": [[20, 29, "shiping fee"], [1, 2, "Request"]]}
+{"id": 387158, "text": "Shop: e nhận dc ck r ạ", "labels": []}
+{"id": 387159, "text": "@@@@@ Khách 150: Gửi hàng cho chị luôn và nhớ freeship chị nha", "labels": []}
+{"id": 387160, "text": "Shop: E NHẬN DC CK R Ạ", "labels": []}
+{"id": 387161, "text": "@@@@@ Khách 150: Mẫu áo 08 này nếu còn chốt chị màu xám nha , hết xám lấy vàng cũng được", "labels": []}
+{"id": 387162, "text": "@@@@@ Khách 150: Dồn hàng cho chị nha", "labels": []}
+{"id": 387166, "text": "@@@@@ Khách 150: À e", "labels": [[3, 4, "Other"]]}
+{"id": 387169, "text": "@@@@@ Khách 150: Gửi hàng đi cho chị luôn phần ck trước nha", "labels": [[2, 3, "Other"]]}
+{"id": 387172, "text": "@@@@@ Khách 150: Cho chị câu trả lời với  e nha", "labels": [[2, 3, "Other"]]}
+{"id": 387174, "text": "@@@@@ Khách 150: Nếu thiếu hoặc sót đơn thì thiếu 1 hoặc 2 món thôi chứ", "labels": []}
+{"id": 387176, "text": "@@@@@ Khách 150: Set len xám có đọc tên", "labels": []}
+{"id": 387179, "text": "@@@@@ Khách 150: Áo len vàng, có đọc tên", "labels": []}
+{"id": 387180, "text": "@@@@@ Khách 150: Váy da đỏ s , có đọc tên", "labels": []}
+{"id": 387181, "text": "Shop: e nhận dc ck r ạ", "labels": []}
+{"id": 387183, "text": "Shop: c ck giúp e 155k nha", "labels": [[18, 22, "cost_product"]]}
+{"id": 387184, "text": "@@@@@ Khách 150: Đi hàng cho chị luôn nha", "labels": [[3, 4, "Other"]]}
+{"id": 387186, "text": "@@@@@ Khách 150: Gửi hàng đi và freeship chị nhé", "labels": [[32, 40, "shiping fee"], [3, 4, "Request"]]}
+{"id": 387187, "text": "Shop: Mình chuyển khoản lại giúp shop672k chị yêu h=nhé", "labels": [[37, 41, "cost_product"]]}
+{"id": 387188, "text": "Shop: Dạ nước hoa 149k ạ", "labels": [[9, 17, "ID_product"], [18, 22, "cost_product"]]}
+{"id": 387189, "text": "@@@@@ Khách 150: Mã 15 là 149k mà e?", "labels": [[16, 22, "ID_product"], [25, 30, "cost_product"], [4, 5, "Request"]]}
+{"id": 387191, "text": "Shop: Đây mới là bill của chị ạ", "labels": []}
+{"id": 387193, "text": "Shop: Chị chuyển khoản vui lòng để nội dung là tên facebook đặt hàng Huế Ngọc và gửi giúp em màn hình giao dịch để bên em check cho chị nhanh hơn nhé!", "labels": []}
+{"id": 387195, "text": "@@@@@ Khách 150: Mua biết bao nhiêu rồi mà chưa được tặng quà gì bao giờ", "labels": [[1, 2, "Other"]]}
+{"id": 387196, "text": "@@@@@ Khách 150: Thôi cũng ko đáng bao nhiêu", "labels": [[1, 2, "Other"]]}
+{"id": 387197, "text": "@@@@@ Khách 150: Qua chị cm quá trời mà ko nghe đọc", "labels": [[2, 3, "Other"]]}
+{"id": 387200, "text": "@@@@@ Khách 150: Có tặng chị máy rửa mặt ko e?", "labels": [[1, 2, "Request"], [20, 40, "content_promotion"]]}
+{"id": 387202, "text": "@@@@@ Khách 150: Chị chuyển khoản thêm ah, nếu còn chốt chị nha", "labels": [[3, 4, "Request"], [4, 5, "amount_product"]]}
+{"id": 387205, "text": "@@@@@ Khách 150: Gửi chung hết nước hoa và freeship chị nha", "labels": [[31, 39, "ID_product"], [43, 51, "shiping fee"], [2, 3, "Order"]]}
+{"id": 387206, "text": "@@@@@ Khách 150: Với nhớ gửi chung luôn phần nước hoa chị đã chuyển khoản nhé", "labels": [[45, 53, "ID_product"], [2, 3, "Order"]]}
+{"id": 387207, "text": "@@@@@ Khách 150: Giống vầy nè , cho chị dễ ktra nhé", "labels": [[3, 4, "Other"]]}
+{"id": 387210, "text": "Shop: dạ 758k ạ", "labels": [[9, 14, "cost_product"]]}
+{"id": 387216, "text": "Shop: Cảm phiền chị đợi giúp em một xíu nhé! Em xác nhận sẽ báo lại chị liền ạ! Em cảm ơn chị ạ", "labels": []}
+{"id": 387219, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387220, "text": "@@@@@ Khách 150: Giữ hàng cho chị nhé", "labels": [[3, 4, "Other"]]}
+{"id": 387221, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387225, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387226, "text": "@@@@@ Khách 150: Freeship chị nha!", "labels": [[1, 2, "Request"], [16, 25, "shiping fee"]]}
+{"id": 387228, "text": "@@@@@ Khách 150: Chị kêu check ib của chị á", "labels": [[2, 3, "Connect"]]}
+{"id": 387230, "text": "Shop: Dạ chị có đơn trên live thì vui lòng đợi giúp shop chị nhé", "labels": []}
+{"id": 387238, "text": "Shop: mình có đơn trên live k c oi", "labels": []}
+{"id": 387239, "text": "@@@@@ Khách 150: Thêm 2 mẫu này nữa nha", "labels": [[1, 2, "Order"], [22, 28, "amount_product"]]}
+{"id": 387240, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387241, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 387247, "text": "@@@@@ Khách 150: Có mà ko biết có bị lạc như mẫu sale ko", "labels": [[2, 3, "Inform"]]}
+{"id": 387249, "text": "@@@@@ Khách 150: Đồ ngủ hạc còn ko e", "labels": [[0, 1, "Request"], [1, 2, "amount_product"], [17, 27, "ID_product"]]}
+{"id": 387252, "text": "Shop: Hàng sale chị có hình không ạ", "labels": []}
+{"id": 387253, "text": "@@@@@ Khách 150: Và còn 1 mẫu đồ sale nữa", "labels": [[0, 1, "Inform"], [23, 29, "amount_product"]]}
+{"id": 387254, "text": "@@@@@ Khách 150: Đồ ngủ hạc màu xanh 150k", "labels": [[15, 28, "ID_product"], [28, 37, "color_product"], [37, 41, "cost_product"], [2, 3, "Order"]]}
+{"id": 387255, "text": "@@@@@ Khách 150: Set hạc màu xanh nha", "labels": [[1, 2, "Order"], [17, 24, "ID_product"], [24, 33, "color_product"]]}
+{"id": 387260, "text": "@@@@@ Khách 150:", "labels": [[3, 4, "Other"]]}
+{"id": 387261, "text": "Shop: mình có tên trên live dợi các bạn gọi giúp em nha", "labels": []}
+{"id": 387263, "text": "@@@@@ Khách 150: Chị được đọc tên quần s rồi nha", "labels": [[33, 38, "ID_product"], [39, 40, "size_product"], [1, 2, "Inform"]]}
+{"id": 387264, "text": "@@@@@ Khách 150: Chốt cho chị quần xanh s nha", "labels": [[0, 1, "Order"], [30, 34, "ID_product"], [35, 39, "color_product"], [39, 41, "size_product"]]}
+{"id": 387272, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387276, "text": "Shop: Vì bên e chốt đủ số lượng rồi ạ", "labels": []}
+{"id": 387277, "text": "Shop: Mình cmt màu nào mình lấy màu đó giúp e", "labels": []}
+{"id": 387280, "text": "Shop: dạ còn c", "labels": []}
+{"id": 387284, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 387287, "text": "@@@@@ Khách 150:", "labels": [[1, 2, "Other"]]}
+{"id": 387290, "text": "@@@@@ Khách 150: Vina 20k nha e", "labels": [[1, 2, "Other"]]}
+{"id": 387291, "text": "Shop: Dạ ok em chốt cho mình nha", "labels": []}
+{"id": 387292, "text": "@@@@@ Khách 150: Áo đỏ và quần s", "labels": [[17, 22, "color_product"], [26, 32, "size_product"], [2, 3, "Order"]]}
+{"id": 387294, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387295, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 387299, "text": "@@@@@ Khách 150: Tổng cộng là 5 món", "labels": [[2, 3, "Inform"], [29, 35, "amount_product"]]}
+{"id": 387300, "text": "@@@@@ Khách 150: Là thêm 3 món nữa", "labels": [[1, 2, "Order"], [24, 30, "amount_product"]]}
+{"id": 387302, "text": "@@@@@ Khách 150: Quần size s nha e", "labels": [[2, 3, "Inform"], [21, 29, "size_product"]]}
+{"id": 387305, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 387307, "text": "Shop: Dạ e c.mơn chị ạ", "labels": []}
+{"id": 387313, "text": "Shop: Dạ chị cọc card vina 50k giúp em nhé", "labels": []}
+{"id": 387314, "text": "@@@@@ Khách 150: Oki e , để chị cọc card", "labels": [[2, 3, "Other"]]}
+{"id": 387315, "text": "Shop: Dạ đây ạ", "labels": []}
+{"id": 387318, "text": "Shop: Dạ để em kt xem ạ", "labels": []}
+{"id": 387319, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387323, "text": "@@@@@ Khách 150: Vina 50k nha", "labels": [[1, 2, "Other"]]}
+{"id": 387324, "text": "@@@@@ Khách 150: Thanks em nhiều nha", "labels": [[3, 4, "Other"]]}
+{"id": 387325, "text": "Shop: Chị coi lại giúp em ạ", "labels": []}
+{"id": 387327, "text": "@@@@@ Khách 150: Chị cm 2 set xanh và đen tức là 1 xanh và 1 đen mà nghe bạn đọc bill đọc là 2 xanh 1 đen", "labels": [[2, 3, "Inform"], [24, 29, "amount_product"], [29, 34, "color_product"], [38, 41, "color_product"], [49, 51, "amount_product"], [51, 55, "color_product"], [59, 60, "amount_product"], [60, 65, "color_product"], [93, 95, "amount_product"], [95, 99, "color_product"], [100, 101, "amount_product"], [101, 105, "color_product"]]}
+{"id": 387328, "text": "@@@@@ Khách 150: 1 xanh và 1 đen", "labels": [[2, 3, "Inform"], [17, 18, "amount_product"], [18, 23, "color_product"], [27, 28, "amount_product"], [29, 32, "color_product"]]}
+{"id": 387329, "text": "Shop: Gì ah", "labels": []}
+{"id": 387331, "text": "Shop: Sét này chị lấy mẫu gì v ạ", "labels": []}

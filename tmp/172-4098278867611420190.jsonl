@@ -1,0 +1,10 @@
+{"id": 376894, "text": "@@@@@ Khách 2: 4a duog 2/4 vinh hải nhtrang", "labels": [[0, 1, "Inform"], [14, 43, "addr member"]]}
+{"id": 376911, "text": "@@@@@ Khách 2: Khi nào có lại j e", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 376914, "text": "@@@@@ Khách 2: Gũi ch sai s", "labels": [[23, 28, "size_product"], [0, 1, "Order"]]}
+{"id": 376941, "text": "4a duog 2/4 Vĩnh hải nhtrang", "labels": [[0, 28, "addr member"]]}
+{"id": 376948, "text": "@@@@@ Khách 2: Get Started", "labels": [[0, 1, "Connect"]]}
+{"id": 376949, "text": "@@@@@ Khách 2: Đầm đen còn k e", "labels": [[0, 1, "Request"], [1, 2, "amount_product"], [14, 23, "color_product"]]}
+{"id": 376959, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 376969, "text": "Shop: Chào mừng Bạn Ngân Võ!! Cảm ơn Bạn đã liên hệ với Đỗ Hoài Phương Boutique. Chúng tôi có thể giúp gì cho Bạn ạ?.", "labels": []}
+{"id": 376975, "text": "@@@@@ Khách 2: Alo", "labels": [[0, 1, "Hello"]]}
+{"id": 376976, "text": "Shop: Đỗ Hoài Phương Boutique thường phản hồi lại trong 24h. Nếu Bạn muốn hỏi điều gì, hãy click vào nút \"Liên hệ tư vấn viên\" nhé.", "labels": []}

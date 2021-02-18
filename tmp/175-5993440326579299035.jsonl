@@ -1,0 +1,90 @@
+{"id": 387043, "text": "Shop: Cảm ơn bạn đã nhắn tin. Chúng tôi hiện đang vắng mặt và sẽ trả lời bạn trong giờ làm việc.", "labels": []}
+{"id": 387044, "text": "@@@@@ Khách 144: Bắt đầu", "labels": [[0, 1, "Hello"]]}
+{"id": 387052, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387057, "text": "Shop: Chị đọc kĩ thông tin em gửi nhé! Chị lưu ý ship thường đừng ship nhanh vì phí ship sẽ cao nha chị! Chị gửi về vui lòng để thông tin người gửi là tên facebook & sdt đặt hàng nha!", "labels": []}
+{"id": 387058, "text": "Cám ơn anh/chị đã tin tưởng và ủng hộ shop! Chúng em đang làm việc chăm chỉ để mang đến cho anh/chị dịch vụ tốt hơn. Hotline: 0251.730.9099", "labels": [[126, 139, "phone store"]]}
+{"id": 387074, "text": "@@@@@ Khách 145: Get Started", "labels": [[1, 2, "Hello"]]}
+{"id": 387076, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387095, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 387096, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 387109, "text": "Shop: Chị chuyển khoản vui lòng để nội dung là tên facebook đặt hàng Vanessa Le và gửi giúp em màn hình giao dịch để bên em check cho chị nhanh hơn nhé!", "labels": []}
+{"id": 387111, "text": "@@@@@ Khách 147: Shop ơi", "labels": [[1, 2, "Hello"]]}
+{"id": 387115, "text": "@@@@@ Khách 147: Hộp đơn lun dùm c nhé", "labels": []}
+{"id": 387117, "text": "@@@@@ Khách 147: Alo", "labels": []}
+{"id": 387119, "text": "@@@@@ Khách 147: 53 Nguyễn Văn Luông, P10, Q6, TpHCM", "labels": []}
+{"id": 387150, "text": "@@@@@ Khách 149: Báo dùm c số tiền luôn", "labels": [[1, 2, "Request"], [2, 3, "cost_product"]]}
+{"id": 387159, "text": "@@@@@ Khách 150: Gửi hàng cho chị luôn và nhớ freeship chị nha", "labels": []}
+{"id": 387166, "text": "@@@@@ Khách 150: À e", "labels": [[3, 4, "Other"]]}
+{"id": 387182, "text": "@@@@@ Khách 150: Giữ hàng cho chị nha , dồn đủ chuyến rồi gửi nhé", "labels": [[2, 3, "Other"]]}
+{"id": 387189, "text": "@@@@@ Khách 150: Mã 15 là 149k mà e?", "labels": [[16, 22, "ID_product"], [25, 30, "cost_product"], [4, 5, "Request"]]}
+{"id": 387208, "text": "@@@@@ Khách 150: Chụp Gửi chị cái bill nha", "labels": [[1, 2, "Other"]]}
+{"id": 387227, "text": "@@@@@ Khách 150: Gửi bill chị ck nhé", "labels": [[3, 4, "Other"]]}
+{"id": 387244, "text": "@@@@@ Khách 150: Nếu ko có thì cứ đi 2 mẫu kia cho chị đi", "labels": [[1, 2, "Order"], [36, 38, "amount_product"]]}
+{"id": 387265, "text": "Shop: nếu có đơn thì mai mấy bạn sẽ gọi c nha", "labels": []}
+{"id": 387294, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387328, "text": "@@@@@ Khách 150: 1 xanh và 1 đen", "labels": [[2, 3, "Inform"], [17, 18, "amount_product"], [18, 23, "color_product"], [27, 28, "amount_product"], [29, 32, "color_product"]]}
+{"id": 387337, "text": "Shop: H đồ của chốt thêm xã ra hơi rắc rối", "labels": []}
+{"id": 387340, "text": "Shop: Tại h bên em còn nhiêu hàng để chốt", "labels": []}
+{"id": 387342, "text": "@@@@@ Khách 150: Coi như đổi mẫu , tổng lại vẫn là 10 món mà ?", "labels": []}
+{"id": 387346, "text": "Shop: Sét xanh giá 175k", "labels": []}
+{"id": 387358, "text": "@@@@@ Khách 150: 5 mẫu này nha", "labels": []}
+{"id": 387366, "text": "@@@@@ Khách 150: Này là set đỏ nha", "labels": []}
+{"id": 387368, "text": "@@@@@ Khách 150: Này là mấy mẫu chị đã đặt e coi ktra lại dùm chị nha", "labels": []}
+{"id": 387370, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 387387, "text": "@@@@@ Khách 150: Còn mấy mẫu chị vừa gửi hình thì e soạn hết cho chị", "labels": []}
+{"id": 387392, "text": "@@@@@ Khách 150: Ok e", "labels": []}
+{"id": 387407, "text": "Shop: E tên kiều anh ạ", "labels": []}
+{"id": 387409, "text": "@@@@@ Khách 150: Chị cọc card rồi nha", "labels": []}
+{"id": 387414, "text": "@@@@@ Khách 150: Lấy luôn cưng", "labels": []}
+{"id": 387435, "text": "Shop: Để e tìm", "labels": []}
+{"id": 387446, "text": "Shop: Chắc tại bên kia gữi hàng mình đó chị", "labels": []}
+{"id": 387460, "text": "@@@@@ Khách 150: Quần size s", "labels": []}
+{"id": 387464, "text": "Shop: Em hiểu ý c nói , ý e nãy chị chỉ bảo e lấy hàng 9 tây thôi ạ", "labels": []}
+{"id": 387485, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 387492, "text": "@@@@@ Khách 150: Set len 190k để  mình với shop ơi", "labels": []}
+{"id": 387498, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 387503, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 387510, "text": "@@@@@ Khách 151: Ship 1 cái túi đá nha shop", "labels": []}
+{"id": 387515, "text": "@@@@@ Khách 152: 90k cái", "labels": []}
+{"id": 387536, "text": "@@@@@ Khách 152: E gái màu này chỉ đặt hôm rồi sau kg thay NV gọi báo e", "labels": []}
+{"id": 387545, "text": "@@@@@ Khách 153: cộng tiền dùm em để em ck nha", "labels": []}
+{"id": 387554, "text": "**** Conversation: Khách 154", "labels": []}
+{"id": 387556, "text": "@@@@@ Khách 154: Để hàng cho mình chốt hàng thêm rồi gởi nha", "labels": []}
+{"id": 387631, "text": "Shop: Dạ lần sau shop sẽ chú ý hơn mong chị thông cảm ạ. Shop xin lỗi chị rất nhiều ạ", "labels": []}
+{"id": 387637, "text": "@@@@@ Khách 155: Vì mỗi món đồ chị mua,chị ib rất nhiều lần mới mua đckhi em chốt bill chị rùi mà tại sao bây giờ lại thiếu", "labels": []}
+{"id": 387646, "text": "@@@@@ Khách 155: Mai chị ck lại nha e", "labels": []}
+{"id": 387654, "text": "Shop: dạ gửi rồi ạ", "labels": []}
+{"id": 387669, "text": "@@@@@ Khách 155: Để chị hỏi bà chị", "labels": []}
+{"id": 387670, "text": "@@@@@ Khách 155: Chưa chuyển hả", "labels": []}
+{"id": 387672, "text": "Shop: Dạ chị ơi mẫu này tạm hết rồi ạ", "labels": []}
+{"id": 387680, "text": "@@@@@ Khách 155: Chị ck thêm cho em nha", "labels": []}
+{"id": 387684, "text": "Shop: Dạ bây giờ mình chuyển khoản giúp shop thêm 827k nữa thôi c nhé", "labels": []}
+{"id": 387690, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 387695, "text": "@@@@@ Khách 155: Sao nhiều khi chị cm được chốt,nhiều khi ko đc áh", "labels": []}
+{"id": 387704, "text": "Shop: Chị chuyển khoản vui lòng để nội dung là tên facebook đặt hàng Lee Hong và gửi giúp em màn hình giao dịch để bên em check cho chị nhanh hơn nhé!", "labels": []}
+{"id": 387709, "text": "@@@@@ Khách 155: Cho chị thêm áo này 2 màu,chị có bill trên live", "labels": []}
+{"id": 387723, "text": "Shop: check ib", "labels": []}
+{"id": 387728, "text": "Shop: Em chốt đơn hàng cho mình rồi chị nhé .Vì đơn hàng chốt qua tin nhắn nên bên e sẽ không gọi điện lại .Hàng chốt sẽ gói đi hàng liền nên chị tổng bill một lần giúp em .( Lưu ý bên em không ktra hàng trước khi nhận ,CÓ ĐƠN TRÊN LIVE c nhớ nhăc ạ , sau khi nhận hàng có vấn đề liên hệ hotline bên e để giải quyết ) Cám ơn chị ạ", "labels": []}
+{"id": 387729, "text": "Shop: Dạ vâng ạ", "labels": []}
+{"id": 387736, "text": "Shop: Dạ mình đặt hàng để lại SĐT và ĐỊA CHỈ để bên em lên đơn cho mình ạ", "labels": []}
+{"id": 387758, "text": "Shop: Dạ 2 mẫu này tạm hết ạ", "labels": []}
+{"id": 387759, "text": "@@@@@ Khách 155: Này nữa thôi", "labels": []}
+{"id": 387760, "text": "@@@@@ Khách 155: Em ráng tìm cho chị mẫu này có luôn ko e?", "labels": []}
+{"id": 387764, "text": "@@@@@ Khách 155:", "labels": []}
+{"id": 387789, "text": "Shop: CK GIÚP E 490K NHA", "labels": []}
+{"id": 387792, "text": "@@@@@ Khách 156: E điện thoại lại thì ko dc", "labels": []}
+{"id": 387803, "text": "Shop: Dạ hiện bên e chưa kiểm kê được số lương để check ib, mai chị nt lại giúp e nha. Còn nếu mình có đơn trên live thì mai bên e mới soạn và gọi chị đợi giúp e ạ", "labels": []}
+{"id": 387805, "text": "@@@@@ Khách 156: C ơi", "labels": []}
+{"id": 387810, "text": "Shop: e nhận dc ck r ạ", "labels": []}
+{"id": 387822, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 387863, "text": "**** Conversation: Khách 158", "labels": []}
+{"id": 387867, "text": "@@@@@ Khách 158: Lát xong vik e chuyển nha chị", "labels": []}
+{"id": 387871, "text": "@@@@@ Khách 158: Em đợi cả tuần mà k thấy shipper gọi giao hàng ạ", "labels": []}
+{"id": 387875, "text": "@@@@@ Khách 158: Chị xem có đủ thì giao 1 lúc giúp em ạ, em cảm ơn chị ạ", "labels": []}
+{"id": 387884, "text": "@@@@@ Khách 158: Em chuyển rồi ạ", "labels": []}
+{"id": 387887, "text": "Shop: Chị chuyển khoản vui lòng để nội dung là tên facebook đặt hàng Thuyet Tran và gửi giúp em màn hình giao dịch để bên em check cho chị nhanh hơn nhé!", "labels": []}
+{"id": 387910, "text": "@@@@@ Khách 159: Ứng ý lắm luôn", "labels": []}
+{"id": 387914, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 387921, "text": "@@@@@ Khách 159: Doi chi ti chuyen thiếu tien roi", "labels": []}
+{"id": 387925, "text": "Shop: set 195", "labels": []}
+{"id": 387929, "text": "jum 165", "labels": []}

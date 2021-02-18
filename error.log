@@ -1,0 +1,16 @@
+[2021-02-18 03:35:04 +0000] [585399] [INFO] Starting gunicorn 20.0.4
+[2021-02-18 03:35:04 +0000] [585399] [INFO] Listening at: http://0.0.0.0:5500 (585399)
+[2021-02-18 03:35:04 +0000] [585399] [INFO] Using worker: sync
+[2021-02-18 03:35:04 +0000] [585447] [INFO] Booting worker with pid: 585447
+[2021-02-18 03:36:51 +0000] [585399] [CRITICAL] WORKER TIMEOUT (pid:585447)
+[2021-02-18 03:36:51 +0000] [585447] [INFO] Worker exiting (pid: 585447)
+[2021-02-18 03:36:51 +0000] [585608] [INFO] Booting worker with pid: 585608
+[2021-02-18 03:40:15 +0000] [585608] [INFO] Worker reloading: gunicorn_config.py modified
+[2021-02-18 03:40:15 +0000] [585608] [INFO] Worker exiting (pid: 585608)
+[2021-02-18 03:40:15 +0000] [585900] [INFO] Booting worker with pid: 585900
+[2021-02-18 03:40:20 +0000] [585399] [INFO] Handling signal: term
+[2021-02-18 03:40:50 +0000] [585399] [INFO] Shutting down: Master
+[2021-02-18 03:40:51 +0000] [585972] [INFO] Starting gunicorn 20.0.4
+[2021-02-18 03:40:51 +0000] [585972] [INFO] Listening at: http://0.0.0.0:5500 (585972)
+[2021-02-18 03:40:51 +0000] [585972] [INFO] Using worker: sync
+[2021-02-18 03:40:51 +0000] [586010] [INFO] Booting worker with pid: 586010

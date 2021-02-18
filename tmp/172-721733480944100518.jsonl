@@ -1,0 +1,39 @@
+{"id": 376899, "text": "@@@@@ Khách 2: Gũi ch chai này nha", "labels": [[0, 1, "Order"]]}
+{"id": 376903, "text": "@@@@@ Khách 2: Mới live nãy mà e", "labels": [[0, 1, "Other"]]}
+{"id": 376904, "text": "Shop: Dạ chị mẫu này bên shop tạm hết ạ. Khi nào về lại chị Phương sẽ live lại ạ, lúc đó chị đặt lại giúp e nha", "labels": []}
+{"id": 376911, "text": "@@@@@ Khách 2: Khi nào có lại j e", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 376928, "text": "Shop: vậy shop lấy quần đen size M cho chị nhed", "labels": [[28, 34, "size_product"], [18, 27, "color_product"]]}
+{"id": 376938, "text": "Shop: Vậy shop đi đơn quần này cho chị nhé", "labels": []}
+{"id": 376947, "text": "Shop: Chào mừng Bạn Ngân Võ!! Cảm ơn Bạn đã liên hệ với Đỗ Hoài Phương Boutique. Chúng tôi có thể giúp gì cho Bạn ạ?.", "labels": []}
+{"id": 376954, "text": "@@@@@ Khách 2: Liên hệ tư vấn viên", "labels": [[0, 1, "Connect"]]}
+{"id": 376956, "text": "@@@@@ Khách 2: Mẫu này còn ke", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 376958, "text": "Shop: Chào mừng Bạn Ngân Võ!! Cảm ơn Bạn đã liên hệ với Đỗ Hoài Phương Boutique. Chúng tôi có thể giúp gì cho Bạn ạ?.", "labels": []}
+{"id": 376967, "text": "@@@@@ Khách 2: Mấy mẫu này còn k shop", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 376992, "text": "@@@@@ Khách 2: K e", "labels": [[0, 1, "Other"]]}
+{"id": 377004, "text": "@@@@@ Khách 2: Ch nt ah", "labels": [[0, 1, "Other"]]}
+{"id": 377009, "text": "@@@@@ Khách 2: 2 mẫu này còn k e gũi ch nha,xxxxx", "labels": [[15, 20, "amount_product"], [0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 377016, "text": "@@@@@ Khách 2: Get Started", "labels": [[0, 1, "Connect"]]}
+{"id": 377027, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 377048, "text": "Cám ơn chị ạ", "labels": []}
+{"id": 377051, "text": "@@@@@ Khách 2: Gũi juo ch bộ này nha e", "labels": [[0, 1, "Order"]]}
+{"id": 377085, "text": "@@@@@ Khách 2: Bắt đầu", "labels": [[0, 1, "Connect"]]}
+{"id": 377095, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 377105, "text": "@@@@@ Khách 2: 093517037", "labels": [[0, 1, "Inform"], [15, 24, "phone member"]]}
+{"id": 377108, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 377112, "text": "@@@@@ Khách 2: Để hoi may đưa lay ch đặt lun", "labels": [[0, 1, "Order"]]}
+{"id": 377115, "text": "@@@@@ Khách 2: Đợi ch tí", "labels": [[0, 1, "Other"]]}
+{"id": 377116, "text": "Shop: 170k nha c", "labels": [[6, 10, "cost_product"]]}
+{"id": 377128, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 377131, "text": "Call 0251.730.9099.", "labels": []}
+{"id": 377135, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 377137, "text": "@@@@@ Khách 2: Ao nay mih còn k", "labels": [[0, 1, "Request"], [1, 2, "amount_product"]]}
+{"id": 377147, "text": "@@@@@ Khách 2: Ch có đặt áo hwwa phuog live sao k thay gd ch", "labels": [[0, 1, "Other"]]}
+{"id": 377162, "text": "Shop: để e lấy cho minh 1 đầm nhé chị", "labels": []}
+{"id": 377163, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 377164, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 377185, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 377195, "text": "Khách vui lòng làm theo các bước để Nv xử lý đơn hàng nhanh hơn", "labels": []}
+{"id": 377204, "text": "@@@@@ Khách 2: Gui mih 1 cái này nha shop", "labels": [[0, 1, "Order"], [22, 28, "amount_product"]]}
+{"id": 377213, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 377239, "text": "@@@@@ Khách 2: 4a duog 2/4 vinh hai nha trang", "labels": [[15, 45, "addr member"], [0, 1, "Inform"]]}
+{"id": 377244, "text": "Shop: ĐÃ CHỐT ĐƠN. sau khi hàng chốt là gói đi liền nên chị tổng bill một lần giúp em nhé ( lưu ý bên e k ktra hàng trước khi nhận và nếu c có đơn trên live nhớ nhắc e để tránh trùng đơn) (L.A)", "labels": []}

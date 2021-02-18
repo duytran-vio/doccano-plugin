@@ -1,0 +1,27 @@
+{"id": 380270, "text": "@@@@@ Khách 43: C gọi lại ko dc", "labels": [[0, 1, "Other"]]}
+{"id": 380272, "text": "@@@@@ Khách 43: E có gọi cho c", "labels": [[0, 1, "Other"]]}
+{"id": 380276, "text": "Shop: Hiện tại hệ thống đang quá tải, khách vui lòng để lại nội dung , vấn đề , kèm theo hình ảnh mà bạn quan tâm hoặc cần xử lý", "labels": []}
+{"id": 380291, "text": "Shop: Hãy để lại tin nhắn và Đỗ Hoài Phương Boutique sẽ trả lời Bạn trong thời gian sớm nhất.", "labels": []}
+{"id": 380293, "text": "Shop: Đỗ Hoài Phương Boutique thường phản hồi lại trong 24h. Nếu Bạn muốn hỏi điều gì, hãy click vào nút \"Liên hệ tư vấn viên\" nhé.", "labels": []}
+{"id": 380300, "text": "Call 0251.730.9099.", "labels": [[5, 18, "phone store"]]}
+{"id": 380311, "text": "@@@@@ Khách 44: E chuyển rồi nha c. Tranh thủ gửi giùm e ạ.", "labels": [[1, 2, "Other"]]}
+{"id": 380316, "text": "@@@@@ Khách 44: Tổng đơn hàg của e bao nhiêu ạ. Lúc nảy chị nói e quên mất tieu rôi. C chị chụp hình lại gủi cho e với", "labels": [[0, 1, "Request"], [1, 2, "cost_product"]]}
+{"id": 380318, "text": "2/ Do lượng đơn hàng nhiều nên nhiều khi các bạn chưa gọi tới chị thông cảm đợi thêm giúp e nha ạ .", "labels": []}
+{"id": 380322, "text": "@@@@@ Khách 44: Sao chưa ai gọi chốt đơn ?", "labels": [[1, 2, "Other"]]}
+{"id": 380323, "text": "**** Conversation: Khách 45", "labels": []}
+{"id": 380349, "text": "@@@@@ Khách 48: Em gửi ạ", "labels": [[0, 1, "Other"]]}
+{"id": 380354, "text": "@@@@@ Khách 49: Dạ shop ơi. Mình còn mẫu này ko ạ", "labels": [[0, 1, "Request"], [2, 3, "amount_product"]]}
+{"id": 380364, "text": "@@@@@ Khách 49: Còn áo và sét gửi giúp e luôn ạ.", "labels": [[3, 4, "Order"]]}
+{"id": 380374, "text": "@@@@@ Khách 50: đầm này bên shop còn size ko ạ", "labels": [[0, 1, "Request"], [1, 2, "amount_product"], [37, 42, "size_product"]]}
+{"id": 380384, "text": "@@@@@ Khách 50: vàng nhỏ", "labels": [[16, 21, "color_product"], [0, 1, "Inform"]]}
+{"id": 380388, "text": "Nếu chốt hàng (thông tin đầy đủ sđt + địa chỉ)", "labels": []}
+{"id": 380401, "text": "Shop: ĐÃ CHỐT ĐƠN. sau khi hàng chốt là gói đi liền nên chị tổng bill một lần giúp em nhé ( lưu ý bên e k ktra hàng trước khi nhận và nếu c có đơn trên live nhớ nhắc e để tránh trùng đơn)", "labels": []}
+{"id": 380421, "text": "@@@@@ Khách 51: Quan nay có chua e", "labels": [[0, 1, "Request"], [2, 3, "amount_product"]]}
+{"id": 380425, "text": "@@@@@ Khách 51: 2 quần sizeM", "labels": [[0, 1, "Inform"], [2, 3, "amount_product"], [16, 22, "amount_product"], [23, 28, "size_product"]]}
+{"id": 380442, "text": "@@@@@ Khách 52: Hồi nữa", "labels": [[0, 1, "Other"]]}
+{"id": 380450, "text": "@@@@@ Khách 52: OK e", "labels": [[0, 1, "Other"]]}
+{"id": 380469, "text": "@@@@@ Khách 52: F12/16R Vĩnh Lộc a bình Chánhxxxxx", "labels": [[0, 1, "Inform"], [16, 50, "addr member"]]}
+{"id": 380491, "text": "Shop: Dạ bị lỗi nhiều ạ, nhìn không được đẹp và hoàn thiện nên shop không thể gửi về được cho chị ạ", "labels": []}
+{"id": 380503, "text": "@@@@@ Khách 53: Đi hàng sớm cho c", "labels": [[0, 1, "Other"]]}
+{"id": 380519, "text": "Shop: e nhận dc r ạ", "labels": []}
+{"id": 380521, "text": "@@@@@ Khách 53: 2 món chứ", "labels": []}
