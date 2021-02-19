@@ -3,16 +3,22 @@ import jsonlines
 import pandas as pd
 from werkzeug.utils import secure_filename
 import os
+from .classifier import classifier as labeling_docs
+
 
 doccano_client = None
-file_name = f'data/data.txt'
 
 def handle_request(request, client):
     global doccano_client
     doccano_client = client
     project_name, project_des, documents_file = extract_request(request)
-    fi = open(documents_file, encoding='utf-8')
-    documents = fi.readlines()
+    # fi = open(documents_file, encoding='utf-8')
+    # documents = fi.readlines()
+    TRAIN_FILE = 'services/new5_55.csv'
+    CORPUS_FILE = documents_file
+    df_documents = labeling_docs(train_file_path=TRAIN_FILE, corpus_file_path=CORPUS_FILE)
+    documents = df_documents.to_dict('records')
+    documents = intent_jsonl_form(documents)
 
     response = doccano_client.create_project(
         name=project_name,
@@ -24,7 +30,27 @@ def handle_request(request, client):
     new_project_id = response['id']
     create_labels(new_project_id)
 
+    file_name = f'{new_project_id}_docs'
+    file_path = f'tmp/{file_name}'
+    with jsonlines.open(file_path, mode='w') as writer:
+        writer.write_all(documents)
+
+    try:
+        doccano_client.post_doc_upload(new_project_id, 'json', file_name, 'tmp')
+    except json.JSONDecodeError:
+        pass
+
     return new_project_id
+
+def intent_jsonl_form(documents):
+    for i in range(len(documents)):
+        n_intents = 0
+        ls_intents = []
+        for label in documents[i]['labels']:
+            ls_intents.append([n_intents, n_intents + 1, label])
+            n_intents = n_intents + 1
+        documents[i]['labels'] = ls_intents
+    return documents
 
 def extract_request(request):
     project_name = request.form['projectName']
