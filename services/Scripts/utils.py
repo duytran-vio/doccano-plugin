@@ -14,9 +14,9 @@ def equalize_label(part, col):
     max_cnt = len([i for i in range(part.shape[0]) if part[col][i]==1])
     drop_rows = []
     for i in range(part.shape[0]):
-        if part[col][i] == 0 and cnt < 1.5*max_cnt:
+        if part[col][i] is None and cnt < 1.5*max_cnt:
             cnt+=1
-        elif part[col][i] == 0:
+        elif part[col][i] is None:
             drop_rows.append(i)
     return part.drop(part.index[drop_rows])
 
@@ -31,8 +31,14 @@ def preprocess(doc, remove_empty=False):
     for i in range(len(doc)):  
         result = str(doc[i])
 
+        # Remove all the special characters
+        result = re.sub(r'\W', ' ', str(result))
+
         # Substituting multiple spaces with single space
         result = re.sub(r'\s+', ' ', result, flags=re.I)
+        # Remove space at beginning and end
+        result = re.sub('^\s', '', result)
+        result = re.sub('\s$', '', result)
     
         # Converting to Lowercase
         result = result.lower()
@@ -44,9 +50,6 @@ def preprocess(doc, remove_empty=False):
         
         #Remove customers' names
         result = re.sub('.*: ', '', result)
-
-        # Remove all the special characters
-        result = re.sub(r'\W', ' ', str(result))
 
         results.append(result)
 

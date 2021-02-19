@@ -1,9 +1,8 @@
 import sys
-import os
+from os import path
 
-file_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, file_path)
-
+BASE_DIR = path.dirname(path.abspath(__file__))
+sys.path.insert(0, BASE_DIR)
 import numpy as np 
 import pandas as pd 
 import matplotlib as mt 
@@ -13,62 +12,51 @@ from Scripts.dataset import *
 
 from Scripts.tfidf import *
 
-mapping = {'272': 'Hello', 
-            '273': 'Done', 
-            '279': 'Inform',
-            '280': 'Request',
-            '294': 'Feedback',
-            '274': 'Connect',
-            '275': 'Order',
-            '276': 'Changing',
-            '277': 'Return'}
-TRAIN_FILE = 'new5_55.csv'
-CORPUS_FILE = 'data.txt'
+MODELS_PATH = path.join(BASE_DIR, 'models')
+list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return']
+# list_intents = ['Hello']
 intent_boundary = 6
 
-def remove_symbol(df_corpus):
-    for i in range(len(df_corpus)):
-        if df_corpus['text'][i][0] == '@':
-            df_corpus['text'][i] = df_corpus['text'][i][intent_boundary:]
-    return df_corpus
+def remove_symbol(sentences):
+    for sentence in sentences:
+        if sentence[0] == '@':
+           sentence = sentence[intent_boundary:]
+    return sentences
 
-def classifier(train_file_path, corpus_file_path):
-    df_data, df_corpus_raw = read_from_file(data_path = train_file_path, \
-                                    corpus_path = corpus_file_path)
-    df_corpus_raw = df_corpus_raw.rename(columns = {0 : 'text'})
-    df_corpus = df_corpus_raw.copy()
-    df_corpus = remove_symbol(df_corpus)
-    df_corpus_raw['labels'] = pd.np.empty((len(df_corpus_raw), 0)).tolist()
+### load svm models as a dictionary from files
+def load_svm_models(intent_list, input_path='/content/svm_models/'):
+    result = {}
+    for intent in intent_list:
+        filename = path.join(input_path, intent)
+        model = pickle.load(open(filename, 'rb'))
+        result[intent] = model
+    return result
 
-    for label_col in mapping.keys():
+### return the list of intents of sentence
+### ### intent_list: list of intents to predict
+### ### tfidfconverter: TfidfVectorizer of sklearn.feature_extraction.text
+### ### svm_models: a dict of SVM models pretrained for each intent
+### ### sentence: single sentence to work with
+def get_intent(intent_list, tfidfconverter, svm_models, sentence):
+    result = []
+    sent_tfidf = tfidfconverter.transform([sentence]).toarray()
+    for intent in intent_list:
+        if svm_models[intent].predict(sent_tfidf) == 1:
+            result.append(intent)
+    return result
 
-        data, label, corpus = data_from_file(part = df_data, full = df_corpus, \
-                                    text_col = '0', label_col = label_col)
-
-        tfidfconverter = make_tfidf_model(corpus, pretrained_path = 'services/model.pickle')
-        X_corp_tfidf = tfidfconverter.transform(corpus).toarray()
-        X_tfidf = tfidfconverter.transform(data).toarray()
-
-        X_train, X_test, y_train, y_test, y_idx_train, y_idx_test =  svm_data_prepair(X_tfidf, label)
-
-        clf = svm.SVC()
-        clf = clf.fit(X_train, y_train)
-
-        # y_pred = clf.predict(X_test)
-        y_corp_pred = clf.predict(X_corp_tfidf)
-        for i in range(len(y_corp_pred)):
-            if df_corpus_raw['text'][i][0] == '@':
-                if y_corp_pred[i] == 1:
-                    df_corpus_raw['labels'][i].append(mapping[label_col])
-            else:
-                df_corpus_raw['labels'][i] = []
-
-    # print('{:<15} {:<15} {:<25}'.format(mapping[label_col], len(data), \
-    #                                     metrics.accuracy_score(y_pred, y_test) ) )
-    return df_corpus_raw
+def classifier(data_file_path):
+    sentences, df_data = corpus_from_file(corpus_path = data_file_path)
+    df_data = df_data.rename(columns = {0 : 'text'})
+    df_data['labels'] = np.empty((len(df_data), 0)).tolist()
+    svm_models = load_svm_models(list_intents, MODELS_PATH)
+    tfidfconverter = make_tfidf_model(corpus=None, pretrained_path=path.join(MODELS_PATH,'model.pickle'))
+    for i in range(len(sentences)):
+        sentence = sentences[i]
+        list_label = get_intent(list_intents, tfidfconverter, svm_models, sentence)
+        df_data['labels'][i] = list_label
+    return df_data
 
 if __name__ == "__main__":
-    df_corpus_raw = classifier(train_file_path=TRAIN_FILE, corpus_file_path=CORPUS_FILE)
-    for i in range(len(df_corpus_raw)):
-        df_corpus_raw['labels'][i] = ','.join(df_corpus_raw['labels'][i])
-    df_corpus_raw.to_excel('result.xlsx')
+    df_data = classifier(data_file_path='data.txt')
+    print(df_data)

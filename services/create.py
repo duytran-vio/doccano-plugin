@@ -12,11 +12,7 @@ def handle_request(request, client):
     global doccano_client
     doccano_client = client
     project_name, project_des, documents_file = extract_request(request)
-    # fi = open(documents_file, encoding='utf-8')
-    # documents = fi.readlines()
-    TRAIN_FILE = 'services/new5_55.csv'
-    CORPUS_FILE = documents_file
-    df_documents = labeling_docs(train_file_path=TRAIN_FILE, corpus_file_path=CORPUS_FILE)
+    df_documents = labeling_docs(data_file_path=documents_file)
     documents = df_documents.to_dict('records')
     documents = intent_jsonl_form(documents)
 
