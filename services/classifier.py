@@ -1,5 +1,8 @@
 import sys
-sys.path.insert(0, "D:\\Github\\doccano_plugin\\services")
+import os
+
+file_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, file_path)
 
 import numpy as np 
 import pandas as pd 
