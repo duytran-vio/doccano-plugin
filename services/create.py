@@ -14,7 +14,6 @@ def handle_request(request, client):
     project_name, project_des, documents_file = extract_request(request)
     df_documents = labeling_docs(data_file_path=documents_file)
     documents = df_documents.to_dict('records')
-    documents = intent_jsonl_form(documents)
 
     response = doccano_client.create_project(
         name=project_name,
