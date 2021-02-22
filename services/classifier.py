@@ -15,12 +15,21 @@ from Scripts.tfidf import *
 
 MODELS_PATH = path.join(BASE_DIR, 'models')
 list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return']
-list_entities = ['ID_product', 'size_product',
-       'color_product', 'material_product', 'cost_product', 'amount_product',
-       'name_promotion', 'content_promotion', 'Id member', 'phone member',
-       'addr member', 'level member', 'benefit member', 'feedback',
-       'shiping fee', 'size customer', 'height customer', 'weight customer',
-       'addr store', 'phone store']
+
+### resolve later:
+### ### need rules-based method: 'size_product', 'amount_product', 'size customer', 'phone members', \
+### ### 'addr member', 'shipping fee', 'size customer', 'height customer', 'weight customer', 'addr store', \
+### ### 'feedback', 'phone store'
+### ### to few values: 'name_promotion', 'content_promotion', 'level member', 'benefit member'
+
+# list_entities = ['ID_product', 'size_product',
+#        'color_product', 'material_product', 'cost_product', 'amount_product',
+#        'name_promotion', 'content_promotion', 'Id member', 'phone member',
+#        'addr member', 'level member', 'benefit member', 'feedback',
+#        'shiping fee', 'size customer', 'height customer', 'weight customer',
+#        'addr store', 'phone store']
+
+list_entities = ['ID_product', 'color_product', 'Id member', 'material_product']
 
 ### load svm models as a dictionary from files
 def load_svm_models(intent_list, input_path='/content/svm_models/'):
@@ -112,7 +121,11 @@ def find_substring_Z(sub, s):
     idx = []
     for i in range(len(st)):
         if z[i] == len(sub) and (len(idx) == 0 or idx[-1] + len(sub) <= i):
-            idx.append(i)
+            ### check whether a seperate phrase or not (check space before and after)
+            index = i-len(sub)-1
+            if index<=0 or (index>0 and s[index-1]==' '):
+                if i-1>=len(s) or (i-1<len(s) and s[i-1]==' '):
+                    idx.append(i)
     idx = [x - len(sub) - 1 for x in idx]
     return idx
 
