@@ -18,9 +18,10 @@ def handle_request(request, client: DoccanoClient):
     labels_map = build_label_map(doccano_client, project_id)
     sequence_label_table = to_label_table(truth_documents, labels_map)
 
-    for doc in sequence_label_table:
+    # for doc in sequence_label_table:
+    for k in range(len(sequence_label_table)):
         for i in labels_map:
-            doc[labels_map[i]] = ','.join(doc[labels_map[i]])
+            sequence_label_table[k][labels_map[i]] = '|/|'.join(sequence_label_table[k][labels_map[i]])
 
     file_name = f'{project_id}.xlsx'
     file_path = os.path.join(download_dir, file_name)
