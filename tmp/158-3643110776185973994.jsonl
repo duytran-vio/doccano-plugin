@@ -1,5 +1,0 @@
-{"id": 315823, "text": "**** Conversation: Khách 1", "labels": []}
-{"id": 315825, "text": "**** Conversation: Khách 2", "labels": []}
-{"id": 315827, "text": "Khách 2: Alo", "labels": [[9, 12, "Hello"]]}
-{"id": 315828, "text": "Khách 2: 4a 2/4 Vĩnh hải nhtrang", "labels": [[9, 32, "Connect"]]}
-{"id": 315830, "text": "Shop: dạ giá 185k ạ", "labels": [[13, 17, "cost_product"]]}
