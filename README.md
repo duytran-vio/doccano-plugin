@@ -20,3 +20,6 @@ This tool consists of 3 functionalities:
 Function #2 currently only work for document classification (i.e. intent), which means that if you want to evaluate the quality of entities, you must change this code.
 
 The credential to connect to the server is hard-coded, so remember to change this if you change the server ip or admin password.
+
+# For service create
+You have to extract models.rar and put it to services folder

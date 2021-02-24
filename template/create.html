@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Sample Test Project</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Sample</a>
+        <a href="/evaluate">Evaluate</a>
+        <a href="/download">Download</a>
+    </nav>
+    <div id="main-form">
+        <h1>Create SequenceLabeling Project</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            <div>
+                <label for="projectName">
+                    <span>
+                        Project Name:
+                    </span>
+                    <input type="text" name="projectName" id="projectName">
+                </label>
+            </div>
+            <div>
+                <label for="projectDes">
+                    <span>
+                        Descripition:
+                    </span>
+                    <input type="text" name="projectDes" id="projectDes">
+                </label>
+            </div>
+            <div>
+                <label for="file">
+                    <span>
+                        Dataset:
+                    </span>
+                    <input type="file" id="file" name="file">
+                </label>
+            </div>
+            <div>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+        <div>
+            Status: <span id="notify">Idle</span>
+        </div>
+    </div>
+    <!-- <script src="/static/create.js"></script> -->
+</body>
+</html>

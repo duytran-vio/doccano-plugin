@@ -28,8 +28,8 @@ def handle_request(request, client):
     create_labels(new_project_id)
     assign_user(new_project_id, username)
 
-    # map_labels(labels_map, documents)
-
+    # map_labels(labels_map, documents
+    
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(documents)
 
@@ -48,10 +48,6 @@ def extract_request(request):
     sample_size = body['sampleSize']
     new_project_name = body['newProjectName']
     username = body['username']
-
-
-
-
 
     if start < 0:
         raise Exception('Start must be greater than 0.')
