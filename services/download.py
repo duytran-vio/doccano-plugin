@@ -15,23 +15,37 @@ def handle_request(request, client: DoccanoClient):
     doccano_client = client
     project_id = extract_request(request)
     truth_documents = get_all_documents(doccano_client, project_id)
-    print(truth_documents)
     labels_map = build_label_map(doccano_client, project_id)
     sequence_label_table = to_label_table(truth_documents, labels_map)
 
-    for doc in sequence_label_table:
+    # for doc in sequence_label_table:
+    cnt = {}
+    for i in labels_map: 
+        cnt[i] = 0
+
+    for k in range(len(sequence_label_table)):
         for i in labels_map:
-            doc[labels_map[i]] = ','.join(doc[labels_map[i]])
+            cnt[i] = cnt[i] + len(sequence_label_table[k][labels_map[i]])
+            sequence_label_table[k][labels_map[i]] = '|/|'.join(sequence_label_table[k][labels_map[i]])
+
+    summary = pd.DataFrame([labels_map[i] for i in labels_map], columns = ['label'])
+    summary['count'] = [cnt[i] for i in cnt]
 
     file_name = f'{project_id}.xlsx'
     file_path = os.path.join(download_dir, file_name)
+    summary_file_name = f'{project_id}_summary.xlsx'
+    summary_path = os.path.join(download_dir, summary_file_name)
     pd.DataFrame(sequence_label_table).to_excel(file_path, index=False, engine='xlsxwriter')
-    return file_name
+    summary.to_excel(summary_path, index=False, engine='xlsxwriter')
+    return file_name, summary_file_name
 
 def to_label_table(documents, labels_map):
     new_documents = []
     for doc in documents:
-        new_doc = {'id' : doc['id'], 'text': doc['text'][intent_boundary:]}
+        text = doc['text']
+        if doc['text'][0] == '@':
+            text = doc['text'][intent_boundary:]
+        new_doc = {'id' : doc['id'], 'text': text}
         new_doc.update((labels_map[k], list()) for k in labels_map)
         for annotation in doc['annotations']:
             start = annotation['start_offset']

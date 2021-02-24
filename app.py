@@ -72,8 +72,9 @@ def download_test_project():
     try:
         print('Download test project')
         refresh_client()
-        file_name = handle_download_request(flask_request, Client.doccano_client)
+        file_name, summary_name = handle_download_request(flask_request, Client.doccano_client)
         file_path = os.path.join('download', file_name)
+        # summary_path = os.path.join('download', summary_name)
         return send_file(file_path, as_attachment=True)
     except Exception as e:
         logging.exception(e)
