@@ -15,7 +15,6 @@ def handle_request(request, client: DoccanoClient):
     doccano_client = client
     project_id = extract_request(request)
     truth_documents = get_all_documents(doccano_client, project_id)
-    print(truth_documents)
     labels_map = build_label_map(doccano_client, project_id)
     sequence_label_table = to_label_table(truth_documents, labels_map)
 
