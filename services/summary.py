@@ -37,7 +37,7 @@ def handle_request(request, client: DoccanoClient):
     summary_path = os.path.join(download_dir, summary_file_name)
     pd.DataFrame(sequence_label_table).to_excel(file_path, index=False, engine='xlsxwriter')
     summary.to_excel(summary_path, index=False, engine='xlsxwriter')
-    return file_name
+    return summary_file_name
 
 def to_label_table(documents, labels_map):
     new_documents = []
