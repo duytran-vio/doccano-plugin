@@ -27,8 +27,6 @@ def handle_request(request, client):
     new_project_id = response['id']
     create_labels(new_project_id)
     assign_user(new_project_id, username)
-
-    # map_labels(labels_map, documents
     
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(documents)
