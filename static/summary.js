@@ -12,7 +12,7 @@ function createSampleProject(e) {
 
     document.getElementById('notify').innerHTML = 'Processing...';
 
-    fetch('/api/download?' + new URLSearchParams({
+    fetch('/api/summary?' + new URLSearchParams({
         projectId, start, end
     }), {
         method: 'GET',
@@ -34,7 +34,7 @@ function createSampleProject(e) {
             let url = window.URL.createObjectURL(blob);
             let a = document.createElement('a');
             a.href = url;
-            a.download = `${projectId}-${start}-${end}.xlsx`;
+            a.download = `${projectId}-${start}-${end}_summary.xlsx`;
             document.body.appendChild(a);
             a.click();
             a.remove();

@@ -6,6 +6,7 @@ from services.client import refresh_client, Client
 from services.sample import handle_request as handle_sample_request
 from services.evaluate import handle_request as handle_evaluate_request
 from services.download import handle_request as handle_download_request
+from services.summary import handle_request as handle_summary_request
 from services.create import handle_request as handle_create_request
 
 
@@ -35,6 +36,10 @@ def download():
 @app.route('/create')
 def create():
     return render_template('create.html')
+
+@app.route('/summary')
+def summary():
+    return render_template('summary.html')
 
 
 @app.route('/api/sample', methods=['POST'])
@@ -75,6 +80,18 @@ def download_test_project():
         file_name = handle_download_request(flask_request, Client.doccano_client)
         file_path = os.path.join('download', file_name)
         return send_file(file_path, as_attachment=True)
+    except Exception as e:
+        logging.exception(e)
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/summary', methods=['GET'])
+def download_summary_project():
+    try:
+        print('Download summary project')
+        refresh_client()
+        summary_name = handle_summary_request(flask_request, Client.doccano_client)
+        summary_path = os.path.join('download', summary_name)
+        return send_file(summary_path, as_attachment=True)
     except Exception as e:
         logging.exception(e)
         return jsonify({'error': str(e)}), 500

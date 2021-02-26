@@ -9,25 +9,56 @@ from .common import build_label_map, map_labels, get_all_documents
 doccano_client: DoccanoClient = None
 download_dir = 'download'
 intent_boundary = 6 # max_intent + 1
+list_label = [
+    'Hello', 'Done', 'Connect', 'Order',
+    'Changing', 'Return', 'Inform',
+    'Request', 'feedback', 'Other', 'ID_product', 'size_product',
+    'color_product', 'material_product', 'cost_product',
+    'amount_product', 'name_promotion', 'Id member',
+    'phone member', 'addr member', 'level member',
+    'benefit member', 'shiping fee', 'size customer', 
+    'height customer', 'weight customer',
+    'addr store', 'phone store'
+]
 
 def handle_request(request, client: DoccanoClient):
     global doccano_client
     doccano_client = client
     project_id, start, end = extract_request(request)
     truth_documents = get_all_documents(doccano_client, project_id)
-    truth_documents = truth_documents[start: end]
+    truth_documents = truth_documents[start:end]
     labels_map = build_label_map(doccano_client, project_id)
     sequence_label_table = to_label_table(truth_documents, labels_map)
 
-    # for doc in sequence_label_table:
-    for k in range(len(sequence_label_table)):
-        for i in labels_map:
-            sequence_label_table[k][labels_map[i]] = '|/|'.join(sequence_label_table[k][labels_map[i]])
+    #count labeled doc
+    n_is_label = 0
+    for doc in truth_documents:
+        if len(doc['annotations']) != 0:
+            n_is_label = n_is_label + 1
+    
+    #count number of sequence per label
+    summary = get_summary(sequence_label_table, list_label)
 
-    file_name = f'{project_id}.xlsx'
-    file_path = os.path.join(download_dir, file_name)
-    pd.DataFrame(sequence_label_table).to_excel(file_path, index=False, engine='xlsxwriter')
-    return file_name
+    #append number of labeled doc to summary
+    summary = summary.append({'label':'Labeled docs', 'count': n_is_label}, ignore_index = True)
+
+    summary_file_name = f'{project_id}_summary.xlsx'
+    summary_path = os.path.join(download_dir, summary_file_name)
+    summary.to_excel(summary_path, index=False, engine='xlsxwriter')
+    return summary_file_name
+
+def get_summary(sequence_label_table, list_label):
+    cnt = {}
+    for label in list_label:
+        cnt[label] = 0
+
+    for k in range(len(sequence_label_table)):
+        for label in list_label:
+            cnt[label] = cnt[label] + len(sequence_label_table[k][label])
+
+    summary = pd.DataFrame([label for label in list_label], columns = ['label'])
+    summary['count'] = [cnt[label] for label in list_label]
+    return summary
 
 def to_label_table(documents, labels_map):
     new_documents = []
