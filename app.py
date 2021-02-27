@@ -37,6 +37,10 @@ def download():
 def create():
     return render_template('create.html')
 
+@app.route('/summary')
+def summary():
+    return render_template('summary.html')
+
 
 @app.route('/api/sample', methods=['POST'])
 def create_sample_test_project():

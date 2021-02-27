@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Sample Test Project</title>
+    <title>Download Test Project</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
     <nav>
         <a href="/">Sample</a>
         <a href="/evaluate">Evaluate</a>
         <a href="/download">Download</a>
-        <a href="/summary">Summary</a>
+        <a href="/create"> Create Project</a>
     </nav>
     <div id="main-form">
-        <h1>Create SequenceLabeling Project</h1>
-        <form method="POST" action="" enctype="multipart/form-data">
+        <h1>Summary of Test Project</h1>
+        <form>
             <div>
-                <label for="projectName">
+                <label for="projectId">
                     <span>
-                        Project Name:
+                        Project ID:
                     </span>
-                    <input type="text" name="projectName" id="projectName">
+                    <input type="text" name="projectId" id="projectId">
                 </label>
             </div>
             <div>
-                <label for="projectDes">
-                    <span>
-                        Descripition:
+                <label for="start">
+                    <span>    
+                        Start:
                     </span>
-                    <input type="text" name="projectDes" id="projectDes">
+                    <input type="number" name="start" id="start">
                 </label>
             </div>
             <div>
-                <label for="file">
+                <label for="end">
                     <span>
-                        Dataset:
+                        End:
                     </span>
-                    <input type="file" id="file" name="file">
+                    <input type="number" name="end" id="end">
                 </label>
             </div>
             <div>
@@ -48,6 +50,7 @@
             Status: <span id="notify">Idle</span>
         </div>
     </div>
-    <!-- <script src="/static/create.js"></script> -->
+    <script src="/static/summary.js"></script>
 </body>
+
 </html>
