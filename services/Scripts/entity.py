@@ -116,3 +116,5 @@ def get_entity_sq_from_list_pt(list_pattern, sent, entity):
 
 if __name__ == "__main__":
     print(vncorenlp_file)
+    vncorenlp = VnCoreNLP(vncorenlp_file)
+    vncorenlp.close()
