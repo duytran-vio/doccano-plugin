@@ -39,7 +39,7 @@ def label_entity(sentences):
     for i in range(len(sentences)):
         sent = sentences['text'][i]
         # print(sent)
-        list_Id_member_sq = infer_Id_member(sent)
+        list_Id_member_sq = infer_Id_member(sent,vncorenlp)
         # print(list_Id_member_sq)
         if len(list_Id_member_sq) > 0:
             sents_entity[i].extend(list_Id_member_sq)
@@ -58,7 +58,7 @@ def preprocess_ner(sentence):
     sentence = re.sub('\s+$', '', sentence)
     return sentence
 
-def infer_Id_member(sentences):
+def infer_Id_member(sentences, vncorenlp):
     sents_ner = vncorenlp.ner(sentences)
     # print(sents_ner)
     list_id_member = []
