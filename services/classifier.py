@@ -13,6 +13,8 @@ from Scripts.utils import *
 from Scripts.dataset import *
 
 from Scripts.tfidf import *
+from Scripts.entity import label_entity
+
 
 import time
 
@@ -87,15 +89,20 @@ def classifier(data_file_path):
 
 
     ### label entity
-    start_time = time.time()
-    vocab_file = open(path.join(MODELS_PATH,'vocab.json'))
-    vocab = json.load(vocab_file)
+    # start_time = time.time()
+    # vocab_file = open(path.join(MODELS_PATH,'vocab.json'))
+    # vocab = json.load(vocab_file)
+    # for i in range(len(df_data)):
+    #     sentence = df_data['text'][i]
+    #     list_entity_label = get_entity(list_entities, vocab, sentence)
+    #     list_entity_label = remove_duplicate_entity(list_entity_label, len(sentence))
+    #     df_data['labels'][i].extend(list_entity_label)
+    # print('Get all entities in ', time.time()-start_time, 's.')
+
+    sents_entity = label_entity(df_data)
     for i in range(len(df_data)):
-        sentence = df_data['text'][i]
-        list_entity_label = get_entity(list_entities, vocab, sentence)
-        list_entity_label = remove_duplicate_entity(list_entity_label, len(sentence))
-        df_data['labels'][i].extend(list_entity_label)
-    print('Get all entities in ', time.time()-start_time, 's.')
+        df_data['labels'][i] = sents_entity[i]
+    
 
     return df_data
     
