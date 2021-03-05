@@ -8,6 +8,7 @@ from services.evaluate import handle_request as handle_evaluate_request
 from services.download import handle_request as handle_download_request
 from services.summary import handle_request as handle_summary_request
 from services.create import handle_request as handle_create_request
+from services.add import handle_request as handle_add_request
 
 
 HOST = '0.0.0.0'
@@ -40,6 +41,10 @@ def create():
 @app.route('/summary')
 def summary():
     return render_template('summary.html')
+
+@app.route('/add')
+def add():
+    return render_template('add.html')
 
 
 @app.route('/api/sample', methods=['POST'])
@@ -106,6 +111,21 @@ def create_create_project():
         return jsonify({
             'status': 'OK',
             'link': f'http://103.113.81.36:8000/projects/{new_project_id}',
+        }), 200
+    except Exception as e:
+        logging.exception(e)
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/add', methods=['POST'])
+def create_add_project():
+    try:
+        print('Create project')
+        refresh_client()
+        project_id = handle_add_request(flask_request, Client.doccano_client)
+        print(f'Project ID: {project_id}')
+        return jsonify({
+            'status': 'OK',
+            'link': f'http://103.113.81.36:8000/projects/{project_id}',
         }), 200
     except Exception as e:
         logging.exception(e)
