@@ -7,7 +7,7 @@ BASEDIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.pat
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
 vncorenlp_file = os.path.join(BASEDIR,os.path.join('VnCoreNLP','VnCoreNLP-1.1.1.jar'))
 
-list_entity_using_regex = ['phone', 'weight customer', 'shiping fee', 'height customer']
+list_entity_using_regex = ['phone', 'weight customer', 'shiping fee', 'height customer', 'size_product']
 pattern_list = {
     'phone': [
         r'[0-9]{4}\.*[0-9]{3}\.*[0-9]{2,4}', 
@@ -22,6 +22,9 @@ pattern_list = {
     ],
     'height customer':[
         r'((\dm|m)\d+|\d+cm)'
+    ],
+    'size_product':[
+        r'(size|sai|sz)\s(\d*[smlx]*[SMLX]*)'
     ]
 }
 
