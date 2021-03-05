@@ -38,16 +38,16 @@ def label_entity(sentences):
                 sents_entity[i].extend(list_entity_sq)
             
     ## Use ner to get Id member entity
-    # vncorenlp = VnCoreNLP(vncorenlp_file)
-    # for i in range(len(sentences)):
-    #     sent = sentences['text'][i]
-    #     # print(sent)
-    #     list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-    #     # print(list_Id_member_sq)
-    #     if len(list_Id_member_sq) > 0:
-    #         sents_entity[i].extend(list_Id_member_sq)
+    vncorenlp = VnCoreNLP(vncorenlp_file)
+    for i in range(len(sentences)):
+        sent = sentences['text'][i]
+        # print(sent)
+        list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+        # print(list_Id_member_sq)
+        if len(list_Id_member_sq) > 0:
+            sents_entity[i].extend(list_Id_member_sq)
 
-    # vncorenlp.close()
+    vncorenlp.close()
 
     return sents_entity
 
