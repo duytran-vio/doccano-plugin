@@ -29,7 +29,7 @@ def label_entity(sentences):
     sents_entity = [[] for i in range(len(sentences))]
     for entity in list_entity_using_regex:
         for i in range(len(sentences)):
-            sent = sentences['text'][i]
+            sent = sentences['text'][i].lower()
             list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
             if len(list_entity_sq) > 0:
                 sents_entity[i].extend(list_entity_sq)
@@ -49,13 +49,13 @@ def label_entity(sentences):
     return sents_entity
 
 def preprocess_ner(sentence):
-    sentence = re.sub('_',' ', sentence)
-    sentence = re.sub('[!@#$%^&*<>?,.:;]+', '', sentence)
+    sentence = re.sub(r'_',' ', sentence)
+    sentence = re.sub(r'[!@#$%^&*<>?,.:;]+', '', sentence)
     ### remove multiple white spaces
-    sentence = re.sub('\s+', ' ', sentence)
+    sentence = re.sub(r'\s+', ' ', sentence)
     ### remove start and end white spaces
-    sentence = re.sub('^\s+', '', sentence) 
-    sentence = re.sub('\s+$', '', sentence)
+    sentence = re.sub(r'^\s+', '', sentence) 
+    sentence = re.sub(r'\s+$', '', sentence)
     return sentence
 
 def infer_Id_member(sentences, vncorenlp):
@@ -89,7 +89,7 @@ def infer_Id_member(sentences, vncorenlp):
             continue
         start = res[-1][1]
         end = sequence[0]
-        if re.search('^\s+$', sentences[start:end]) is not None:
+        if re.search(r'^\s+$', sentences[start:end]) is not None:
             res[-1][1] = sequence[1]
         else:
             res.append(sequence)
