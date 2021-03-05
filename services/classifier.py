@@ -76,9 +76,10 @@ def classifier(data_file_path):
 
     start_time = time.time()
     results = [i.result() for i in results]
+
     for i in range(len(sentences)):
         sentence = sentences[i]
-        list_intent_label = [results[j][-1] for j in range(len(list_intents)) if results[j][i]==1]
+        list_intent_label = [results[j][-1] for j in range(len(list_intents)) if float(results[j][i])==1]
         n_intents = 0
         ls_intents = []
         for label in list_intent_label:
@@ -89,11 +90,20 @@ def classifier(data_file_path):
 
 
     ### label entity
-    start_time = time.time()
+    # start_time = time.time()
+    # vocab_file = open(path.join(MODELS_PATH,'vocab.json'))
+    # vocab = json.load(vocab_file)
+    # for i in range(len(df_data)):
+    #     sentence = df_data['text'][i]
+    #     list_entity_label = get_entity(list_entities, vocab, sentence)
+    #     list_entity_label = remove_duplicate_entity(list_entity_label, len(sentence))
+    #     df_data['labels'][i].extend(list_entity_label)
+    # print('Get all entities in ', time.time()-start_time, 's.')
+
     sents_entity = label_entity(df_data)
     for i in range(len(df_data)):
         df_data['labels'][i] = sents_entity[i]
-    print('Get all entities in ', time.time()-start_time, 's.')
+    
 
     return df_data
     
