@@ -102,7 +102,7 @@ def classifier(data_file_path):
 
     sents_entity = label_entity(df_data)
     for i in range(len(df_data)):
-        df_data['labels'][i] = sents_entity[i]
+        df_data['labels'][i].extend(sents_entity[i])
     
 
     return df_data
