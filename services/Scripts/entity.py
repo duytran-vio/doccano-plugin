@@ -1,13 +1,21 @@
 from vncorenlp import VnCoreNLP
-import os
+from os import path
 import re
 import pandas as pd
 
-BASEDIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+BASEDIR = path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__)))))
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
-vncorenlp_file = os.path.join(BASEDIR,os.path.join('VnCoreNLP','VnCoreNLP-1.1.1.jar'))
+vncorenlp_file = path.join(BASEDIR,path.join('VnCoreNLP','VnCoreNLP-1.1.1.jar'))
 
-list_entity_using_regex = ['phone', 'weight customer', 'shiping fee', 'height customer', 'size_product']
+MODELS_PATH = path.join(
+    path.dirname(path.dirname(path.abspath(__file__))),
+    'models'
+)
+df_colors = pd.read_csv(path.join(MODELS_PATH, 'colors.csv'), header=None)
+colors = df_colors[0].tolist()
+pt_color = r'((mau|màu\s)*('+ '|'.join(colors) + r')+)|(mau|màu\s)'
+
+list_entity_using_regex = ['phone', 'weight customer', 'shiping fee', 'height customer', 'size_product', 'color_product']
 pattern_list = {
     'phone': [
         r'[0-9]{4}\.*[0-9]{3}\.*[0-9]{2,4}', 
@@ -25,6 +33,9 @@ pattern_list = {
     ],
     'size_product':[
         r'(size|sai|sz)\s(\d*[smlx]*[SMLX]*)'
+    ],
+    'color_product':[
+        pt_color
     ]
 }
 
@@ -38,16 +49,16 @@ def label_entity(sentences):
                 sents_entity[i].extend(list_entity_sq)
             
     ## Use ner to get Id member entity
-    vncorenlp = VnCoreNLP(vncorenlp_file)
-    for i in range(len(sentences)):
-        sent = sentences['text'][i]
-        # print(sent)
-        list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-        # print(list_Id_member_sq)
-        if len(list_Id_member_sq) > 0:
-            sents_entity[i].extend(list_Id_member_sq)
+    # vncorenlp = VnCoreNLP(vncorenlp_file)
+    # for i in range(len(sentences)):
+    #     sent = sentences['text'][i]
+    #     # print(sent)
+    #     list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+    #     # print(list_Id_member_sq)
+    #     if len(list_Id_member_sq) > 0:
+    #         sents_entity[i].extend(list_Id_member_sq)
 
-    vncorenlp.close()
+    # vncorenlp.close()
 
     return sents_entity
 
@@ -105,8 +116,8 @@ def findall_index(pattern, sent, entity):
         p = re.search(pattern, sent[k: ])
         if p is None: break
         idx = p.span()
-        list_sub.append([idx[0], idx[1], entity])
-        k = idx[1]
+        list_sub.append([idx[0] + k, idx[1] + k, entity])
+        k = k + idx[1]
     return list_sub
 
 def get_entity_sq_from_list_pt(list_pattern, sent, entity):
@@ -118,6 +129,4 @@ def get_entity_sq_from_list_pt(list_pattern, sent, entity):
     return list_entity_sq
 
 if __name__ == "__main__":
-    print(vncorenlp_file)
-    vncorenlp = VnCoreNLP(vncorenlp_file)
-    vncorenlp.close()
+    print(MODELS_PATH)

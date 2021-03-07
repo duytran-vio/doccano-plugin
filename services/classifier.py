@@ -37,7 +37,7 @@ list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order'] ##
 #        'shiping fee', 'size customer', 'height customer', 'weight customer',
 #        'addr store', 'phone store']
 
-list_entities = ['ID_product', 'color_product', 'Id member', 'material_product']
+list_entities = ['ID_product', 'material_product']
 
 ### load svm models as a dictionary from files
 def load_svm_models(intent_list, input_path='/content/svm_models/'):
