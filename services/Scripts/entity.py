@@ -11,11 +11,35 @@ MODELS_PATH = path.join(
     path.dirname(path.dirname(path.abspath(__file__))),
     'models'
 )
+
+### COLOR_PRODUCT
 df_colors = pd.read_csv(path.join(MODELS_PATH, 'colors.csv'), header=None)
 colors = df_colors[0].tolist()
 pt_color = r'((mau|màu\s)*('+ '|'.join(colors) + r')+)|(mau|màu\s)'
+###------------------------------------------
 
-list_entity_using_regex = ['phone', 'weight customer', 'shiping fee', 'height customer', 'size_product', 'color_product']
+### COST_PRODUCT
+dong_pt = r'đồng|dong|đ|dog|VND|VNĐ'
+cost_pt = r'(gi[a|á]\s)*\d+\s*(k|tr((iệ|ie)u)*(\s{0:}|\s*\d*)*|ng[a|à]n(\s{0:}|\s*\d*)*|t[ỉiỷy](\s{0:}|\s*\d*)*|{0:})'.format(dong_pt)
+cost_ques = r'(gi[a|á]\s)* b(ao\s)*n(hi[e|ê]*u)*'
+cost_pt_2 = r'gi[a|á]\s*\d+'
+cost_pt_sum = '{}|{}|{}'.format(cost_pt, cost_pt_2, cost_ques)
+###------------------------------------------
+
+### AMOUNT_PRODUCT
+df_amount_suf = pd.read_csv(path.join(MODELS_PATH, 'amount_suf.csv'), header = None)
+amount_suf = df_amount_suf[0].tolist()
+product_pt = '[á|a]o|qu[a|ần]|v[a|á]y|đầm|dam|t[ú|u]i|n[ó|o]n|m[u|ũ]'
+amount_pt = r'\d+\s*(' + '|'.join(amount_suf) + r')\s({})*'.format(product_pt) 
+amount_pt_2 = r'\d+\s*({})'.format(product_pt)
+amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
+###------------------------------------------
+
+### list of pattern
+list_entity_using_regex = ['phone', 'weight customer', 'shiping fee', 'height customer', 
+                            'size_product', 'color_product', 'cost_product', 'size customer',
+                            'amount_product'
+                            ]
 pattern_list = {
     'phone': [
         r'[0-9]{4}\.*[0-9]{3}\.*[0-9]{2,4}', 
@@ -36,6 +60,15 @@ pattern_list = {
     ],
     'color_product':[
         pt_color
+    ],
+    'cost_product':[
+        cost_pt_sum
+    ],
+    'size customer':[
+        r'(nguc|ngực|eo|mong|mông)(\s(a|anh|e|em|c|chị|chi|co|cô|chu|chú|t|tui|toi|tôi|minh|mình|m))*\s\d+'
+    ],
+    'amount_product':[
+        amount_pt_sum
     ]
 }
 
