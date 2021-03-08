@@ -15,7 +15,7 @@ MODELS_PATH = path.join(
 ### COLOR_PRODUCT
 df_colors = pd.read_csv(path.join(MODELS_PATH, 'colors.csv'), header=None)
 colors = df_colors[0].tolist()
-pt_color = r'((mau|màu\s)*('+ '|'.join(colors) + r')+)|(mau|màu\s)'
+pt_color = r'((mau\s|màu\s)*('+ '|'.join(colors) + r')+)|(mau\s|màu\s)'
 ###------------------------------------------
 
 ### COST_PRODUCT
