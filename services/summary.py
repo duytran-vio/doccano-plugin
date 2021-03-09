@@ -18,7 +18,7 @@ list_label = [
     'color_product', 'material_product', 'cost_product',
     'amount_product', 'name_promotion', 'content_promotion', 
     'Id member', 'phone', 'addr member', 'level member',
-    'benefit member', 'shiping fee', 'size customer', 
+    'benefit member', 'feedback', 'shiping fee', 'size customer', 
     'height customer', 'weight customer',
     'addr store'
 ]
