@@ -12,13 +12,12 @@ intent_boundary = 6 # max_intent + 1
 list_label = [
     'Hello', 'Done', 'Connect', 'Order',
     'Changing', 'Return', 'Other', 'Inform',
-    'Request', 'Shop_Hello', 'Shop_Done', 'Shop_not-found',
+    'Request', 'feedback','Shop_Hello', 'Shop_Done', 'Shop_not-found',
     'Shop_inform', 'Shop_request', 'Shop_connect', 'Shop_confirm',
     'Shop_Reject', 'Shop_other', 'ID_product', 'size_product',
     'color_product', 'material_product', 'cost_product',
-    'amount_product', 'name_promotion', 'content_promotion', 
-    'Id member', 'phone', 'addr member', 'level member',
-    'benefit member', 'feedback', 'shiping fee', 'size customer', 
+    'amount_product', 'Id member', 'phone', 'addr member', 
+    'shiping fee', 'size customer', 
     'height customer', 'weight customer',
     'addr store'
 ]
