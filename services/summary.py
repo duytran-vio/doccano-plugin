@@ -9,18 +9,6 @@ from .common import build_label_map, map_labels, get_all_documents
 doccano_client: DoccanoClient = None
 download_dir = 'download'
 intent_boundary = 6 # max_intent + 1
-list_label = [
-    'Hello', 'Done', 'Connect', 'Order',
-    'Changing', 'Return', 'Other', 'Inform',
-    'Request', 'feedback','Shop_Hello', 'Shop_Done', 'Shop_not-found',
-    'Shop_inform', 'Shop_request', 'Shop_connect', 'Shop_confirm',
-    'Shop_Reject', 'Shop_other', 'ID_product', 'size_product',
-    'color_product', 'material_product', 'cost_product',
-    'amount_product', 'Id member', 'phone', 'addr member', 
-    'shiping fee', 'size customer', 
-    'height customer', 'weight customer',
-    'addr store'
-]
 
 def handle_request(request, client: DoccanoClient):
     global doccano_client
@@ -38,7 +26,7 @@ def handle_request(request, client: DoccanoClient):
             n_is_label = n_is_label + 1
     
     #count number of sequence per label
-    summary = get_summary(sequence_label_table, list_label)
+    summary = get_summary(sequence_label_table, labels_map)
 
     #append number of labeled doc to summary
     summary = summary.append({'label':'Labeled docs', 'count': n_is_label}, ignore_index = True)
@@ -48,18 +36,19 @@ def handle_request(request, client: DoccanoClient):
     summary.to_excel(summary_path, index=False, engine='xlsxwriter')
     return summary_file_name
 
-def get_summary(sequence_label_table, list_label):
+def get_summary(sequence_label_table, labels_map):
     cnt = {}
-    for label in list_label:
-        cnt[label] = 0
+    for i in labels_map:
+        cnt[labels_map[i]] = 0
 
     for k in range(len(sequence_label_table)):
-        for label in list_label:
-            if label in sequence_label_table[k].keys():
-                cnt[label] = cnt[label] + len(sequence_label_table[k][label])
+        for i in labels_map:
+            label = labels_map[i]
+            # if label in sequence_label_table[k].keys():
+            cnt[label] = cnt[label] + len(sequence_label_table[k][label])
 
-    summary = pd.DataFrame([label for label in list_label], columns = ['label'])
-    summary['count'] = [cnt[label] for label in list_label]
+    summary = pd.DataFrame([labels_map[i] for i in labels_map], columns = ['label'])
+    summary['count'] = [cnt[labels_map[i]] for i in labels_map]
     return summary
 
 def to_label_table(documents, labels_map):
