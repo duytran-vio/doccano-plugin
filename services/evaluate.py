@@ -35,7 +35,7 @@ def handle_request(request, client):
     summary = []
     for i in range(len(predict_documents)):
         truth_intents, truth_sequences = get_sequence_truth_doc(truth_documents[i])
-        predict_intents, predict_sequences = get_sequence(predict_documents[i])
+        predict_intents, predict_sequences = get_sequence(predict_documents[i], predict_labels_map)
 
         truth_intents, predict_intents = preprocess_intents(truth_intents, predict_intents, predict_labels_map)
         text = truth_documents[i]['text']
@@ -64,8 +64,6 @@ def handle_request(request, client):
     return file_name
 
 def preprocess_intents(truth_intents, predict_intents, predict_labels_map):
-    for i in range(len(predict_intents)):
-        predict_intents[i] = predict_labels_map[predict_intents[i]]
     if truth_intents:
         truth_intents = ','.join(truth_intents)
     else:
@@ -121,7 +119,7 @@ def compair(truth_sequences, predict_sequences, predict_labels_map):
                 })
     return update_sqs
 
-def get_sequence(document):
+def get_sequence(document, labels_map):
     list_sequence = []
     intents = []
     have_intent = document['text'][0] == '@'
@@ -134,6 +132,8 @@ def get_sequence(document):
             intents.append(sequence['label'])
         else:
             list_sequence.append(sequence)
+    for i in range(len(intents)):
+        intents[i] = labels_map[intents[i]]
     intents.sort()
     list_sequence = sorted(list_sequence, key = lambda i: (i['start_offset']))
     return intents, list_sequence
