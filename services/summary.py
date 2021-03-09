@@ -11,14 +11,16 @@ download_dir = 'download'
 intent_boundary = 6 # max_intent + 1
 list_label = [
     'Hello', 'Done', 'Connect', 'Order',
-    'Changing', 'Return', 'Inform',
-    'Request', 'feedback', 'Other', 'ID_product', 'size_product',
+    'Changing', 'Return', 'Other', 'Inform',
+    'Request', 'Shop_Hello', 'Shop_Done', 'Shop_not-found',
+    'Shop_inform', 'Shop_request', 'Shop_connect', 'Shop_confirm',
+    'Shop_Reject', 'Shop_other', 'ID_product', 'size_product',
     'color_product', 'material_product', 'cost_product',
-    'amount_product', 'name_promotion', 'Id member',
-    'phone member', 'addr member', 'level member',
+    'amount_product', 'name_promotion', 'content_promotion', 
+    'Id member', 'phone', 'addr member', 'level member',
     'benefit member', 'shiping fee', 'size customer', 
     'height customer', 'weight customer',
-    'addr store', 'phone store'
+    'addr store'
 ]
 
 def handle_request(request, client: DoccanoClient):
@@ -42,7 +44,7 @@ def handle_request(request, client: DoccanoClient):
     #append number of labeled doc to summary
     summary = summary.append({'label':'Labeled docs', 'count': n_is_label}, ignore_index = True)
 
-    summary_file_name = f'{project_id}_summary.xlsx'
+    summary_file_name = f'{project_id}-{start}-{end}_summary.xlsx'
     summary_path = os.path.join(download_dir, summary_file_name)
     summary.to_excel(summary_path, index=False, engine='xlsxwriter')
     return summary_file_name
@@ -54,7 +56,8 @@ def get_summary(sequence_label_table, list_label):
 
     for k in range(len(sequence_label_table)):
         for label in list_label:
-            cnt[label] = cnt[label] + len(sequence_label_table[k][label])
+            if label in sequence_label_table[k].keys():
+                cnt[label] = cnt[label] + len(sequence_label_table[k][label])
 
     summary = pd.DataFrame([label for label in list_label], columns = ['label'])
     summary['count'] = [cnt[label] for label in list_label]
