@@ -36,13 +36,12 @@ amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
 
 ### list of pattern
 list_entity_using_regex = ['phone', 'weight customer', 'height customer', 
-                            'size_product', 'color_product', 'cost_product',
+                            'size', 'color_product', 'cost_product',
                             'amount_product'
                             ]
 pattern_list = {
     'phone': [
-        r'[0-9]{4}\.*[0-9]{3}\.*[0-9]{2,}', 
-        r'[0-9|.]*xx+'
+        r'[0-9]{4}\.*[0-9]{3}\.*[0-9]{2,}'
     ],
     'weight customer': [
         r'\d+\s*(kg|ky|ký|ki+|kí+)'
@@ -54,7 +53,7 @@ pattern_list = {
     'height customer':[
         r'((\dm|m)\d+|\d+cm)'
     ],
-    'size_product':[
+    'size':[
         r'(size|sai|sz)\s(\d*[smlx]*[SMLX]*)'
     ],
     'color_product':[
@@ -62,9 +61,6 @@ pattern_list = {
     ],
     'cost_product':[
         cost_pt_sum
-    ],
-    'size customer':[
-        r'(nguc|ngực|eo|mong|mông)(\s(a|anh|e|em|c|chị|chi|co|cô|chu|chú|t|tui|toi|tôi|minh|mình|m))*\s\d+'
     ],
     'amount_product':[
         amount_pt_sum
