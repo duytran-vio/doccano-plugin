@@ -21,8 +21,8 @@ pt_color = r'((?<=^)|(?<=\s))(' + '|'.join(colors) + r')((\s(đậm|dam|nhạt|n
 ### COST_PRODUCT
 dong_pt = r'đồng|dong|đ|dog|VND|VNĐ'
 cost_pt = r'\d+\s*(k|tr((iệ|ie)u)*(\s{0:}|\s*\d*)*|ng[a|à]n(\s{0:}|\s*\d*)*|t[ỉiỷy](\s{0:}|\s*\d*)*|{0:})'.format(dong_pt)
-cost_ques = r'b(ao\s)*n(hi[e|ê]*u)*'
-cost_pt_sum = '{}|{}'.format(cost_pt, cost_ques)
+# cost_ques = r'b(ao\s)*n(hi[e|ê]*u)*'
+cost_pt_sum = '{}'.format(cost_pt)
 ###------------------------------------------
 
 ### AMOUNT_PRODUCT
@@ -35,8 +35,8 @@ amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
 ###------------------------------------------
 
 ### list of pattern
-list_entity_using_regex = ['phone', 'weight customer', 'shiping fee', 'height customer', 
-                            'size_product', 'color_product', 'cost_product', 'size customer',
+list_entity_using_regex = ['phone', 'weight customer', 'height customer', 
+                            'size_product', 'color_product', 'cost_product',
                             'amount_product'
                             ]
 pattern_list = {
