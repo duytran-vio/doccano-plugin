@@ -83,23 +83,26 @@ def label_entity(sentences):
             sent = sentences['text'][i].lower()
             list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
             list_entity_sq = join_continuous_sq(list_entity_sq, sent)
+            list_entity_sq = reduce_label(list_entity_sq, sent.find(':'))
             if len(list_entity_sq) > 0:
                 sents_entity[i].extend(list_entity_sq)
             
     ## Use ner to get Id member entity
-    with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
-    # vncorenlp = VnCoreNLP(vncorenlp_file)
-        for i in range(len(sentences)):
-            sent = sentences['text'][i]
-            # print(sent)
-            list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-            # print(list_Id_member_sq)
-            if len(list_Id_member_sq) > 0:
-                sents_entity[i].extend(list_Id_member_sq)
-
-    # vncorenlp.close()
+    # with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
+    #     for i in range(len(sentences)):
+    #         sent = sentences['text'][i]
+    #         # print(sent)
+    #         list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+    #         list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
+    #         # print(list_Id_member_sq)
+    #         if len(list_Id_member_sq) > 0:
+    #             sents_entity[i].extend(list_Id_member_sq)
 
     return sents_entity
+
+def reduce_label(list_sq, boundary):
+    res = [e for e in list_sq if e[1] > boundary]
+    return res
 
 def preprocess_ner(sentence):
     sentence = re.sub(r'_',' ', sentence)
@@ -135,18 +138,8 @@ def infer_Id_member(sentences, vncorenlp):
         k = idx[1]
 
     # join continuous sequence
-    res = []
-    for sequence in list_sq:
-        if len(res) == 0:
-            res.append(sequence)
-            continue
-        start = res[-1][1]
-        end = sequence[0]
-        if re.search(r'^\s+$', sentences[start:end]) is not None:
-            res[-1][1] = sequence[1]
-        else:
-            res.append(sequence)
-    return res
+    list_sq = join_continuous_sq(list_sq, sentences)
+    return list_sq
 
 def findall_index(pattern, sent, entity):
     list_sub = []
