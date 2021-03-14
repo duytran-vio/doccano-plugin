@@ -34,10 +34,16 @@ amount_pt_2 = r'(\d+-)*\d+\s*({})'.format(product_pt)
 amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
 ###------------------------------------------
 
+### MATERIAL_PRODUCT
+df_material = pd.read_csv(path.join(MODELS_PATH, 'material.csv'), header = None)
+material = df_material[0].tolist()
+pt_material = r'((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(material) + r')(\sc[u|ứ]ng|\sm[e|ề]m)*'
+###------------------------------------------
+
 ### list of pattern
 list_entity_using_regex = ['phone', 'weight customer', 'height customer', 
                             'size', 'color_product', 'cost_product',
-                            'amount_product'
+                            'amount_product', 'material_product'
                             ]
 pattern_list = {
     'phone': [
@@ -64,6 +70,9 @@ pattern_list = {
     ],
     'amount_product':[
         amount_pt_sum
+    ],
+    'material_product':[
+        pt_material
     ]
 }
 
@@ -73,6 +82,7 @@ def label_entity(sentences):
         for i in range(len(sentences)):
             sent = sentences['text'][i].lower()
             list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
+            list_entity_sq = join_continuous_sq(list_entity_sq, sent)
             if len(list_entity_sq) > 0:
                 sents_entity[i].extend(list_entity_sq)
             
@@ -155,6 +165,20 @@ def get_entity_sq_from_list_pt(list_pattern, sent, entity):
         if len(list_index_pt) > 0:
             list_entity_sq.extend(list_index_pt)
     return list_entity_sq
+
+def join_continuous_sq(list_sq, sentences):
+    res = []
+    for sequence in list_sq:
+        if len(res) == 0:
+            res.append(sequence)
+            continue
+        start = res[-1][1]
+        end = sequence[0]
+        if re.search(r'^\s+$', sentences[start:end]) is not None or start == end:
+            res[-1][1] = sequence[1]
+        else:
+            res.append(sequence)
+    return res
 
 if __name__ == "__main__":
     print(MODELS_PATH)
