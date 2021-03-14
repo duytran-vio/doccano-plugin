@@ -78,27 +78,46 @@ pattern_list = {
 
 def label_entity(sentences):
     sents_entity = [[] for i in range(len(sentences))]
+    ner_entity = [[] for i in range(len(sentences))]
+
+    ## Use ner to get Id member entity
+    with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
+        for i in range(len(sentences)):
+            sent = sentences[i]
+            # print(sent)
+            list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+            list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
+            # print(list_Id_member_sq)
+            ner_entity[i] = list_Id_member_sq
+
+    ## Use regex
     for entity in list_entity_using_regex:
         for i in range(len(sentences)):
-            sent = sentences['text'][i].lower()
+            sent = sentences[i].lower()
             list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
             list_entity_sq = join_continuous_sq(list_entity_sq, sent)
             list_entity_sq = reduce_label(list_entity_sq, sent.find(':'))
             if len(list_entity_sq) > 0:
                 sents_entity[i].extend(list_entity_sq)
-            
-    ## Use ner to get Id member entity
-    # with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
-    #     for i in range(len(sentences)):
-    #         sent = sentences['text'][i]
-    #         # print(sent)
-    #         list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-    #         list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
-    #         # print(list_Id_member_sq)
-    #         if len(list_Id_member_sq) > 0:
-    #             sents_entity[i].extend(list_Id_member_sq)
+
+    ## Merge Id member to sents_entity
+    for i in range(len(sentences)):
+        sents_entity[i] = merge(ner_entity[i], sents_entity[i])
 
     return sents_entity
+
+def merge(ner_entity, list_sq):
+    list_sq.sort(key= lambda i: i[1] - i[0], reverse=True)
+    for i in range(len(list_sq)):
+        check = True
+        for j in range(len(ner_entity)):
+            if list_sq[i][1] <= ner_entity[j][0] or list_sq[i][0] >= ner_entity[j][1]: 
+                continue
+            check = False
+            break
+        if check:
+            ner_entity.append(list_sq[i])
+    return ner_entity
 
 def reduce_label(list_sq, boundary):
     res = [e for e in list_sq if e[1] > boundary]
