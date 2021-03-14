@@ -87,14 +87,15 @@ def label_entity(sentences):
                 sents_entity[i].extend(list_entity_sq)
             
     ## Use ner to get Id member entity
+    with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
     # vncorenlp = VnCoreNLP(vncorenlp_file)
-    # for i in range(len(sentences)):
-    #     sent = sentences['text'][i]
-    #     # print(sent)
-    #     list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-    #     # print(list_Id_member_sq)
-    #     if len(list_Id_member_sq) > 0:
-    #         sents_entity[i].extend(list_Id_member_sq)
+        for i in range(len(sentences)):
+            sent = sentences['text'][i]
+            # print(sent)
+            list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+            # print(list_Id_member_sq)
+            if len(list_Id_member_sq) > 0:
+                sents_entity[i].extend(list_Id_member_sq)
 
     # vncorenlp.close()
 
