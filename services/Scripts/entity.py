@@ -41,8 +41,9 @@ pt_material = r'((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(materia
 ###------------------------------------------
 
 ### list of pattern
-list_entity_using_regex = ['phone', 'weight customer', 'height customer',
-                             'color_product'
+list_entity_using_regex = ['phone', 'weight customer', 'height customer', 
+                            'size', 'color_product',
+                            'amount_product', 'material_product'
                             ]
 pattern_list = {
     'phone': [
@@ -77,17 +78,17 @@ pattern_list = {
 
 def label_entity(sentences):
     sents_entity = [[] for i in range(len(sentences))]
-    # ner_entity = [[] for i in range(len(sentences))]
+    ner_entity = [[] for i in range(len(sentences))]
 
     ## Use ner to get Id member entity
-    # with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
-    #     for i in range(len(sentences)):
-    #         sent = sentences[i]
-    #         # print(sent)
-    #         list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-    #         list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
-    #         # print(list_Id_member_sq)
-    #         ner_entity[i] = list_Id_member_sq
+    with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
+        for i in range(len(sentences)):
+            sent = sentences[i]
+            # print(sent)
+            list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+            list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
+            # print(list_Id_member_sq)
+            ner_entity[i] = list_Id_member_sq
 
     ## Use regex
     for entity in list_entity_using_regex:
@@ -100,8 +101,8 @@ def label_entity(sentences):
                 sents_entity[i].extend(list_entity_sq)
 
     ## Merge Id member to sents_entity
-    # for i in range(len(sentences)):
-    #     sents_entity[i] = merge(ner_entity[i], sents_entity[i])
+    for i in range(len(sentences)):
+        sents_entity[i] = merge(ner_entity[i], sents_entity[i])
 
     return sents_entity
 
