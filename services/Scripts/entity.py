@@ -81,14 +81,14 @@ def label_entity(sentences):
     ner_entity = [[] for i in range(len(sentences))]
 
     ## Use ner to get Id member entity
-    with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
-        for i in range(len(sentences)):
-            sent = sentences[i]
-            # print(sent)
-            list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-            list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
-            # print(list_Id_member_sq)
-            ner_entity[i] = list_Id_member_sq
+    # with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
+    #     for i in range(len(sentences)):
+    #         sent = sentences[i]
+    #         # print(sent)
+    #         list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+    #         list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
+    #         # print(list_Id_member_sq)
+    #         ner_entity[i] = list_Id_member_sq
 
     ## Use regex
     for entity in list_entity_using_regex:
