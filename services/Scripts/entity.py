@@ -101,8 +101,8 @@ def label_entity(sentences):
                 sents_entity[i].extend(list_entity_sq)
 
     ## Merge Id member to sents_entity
-    for i in range(len(sentences)):
-        sents_entity[i] = merge(ner_entity[i], sents_entity[i])
+    # for i in range(len(sentences)):
+    #     sents_entity[i] = merge(ner_entity[i], sents_entity[i])
 
     return sents_entity
 
