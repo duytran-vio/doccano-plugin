@@ -160,4 +160,4 @@ def remove_duplicate_entity(sent_entities, sent_len):
 
 if __name__ == "__main__":
     df_data = classifier(data_file_path='data.txt')
-    print(df_data)
+    # print(df_data)

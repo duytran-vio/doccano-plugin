@@ -2,6 +2,7 @@ from vncorenlp import VnCoreNLP
 from os import path
 import re
 import pandas as pd
+import time
 
 BASEDIR = path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__)))))
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
@@ -81,15 +82,19 @@ def label_entity(sentences):
     ner_entity = [[] for i in range(len(sentences))]
 
     ## Use ner to get Id member entity
-    # with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
-    #     for i in range(len(sentences)):
-    #         sent = sentences[i]
-    #         # print(sent)
-    #         list_Id_member_sq = infer_Id_member(sent,vncorenlp)
-    #         list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
-    #         # print(list_Id_member_sq)
-    #         ner_entity[i] = list_Id_member_sq
-
+    start_time = time.time()
+    finish_using_ner = start_time
+    finish_open_ner = start_time
+    with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
+        finish_open_ner = time.time()
+        for i in range(len(sentences)):
+            sent = sentences[i]
+            # print(sent)
+            list_Id_member_sq = infer_Id_member(sent,vncorenlp)
+            list_Id_member_sq = reduce_label(list_Id_member_sq, sent.find(':'))
+            # print(list_Id_member_sq)
+            ner_entity[i] = list_Id_member_sq
+        finish_using_ner = time.time()
     ## Use regex
     for entity in list_entity_using_regex:
         for i in range(len(sentences)):
@@ -100,9 +105,17 @@ def label_entity(sentences):
             if len(list_entity_sq) > 0:
                 sents_entity[i].extend(list_entity_sq)
 
+    finish_using_regex = time.time()
     ## Merge Id member to sents_entity
-    # for i in range(len(sentences)):
-    #     sents_entity[i] = merge(ner_entity[i], sents_entity[i])
+    for i in range(len(sentences)):
+        sents_entity[i] = merge(ner_entity[i], sents_entity[i])
+
+    finish_merge = time.time()
+
+    print('Open NER server in: ', finish_open_ner - start_time)
+    print('Finish use NER to label in:', finish_using_ner - finish_open_ner)
+    print('Finish use regex to label in:', finish_using_regex - finish_using_ner)
+    print('Finish merge in:', finish_merge - finish_using_regex)
 
     return sents_entity
 
