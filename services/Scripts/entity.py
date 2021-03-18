@@ -12,23 +12,34 @@ MODELS_PATH = path.join(
     'models'
 )
 
+### COMMON
+product_pt = '[á|a]o|qu[a|ầ]n|v[a|á]y|đầm|dam|t[ú|u]i|n[ó|o]n|m[u|ũ]|kho[a|á]c'
+df_amount_suf = pd.read_csv(path.join(MODELS_PATH, 'amount_suf.csv'), header = None)
+amount_suf = df_amount_suf[0].tolist()
+pt_amount_suf = '|'.join(amount_suf)
+###------------------------------------------
+
 ### COLOR_PRODUCT
 df_colors = pd.read_csv(path.join(MODELS_PATH, 'colors.csv'), header=None)
+df_colors_2 = pd.read_csv(path.join(MODELS_PATH, 'colors_2.csv'), header = None)
 colors = df_colors[0].tolist()
-pt_color = r'((?<=^)|(?<=\s))(' + '|'.join(colors) + r')((\s(đậm|dam|nhạt|nhat)*)|(?=\s|[^a-z]|$))'
+colors_2 = df_colors_2[0].tolist()
+
+pt_color_pref = r'(m[à|a]u|{}|{})'.format(product_pt, pt_amount_suf)
+pt_color_1 = r'\b('+ '|'.join(colors) + r')(\s(đậm|dam|nhạt|nhat))*\b'
+pt_color_2 = r'\b({})\s*('.format(pt_color_pref) + '|'.join(colors_2) + r')(\s(đậm|dam|nhạt|nhat))*\b'
+
+pt_color = r'{}|{}'.format(pt_color_1, pt_color_2)
 ###------------------------------------------
 
 ### COST_PRODUCT
 dong_pt = r'đồng|dong|đ|dog|VND|VNĐ'
 cost_pt = r'\d+\s*(k|tr((iệ|ie)u)*(\s{0:}|\s*\d*)*|ng[a|à]n(\s{0:}|\s*\d*)*|t[ỉiỷy](\s{0:}|\s*\d*)*|{0:})'.format(dong_pt)
-# cost_ques = r'b(ao\s)*n(hi[e|ê]*u)*'
 cost_pt_sum = '{}'.format(cost_pt)
 ###------------------------------------------
 
 ### AMOUNT_PRODUCT
-df_amount_suf = pd.read_csv(path.join(MODELS_PATH, 'amount_suf.csv'), header = None)
-amount_suf = df_amount_suf[0].tolist()
-product_pt = '[á|a]o|qu[a|ầ]n|v[a|á]y|đầm|dam|t[ú|u]i|n[ó|o]n|m[u|ũ]'
+
 amount_pt = r'(\d+-)*\d+\s*(' + '|'.join(amount_suf) + r')((\s({})*)|(?=[^a-z]|$))'.format(product_pt) 
 amount_pt_2 = r'(\d+-)*\d+\s*({})'.format(product_pt)
 amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
@@ -38,6 +49,15 @@ amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
 df_material = pd.read_csv(path.join(MODELS_PATH, 'material.csv'), header = None)
 material = df_material[0].tolist()
 pt_material = r'((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(material) + r')(\sc[u|ứ]ng|\sm[e|ề]m)*'
+###------------------------------------------
+
+### SIZE
+size_pref = r'size|sai|sz|c[a|á]i'
+size_main = r'\d*(x*s|m|x*l|a|nhỏ|lớn|nho|lon)'
+pt_size_1 = r'\b({}|{})\s{}\b'.format(size_pref, product_pt, size_main)
+pt_size_2 = r'\b({})\s\d+\b'.format(size_pref)
+pt_size_3 = r'\b(\d*(x*s|x*l))\b'
+pt_size = r'{}|{}|{}'.format(pt_size_1, pt_size_2, pt_size_3)
 ###------------------------------------------
 
 ### list of pattern
@@ -59,8 +79,8 @@ pattern_list = {
     'height customer':[
         r'((\dm|m)\d+|\d+cm)'
     ],
-    'size':[
-        r'(size|sai|sz)\s(\d*[smlx]*[SMLX]*)'
+    'size_product':[
+        pt_size
     ],
     'color_product':[
         pt_color
