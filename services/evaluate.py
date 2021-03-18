@@ -128,7 +128,7 @@ def get_sequence(document, labels_map):
         sequence['start_offset'] = annotation['start_offset']
         sequence['end_offset'] = annotation['end_offset']
         sequence['label'] = annotation['label']
-        if have_intent and sequence['end_offset'] <= intent_boundary:
+        if have_intent and sequence['start_offset'] <= intent_boundary:
             intents.append(sequence['label'])
         else:
             list_sequence.append(sequence)
@@ -147,7 +147,7 @@ def get_sequence_truth_doc(document):
         sequence['start_offset'] = label[0]
         sequence['end_offset'] = label[1]
         sequence['label'] = label[2]
-        if have_intent and sequence['end_offset'] <= intent_boundary:
+        if have_intent and sequence['start_offset'] <= intent_boundary:
             intents.append(sequence['label'])
         else:
             list_sequence.append(sequence)

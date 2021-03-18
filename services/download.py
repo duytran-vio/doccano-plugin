@@ -41,7 +41,7 @@ def to_label_table(documents, labels_map):
             start = annotation['start_offset']
             end = annotation['end_offset']
             sequence = doc['text'][start:end]
-            if sequence[0] == '@' and end <= intent_boundary: 
+            if sequence[0] == '@' and start <= intent_boundary: 
                 sequence = doc['text'][intent_boundary:]
             sequence_label_id = annotation['label']
             label = labels_map[sequence_label_id]
