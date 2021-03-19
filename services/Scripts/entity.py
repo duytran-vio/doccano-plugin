@@ -79,7 +79,7 @@ pattern_list = {
     'height customer':[
         r'((\dm|m)\d+|\d+cm)'
     ],
-    'size_product':[
+    'size':[
         pt_size
     ],
     'color_product':[
@@ -97,10 +97,21 @@ pattern_list = {
 }
 
 def label_entity(sentences):
+    '''
+    Argument: 
+        sentences: one string need to label
+
+    return:
+        sents_entity: list [start_offset, end_offset, label_name]
+    '''
+
     sents_entity = [[] for i in range(len(sentences))]
     ner_entity = [[] for i in range(len(sentences))]
 
     ## Use ner to get Id member entity
+    '''
+    Uncomment below to get Id member entity
+    '''
     # with VnCoreNLP(address='http://127.0.0.1', port=9000) as vncorenlp:
     #     for i in range(len(sentences)):
     #         sent = sentences[i]
@@ -110,7 +121,9 @@ def label_entity(sentences):
     #         # print(list_Id_member_sq)
     #         ner_entity[i] = list_Id_member_sq
 
-    ## Use regex
+    '''
+    Using regex
+    '''
     for entity in list_entity_using_regex:
         for i in range(len(sentences)):
             sent = sentences[i].lower()
@@ -121,6 +134,9 @@ def label_entity(sentences):
                 sents_entity[i].extend(list_entity_sq)
 
     ## Merge Id member to sents_entity
+    '''
+    Uncomment below to get Id member entity
+    '''
     # for i in range(len(sentences)):
     #     sents_entity[i] = merge(ner_entity[i], sents_entity[i])
 
