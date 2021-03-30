@@ -70,17 +70,16 @@ def classifier(data_file_path):
     tfidfconverter = make_tfidf_model(corpus=None, pretrained_path=path.join(MODELS_PATH,'tfidf.pickle'))
     sent_tfidf = tfidfconverter.transform(sentences).toarray()
 
-    # start_time = time.time()
-    # with concurrent.futures.ProcessPoolExecutor() as executor:
-    #     results = [executor.submit(worker, intent,svm_models, sent_tfidf) for intent in list_intents]
-
     start_time = time.time()
-    # results = [i.result() for i in results]
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        results = [executor.submit(worker, intent,svm_models, sent_tfidf) for intent in list_intents]
+
+    results = [i.result() for i in results]
 
     for i in range(len(sentences)):
         sentence = sentences[i]
-        # list_intent_label = [results[j][-1] for j in range(len(list_intents)) if float(results[j][i])==1]
-        list_intent_label = get_intent(list_intents, tfidfconverter, svm_models, sentence)
+        list_intent_label = [results[j][-1] for j in range(len(list_intents)) if float(results[j][i])==1]
+        # list_intent_label = get_intent(list_intents, tfidfconverter, svm_models, sentence)
         n_intents = 0
         ls_intents = []
         for label in list_intent_label:
