@@ -7,7 +7,7 @@ BASEDIR = path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__fil
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
 vncorenlp_file = path.join(BASEDIR,path.join('VnCoreNLP','VnCoreNLP-1.1.1.jar'))
 
-MODELS_PATH = path.join(
+	MODELS_PATH = path.join(
     path.dirname(path.dirname(path.abspath(__file__))),
     'models'
 )
@@ -31,10 +31,9 @@ pt_color_2 = r'\b({})\s*('.format(pt_color_pref) + '|'.join(colors_2) + r')(\s(�
 
 pt_color = r'{}|{}'.format(pt_color_1, pt_color_2)
 ###------------------------------------------
-
 ### COST_PRODUCT
 dong_pt = r'đồng|dong|đ|dog|VND|VNĐ'
-cost_pt = r'\d+\s*(k|tr((iệ|ie)u)*(\s{0:}|\s*\d*)*|ng[a|à]n(\s{0:}|\s*\d*)*|t[ỉiỷy](\s{0:}|\s*\d*)*|{0:})'.format(dong_pt)
+cost_pt = r'\b\d+\s*(k(\s{0:}|\d*)*|tr((iệ|ie)u)*(\s{0:}|\d*)*|ng[a|à]n(\s{0:}|\d*)*|t[ỉiỷy](\s{0:}|\d*)*|{0:})\b'.format(dong_pt)
 cost_pt_sum = '{}'.format(cost_pt)
 ###------------------------------------------
 
@@ -48,7 +47,7 @@ amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
 ### MATERIAL_PRODUCT
 df_material = pd.read_csv(path.join(MODELS_PATH, 'material.csv'), header = None)
 material = df_material[0].tolist()
-pt_material = r'((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(material) + r')(\sc[u|ứ]ng|\sm[e|ề]m)*'
+pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(material) + r')(\sc[u|ứ]ng|\sm[e|ề]m)*\b'
 ###------------------------------------------
 
 ### SIZE
@@ -95,6 +94,7 @@ pattern_list = {
         pt_material
     ]
 }
+
 
 def label_entity(sentences):
     '''
