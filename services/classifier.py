@@ -87,14 +87,18 @@ def classifier(data_file_path):
             n_intents = n_intents + 1
         df_data['labels'][i] = ls_intents
         if i % 100 == 0: print(i)
-    print('Get all intents in ', time.time()-start_time, 's.')
+
+    end_time_intent = time.time()
+    print('Get all intents in ', end_time_intent-start_time, 's.')
 
 
     ### label entity
     sents_entity = label_entity(df_data['text'].tolist())
     for i in range(len(df_data)):
         df_data['labels'][i].extend(sents_entity[i])
-    
+
+    end_time_entity = time.time()
+    print('Get all entities in ', end_time_entity - end_time_intent, 's.')    
 
     return df_data
 

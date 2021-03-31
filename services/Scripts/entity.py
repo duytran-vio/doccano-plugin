@@ -7,7 +7,7 @@ BASEDIR = path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__fil
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
 vncorenlp_file = path.join(BASEDIR,path.join('VnCoreNLP','VnCoreNLP-1.1.1.jar'))
 
-	MODELS_PATH = path.join(
+MODELS_PATH = path.join(
     path.dirname(path.dirname(path.abspath(__file__))),
     'models'
 )
