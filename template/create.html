@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Test Project</title>
+    <title>Create Sample Test Project</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
-
 <body>
     <nav>
         <a href="/">Sample</a>
@@ -18,30 +16,30 @@
         <a href="/add">Add</a>
     </nav>
     <div id="main-form">
-        <h1>Download Test Project</h1>
-        <form>
+        <h1>Create SequenceLabeling Project</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
             <div>
-                <label for="projectId">
+                <label for="projectName">
                     <span>
-                        Project ID:
+                        Project Name:
                     </span>
-                    <input type="text" name="projectId" id="projectId">
+                    <input type="text" name="projectName" id="projectName">
                 </label>
             </div>
             <div>
-                <label for="start">
-                    <span>    
-                        Start:
+                <label for="projectDes">
+                    <span>
+                        Descripition:
                     </span>
-                    <input type="number" name="start" id="start">
+                    <input type="text" name="projectDes" id="projectDes">
                 </label>
             </div>
             <div>
-                <label for="end">
+                <label for="file">
                     <span>
-                        End:
+                        Dataset:
                     </span>
-                    <input type="number" name="end" id="end">
+                    <input type="file" id="file" name="file">
                 </label>
             </div>
             <div>
@@ -52,7 +50,6 @@
             Status: <span id="notify">Idle</span>
         </div>
     </div>
-    <script src="/static/download.js"></script>
+    <!-- <script src="/static/create.js"></script> -->
 </body>
-
 </html>

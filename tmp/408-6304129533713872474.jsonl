@@ -1,0 +1,103 @@
+{"id": 630450, "text": "@@@@@  Khách 222: Shop oi", "labels": [[4, 7, "Hello"]]}
+{"id": 630451, "text": "@@@@@  Khách 222: E cam on", "labels": [[4, 7, "Other"]]}
+{"id": 630454, "text": "@@@@@  Khách 222: Shop oi", "labels": [[4, 7, "Hello"]]}
+{"id": 630473, "text": "@@@@@  Shop: Cảm ơn Nhan Le đã inbox. Bạn cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"]]}
+{"id": 630475, "text": "@@@@@  **** Conversation: Khách 224", "labels": []}
+{"id": 630476, "text": "@@@@@  Shop: e cảm ơn c nha", "labels": [[4, 7, "Shop_Done"]]}
+{"id": 630501, "text": "@@@@@  Khách 225: E 1m53 nặng 46kg ạ", "labels": [[20, 24, "height customer"], [30, 34, "weight customer"], [4, 7, "Inform"]]}
+{"id": 630506, "text": "@@@@@  Khách 225: Shop ơi. Còn khong vay shop", "labels": [[4, 7, "Request"], [3, 4, "amount_product"]]}
+{"id": 630514, "text": "@@@@@  Khách 226: Hang oi ben mk có ai xả đầm này size s để mk nha", "labels": [[50, 56, "size"], [3, 4, "ID_product"], [4, 7, "Order"]]}
+{"id": 630519, "text": "@@@@@  Khách 226: Size s nha c", "labels": [[18, 24, "size"], [4, 7, "Inform"]]}
+{"id": 630575, "text": "@@@@@  Shop: pên e gui pưu điện nên shipper k ghé lấy dc c ơi", "labels": [[4, 7, "Shop_other"]]}
+{"id": 630579, "text": "@@@@@  Khách 226: Dam nay ne c, k lai nham", "labels": [[4, 7, "Inform"], [3, 4, "ID_product"]]}
+{"id": 630586, "text": "@@@@@  Khách 226: Ok c", "labels": [[4, 7, "Other"]]}
+{"id": 630589, "text": "@@@@@  Khách 226: ????", "labels": [[4, 7, "Other"]]}
+{"id": 630611, "text": "@@@@@  Shop: Cảm ơn chị Hoàng Oanh đã inbox. Chị cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [24, 34, "Id member"]]}
+{"id": 630624, "text": "@@@@@  Khách 226: Hom qua goi chot don di roi do c, ma e nho nhan vien bao co 1 cai ao, nen e noi lai cho ben c tim cho e, 2 cai ao 1 cai quan size m, gui lun k lai giong lan truoc, gui nhầm hang, roi gui thiếu nua", "labels": [[143, 149, "size"], [4, 7, "feedback"], [123, 125, "amount_product"], [132, 134, "amount_product"], [78, 80, "amount_product"]]}
+{"id": 630649, "text": "@@@@@  Shop: DẠ CHỊ CÓ ĐƠN THÌ CHỜ MÁY NV GỌI XÁC NHẬN RỒI BÁO ĐCHI VÀ TỔNG BILL LUÔN GIÚP EM , EM CẢM ƠN AH <3", "labels": [[3, 4, "Shop_other"]]}
+{"id": 630650, "text": "@@@@@  Khách 226: Chi khoi goi chot don e nha, gui dc cũ, e co 2 món", "labels": [[63, 65, "amount_product"], [4, 7, "Inform"], [3, 4, "address"]]}
+{"id": 630659, "text": "@@@@@  Shop: Cảm ơn chị Hoàng Oanh đã inbox. Chị cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [24, 34, "Id member"]]}
+{"id": 630666, "text": "@@@@@  Shop: chua pjt c", "labels": [[4, 7, "Shop_other"]]}
+{"id": 630676, "text": "@@@@@  Shop: Cảm ơn chị Hoàng Oanh đã inbox. Chị cần hỗ trợ gì ạ?", "labels": [[3, 4, "Shop_Hello"], [24, 34, "Id member"]]}
+{"id": 630679, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 630688, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 630693, "text": "@@@@@  Shop: DẠ CHÀO CHỊ, CHỊ ĐÃ CÓ ĐƠN TRÊN LIVE CHƯA Ạ? NẾU CHƯA VUI LÒNG CHO EM XIN SĐT + KÈM THÔNG TIN  ĐẦY ĐỦ. BÊN SHOP CHECK KHO NẾU CÒN NHÂN VIÊN SẼ GỌI MÌNH XÁC NHẬN Ạ. CẢM ƠN!", "labels": [[4, 7, "Shop_other"]]}
+{"id": 630694, "text": "@@@@@  Khách 229: Còn k shop", "labels": [[4, 7, "Request"], [3, 4, "amount_product"]]}
+{"id": 630704, "text": "@@@@@  Khách 229: Tại e hay mặc đen ấy", "labels": [[32, 36, "color_product"], [4, 7, "Inform"]]}
+{"id": 630707, "text": "@@@@@  Khách 229: Dễ mặc hơn", "labels": [[4, 7, "Other"]]}
+{"id": 630715, "text": "@@@@@  Shop: dạ c lấy thì kèm e sđt địa chỉ e chốt cho c nha", "labels": [[4, 7, "Shop_request"], [3, 4, "address"], [2, 3, "phone"]]}
+{"id": 630717, "text": "@@@@@  Khách 229: Nt 2 ngày nay k thấy tl nới", "labels": [[4, 7, "Connect"]]}
+{"id": 630736, "text": "@@@@@  Khách 229: Con ko ạ", "labels": [[4, 7, "amount_product"], [3, 4, "Request"]]}
+{"id": 630755, "text": "@@@@@  Khách 229: Còn set nay k b", "labels": [[4, 7, "amount_product"], [3, 4, "Request"]]}
+{"id": 630758, "text": "@@@@@  Khách 229: Chốt cho mình 1 bộ", "labels": [[32, 34, "amount_product"], [4, 7, "Order"]]}
+{"id": 630764, "text": "@@@@@  Khách 229: Tiểu học phú an 2 thua thien huế", "labels": [[18, 50, "address"], [4, 7, "Inform"]]}
+{"id": 630777, "text": "@@@@@  Shop: Cảm ơn chị Quân Huda đã inbox. Chị cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [24, 33, "Id member"]]}
+{"id": 630795, "text": "@@@@@  Shop: dạ c lấy thì kèm e sđt địa chỉ và size e chốt cho c nha", "labels": [[1, 2, "size"], [4, 7, "Shop_request"], [3, 4, "address"], [2, 3, "phone"]]}
+{"id": 630797, "text": "@@@@@  Shop: DẠ CHÀO CHỊ, CHỊ ĐÃ CÓ ĐƠN TRÊN LIVE CHƯA Ạ? NẾU CHƯA VUI LÒNG CHO EM XIN SĐT + KÈM THÔNG TIN  ĐẦY ĐỦ. BÊN SHOP CHECK KHO NẾU CÒN NHÂN VIÊN SẼ GỌI MÌNH XÁC NHẬN Ạ. CẢM ƠN!", "labels": [[3, 4, "Shop_other"]]}
+{"id": 630802, "text": "@@@@@  Shop: DẠ CHÀO CHỊ, CHỊ ĐÃ CÓ ĐƠN TRÊN LIVE CHƯA Ạ? NẾU CHƯA VUI LÒNG CHO EM XIN SĐT + KÈM THÔNG TIN  ĐẦY ĐỦ. BÊN SHOP CHECK KHO NẾU CÒN NHÂN VIÊN SẼ GỌI MÌNH XÁC NHẬN Ạ. CẢM ƠN!", "labels": [[3, 4, "Shop_other"]]}
+{"id": 630807, "text": "@@@@@  Khách 231: Cho e hỏi mẫu trên còn k shop", "labels": [[4, 7, "Request"], [3, 4, "amount_product"]]}
+{"id": 630818, "text": "@@@@@  Shop: Cảm ơn Nguyễn Trang đã inbox. Bạn cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [20, 32, "Id member"]]}
+{"id": 630837, "text": "@@@@@  Khách 233: Đam con k shop", "labels": [[4, 7, "Request"], [3, 4, "amount_product"]]}
+{"id": 630838, "text": "@@@@@  Khách 233: K lúc nào chi đặt trên live được mặc dù là c comment rất nhieu", "labels": [[4, 7, "feedback"]]}
+{"id": 630841, "text": "@@@@@  Shop: có cv thôi c", "labels": [[4, 7, "Shop_other"]]}
+{"id": 630844, "text": "@@@@@  Shop: DẠ CHÀO CHỊ, CHỊ ĐÃ CÓ ĐƠN TRÊN LIVE CHƯA Ạ? NẾU CHƯA VUI LÒNG CHO EM XIN SĐT + KÈM THÔNG TIN  ĐẦY ĐỦ. BÊN SHOP CHECK KHO NẾU CÒN NHÂN VIÊN SẼ GỌI MÌNH XÁC NHẬN Ạ. CẢM ƠN!", "labels": [[3, 4, "Shop_other"]]}
+{"id": 630859, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 630868, "text": "@@@@@  Shop: e nhầm áo 120k 30k ship nha c", "labels": [[23, 28, "cost_product"], [28, 36, "shiping fee"], [4, 7, "Shop_inform"]]}
+{"id": 630887, "text": "@@@@@  ,", "labels": [[4, 7, "Other"]]}
+{"id": 630890, "text": "@@@@@  Khách 234: Ib giá áo giúp mình", "labels": [[4, 7, "Request"], [3, 4, "cost_product"]]}
+{"id": 630891, "text": "@@@@@  **** Conversation: Khách 235", "labels": []}
+{"id": 630899, "text": "@@@@@  Khách 236: Tks shop", "labels": [[4, 7, "Done"]]}
+{"id": 630904, "text": "@@@@@  Khách 236: Giờ mua thêm cho bạn Sz M", "labels": [[39, 43, "size"], [4, 7, "Order"]]}
+{"id": 630907, "text": "@@@@@  Shop: DẠ CHÀO CHỊ, CHỊ ĐÃ CÓ ĐƠN TRÊN LIVE CHƯA Ạ? NẾU CHƯA VUI LÒNG CHO EM XIN SĐT + KÈM THÔNG TIN  ĐẦY ĐỦ. BÊN SHOP CHECK KHO NẾU CÒN NHÂN VIÊN SẼ GỌI MÌNH XÁC NHẬN Ạ. CẢM ƠN!", "labels": [[3, 4, "Shop_other"]]}
+{"id": 630918, "text": "@@@@@  Shop: Cảm ơn chị Manh Tam đã inbox. Chị cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [24, 32, "Id member"]]}
+{"id": 630928, "text": "@@@@@  Khách 236: Có rồi", "labels": [[4, 7, "Other"]]}
+{"id": 630952, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 630967, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 630971, "text": "@@@@@  Khách 237: Do cũng khá nhiều đơn mà chị ko sẵn tm", "labels": [[4, 7, "Other"]]}
+{"id": 630981, "text": "@@@@@  Shop: e cảm ơn c nha", "labels": [[4, 7, "Shop_other"]]}
+{"id": 630982, "text": "@@@@@  Shop: 160k 20k ship nnha c", "labels": [[13, 18, "cost_product"], [18, 26, "shiping fee"], [4, 7, "Shop_inform"]]}
+{"id": 631001, "text": "@@@@@  Khách 237: Vậy thôi", "labels": [[4, 7, "Done"]]}
+{"id": 631025, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 631027, "text": "@@@@@  Shop: Cảm ơn chị Dinh Lang Phuong đã inbox. Chị cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [24, 40, "Id member"]]}
+{"id": 631072, "text": "@@@@@  Khách 237: Hôm qua chị ko xem đc live trưa", "labels": [[4, 7, "Other"]]}
+{"id": 631088, "text": "@@@@@  Khách 237: Ok shop, mình vừa gửi lại hàng tại shop", "labels": [[4, 7, "Return"]]}
+{"id": 631101, "text": "@@@@@  Shop: Cảm ơn chị Dinh Lang Phuong đã inbox. Chị cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [24, 40, "Id member"]]}
+{"id": 631120, "text": "@@@@@  Khách 238: e lấy hết luôn", "labels": [[4, 7, "Request"], [3, 4, "amount_product"]]}
+{"id": 631124, "text": "@@@@@  Khách 238: xem giúp e các mẫu này nha", "labels": [[4, 7, "Other"]]}
+{"id": 631126, "text": "@@@@@  Khách 238: okay", "labels": [[4, 7, "Other"]]}
+{"id": 631134, "text": "@@@@@  Shop: c có thể chọn trên live nha", "labels": [[3, 4, "Shop_other"]]}
+{"id": 631149, "text": "@@@@@  Shop: Cảm ơn Ngoc Tran đã inbox. Bạn cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [20, 29, "Id member"]]}
+{"id": 631168, "text": "@@@@@  Shop: Cảm ơn Thu Trieu đã inbox. Bạn cần hỗ trợ gì ạ?", "labels": [[4, 7, "Shop_Hello"], [20, 29, "Id member"]]}
+{"id": 631171, "text": "@@@@@  Shop: dạ e đi đơn r nè c", "labels": [[4, 7, "Shop_other"]]}
+{"id": 631176, "text": "@@@@@  Shop: dạ k c", "labels": [[4, 7, "Shop_other"]]}
+{"id": 631178, "text": "@@@@@  Khách 240: Ok", "labels": [[4, 7, "Other"]]}
+{"id": 631186, "text": "@@@@@  Khách 240: Vậy còn xanh kh e", "labels": [[26, 31, "color_product"], [4, 7, "amount_product"], [3, 4, "Request"]]}
+{"id": 631198, "text": "@@@@@  Khách 240: Địa chỉ cũ đó e", "labels": [[4, 7, "Inform"], [3, 4, "address"]]}
+{"id": 631202, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 631223, "text": "@@@@@  Shop: dạ e cảm ơn c nha", "labels": [[3, 4, "Shop_Done"]]}
+{"id": 631228, "text": "@@@@@  Khách 240: Bn vậy", "labels": [[4, 7, "Request"], [3, 4, "cost_product"]]}
+{"id": 631241, "text": "@@@@@  **** Conversation: Khách 242", "labels": []}
+{"id": 631243, "text": "@@@@@  46/2 nơ trang guh, tân tiến, bmt. gửi cho e đầm hồng nhed", "labels": [[7, 34, "address"], [4, 7, "Order"], [55, 59, "color_product"]]}
+{"id": 631252, "text": "@@@@@  Khách 242: dạ. nếu hôm sau về mẫu này gửi e vs nhé, do tối bận, e ko có tg xem live", "labels": [[4, 7, "Other"]]}
+{"id": 631255, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 631265, "text": "@@@@@  Shop: còn mẫu đầu thôi c", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 631285, "text": "@@@@@  Shop: dạ c lấy thì kèm e sđt địa chỉ e chốt cho c nha", "labels": [[4, 7, "Shop_request"], [3, 4, "address"], [2, 3, "phone"]]}
+{"id": 631301, "text": "@@@@@  Khách 244: 4 mẫu này còn ko ạ", "labels": [[18, 20, "amount_product"], [4, 7, "Request"]]}
+{"id": 631318, "text": "@@@@@  Khách 247: Ok e", "labels": [[4, 7, "Other"]]}
+{"id": 631326, "text": "@@@@@  Khách 247: Nên e cho Chị đoi luôn nhé cũng lâu rồi", "labels": [[3, 4, "Changing"]]}
+{"id": 631329, "text": "@@@@@  Shop: Chị cho em hỏi mình có đặt trên live chưa ạ?", "labels": [[4, 7, "Shop_other"]]}
+{"id": 631339, "text": "@@@@@  Khách 247: Sg e", "labels": [[18, 21, "address"], [3, 4, "Inform"]]}
+{"id": 631342, "text": "@@@@@  Shop: DẠ MẪU LỖI NẾU KHÔNG KHẮC PHỤC ĐƯỢC PHIỀN CHỊ GỬI VỀ BÊN EM THEO ĐỊA CHỈ 668/4/3 LÊ ĐỨC THỌ, PHƯỜNG 15, QUẬN GÒ VẤP, TP.HCM - NGƯỜI NHẬN: SHOP HANG OI 'HOUSE. VÌ VỀ THEO SLL NÊN BÊN EM KHÔNG KIỂM SOÁT HẾT ĐC MONG CHỊ THÔNG CẢM Ạ. EM CẢM ƠN!", "labels": [[4, 7, "Shop_other"]]}
+{"id": 631360, "text": "@@@@@  Shop: 160k 160k 20k ship nha c", "labels": [[13, 18, "cost_product"], [18, 23, "cost_product"], [23, 31, "shiping fee"], [4, 7, "Shop_inform"]]}
+{"id": 631363, "text": "@@@@@  Khách 247: 248/10 phan anh,p hiê tân ,q tân phú xxxxx Trinh", "labels": [[18, 54, "address"], [4, 7, "Inform"], [61, 66, "Id member"]]}
+{"id": 631364, "text": "@@@@@  Shop: dạ c lấy thì kèm e sđt địa chỉ e chốt cho c nha", "labels": [[4, 7, "Shop_request"], [3, 4, "address"], [2, 3, "phone"]]}
+{"id": 631365, "text": "@@@@@  Khách 247: Mẩu này còn kh e", "labels": [[4, 7, "amount_product"], [3, 4, "Request"]]}
+{"id": 631376, "text": "@@@@@  Khách 247: Còn mấy mẫu mình gởi kh shop?", "labels": [[4, 7, "Request"], [3, 4, "amount_product"], [2, 3, "ID_product"]]}
+{"id": 631381, "text": "@@@@@  Khách 247: Mẩu đỏ này nè e", "labels": [[22, 25, "color_product"], [4, 7, "Request"]]}
+{"id": 631396, "text": "@@@@@  Shop: dạ c lấy thì kèm e sđt địa chỉ e chốt cho c nha", "labels": [[4, 7, "Shop_request"], [3, 4, "address"], [2, 3, "phone"]]}
+{"id": 631406, "text": "@@@@@  Shop: c kèm ảnh giúp e với ạ", "labels": [[4, 7, "Shop_request"], [3, 4, "ID_product"]]}
+{"id": 631407, "text": "@@@@@  Khách 247: Chốt cho Chị đầm xanh 179 hồi chiều nhé", "labels": [[35, 40, "color_product"], [40, 44, "cost_product"], [4, 7, "Inform"]]}
+{"id": 631440, "text": "@@@@@  Shop: Dạ mẫu bên em hết ạ, chị theo dõi live thường xuyên để cập nhật nhiều mẫu siêu phẩm hot bên em nhé. Em cảm ơn!", "labels": [[4, 7, "Shop_inform"], [3, 4, "amount_product"]]}
+{"id": 631445, "text": "@@@@@  Khách 251: Con ko ạ", "labels": [[4, 7, "Other"]]}
+{"id": 631462, "text": "@@@@@  Khách 253: Nãy có bạn mới gọi chốt 1 đơn thôi ạ", "labels": [[4, 7, "Other"]]}
+{"id": 631466, "text": "@@@@@  Khách 253: Bạn ơi ktra giúp mình đơn này có gọi tên mà chưa gọi chốt ạ", "labels": [[4, 7, "Other"]]}

@@ -15,19 +15,41 @@ def handle_request(request, client: DoccanoClient):
     doccano_client = client
     project_id, start, end = extract_request(request)
     truth_documents = get_all_documents(doccano_client, project_id)
-    truth_documents = truth_documents[start: end]
+    truth_documents = truth_documents[start:end]
     labels_map = build_label_map(doccano_client, project_id)
     sequence_label_table = to_label_table(truth_documents, labels_map)
 
-    # for doc in sequence_label_table:
+    #count labeled doc
+    n_is_label = 0
+    for doc in truth_documents:
+        if len(doc['annotations']) != 0:
+            n_is_label = n_is_label + 1
+    
+    #count number of sequence per label
+    summary = get_summary(sequence_label_table, labels_map)
+
+    #append number of labeled doc to summary
+    summary = summary.append({'label':'Labeled docs', 'count': n_is_label}, ignore_index = True)
+
+    summary_file_name = f'{project_id}-{start}-{end}_summary.xlsx'
+    summary_path = os.path.join(download_dir, summary_file_name)
+    summary.to_excel(summary_path, index=False, engine='xlsxwriter')
+    return summary_file_name
+
+def get_summary(sequence_label_table, labels_map):
+    cnt = {}
+    for i in labels_map:
+        cnt[labels_map[i]] = 0
+
     for k in range(len(sequence_label_table)):
         for i in labels_map:
-            sequence_label_table[k][labels_map[i]] = '|/|'.join(sequence_label_table[k][labels_map[i]])
+            label = labels_map[i]
+            # if label in sequence_label_table[k].keys():
+            cnt[label] = cnt[label] + len(sequence_label_table[k][label])
 
-    file_name = f'{project_id}.xlsx'
-    file_path = os.path.join(download_dir, file_name)
-    pd.DataFrame(sequence_label_table).to_excel(file_path, index=False, engine='xlsxwriter')
-    return file_name
+    summary = pd.DataFrame([labels_map[i] for i in labels_map], columns = ['label'])
+    summary['count'] = [cnt[labels_map[i]] for i in labels_map]
+    return summary
 
 def to_label_table(documents, labels_map):
     new_documents = []
