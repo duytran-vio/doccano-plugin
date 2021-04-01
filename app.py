@@ -56,7 +56,7 @@ def create_sample_test_project():
         print(f'Project ID: {new_project_id}')
         return jsonify({
             'status': 'OK',
-            'link': f'http://103.113.81.36/projects/{new_project_id}',
+            'link': f'http://103.113.81.36:8000/projects/{new_project_id}',
         }), 200
     except Exception as e:
         logging.exception(e)
@@ -110,7 +110,7 @@ def create_create_project():
         print(f'Project ID: {new_project_id}')
         return jsonify({
             'status': 'OK',
-            'link': f'http://103.113.81.36/projects/{new_project_id}',
+            'link': f'http://103.113.81.36:8000/projects/{new_project_id}',
         }), 200
     except Exception as e:
         logging.exception(e)
@@ -125,7 +125,7 @@ def create_add_project():
         print(f'Project ID: {project_id}')
         return jsonify({
             'status': 'OK',
-            'link': f'http://103.113.81.36/projects/{project_id}',
+            'link': f'http://103.113.81.36:8000/projects/{project_id}',
         }), 200
     except Exception as e:
         logging.exception(e)
