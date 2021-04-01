@@ -86,7 +86,7 @@ def classifier(data_file_path):
             ls_intents.append([n_intents, n_intents + 1, label])
             n_intents = n_intents + 1
         df_data['labels'][i] = ls_intents
-        if i % 100 == 0: print(i)
+        # if i % 100 == 0: print(i)
 
     end_time_intent = time.time()
     print('Get all intents in ', end_time_intent-start_time, 's.')
