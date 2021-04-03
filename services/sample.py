@@ -2,8 +2,9 @@ import json
 import random
 import jsonlines
 import pandas as pd
+import re
 
-from .common import build_label_map, map_labels, to_input_sequence, replace_double_quotes
+from .common import build_label_map, map_labels, to_input_sequence, replace_double_quotes, get_all_documents
 
 doccano_client = None
 
@@ -69,15 +70,19 @@ def extract_request(request):
 
 
 def sample_documents(project_id, start, end, sample_size, labels_map):
-    indexes = sorted(random.sample(range(start, end), sample_size))
+    orig_docs = get_all_documents(doccano_client,project_id)[start:end]
+    cus_docs = []
+    for doc in orig_docs:
+        sent = doc['text']
+        sent = re.sub('@+','', sent)
+        sent = re.sub('^\s+','', sent)
+        if re.search('^khách', sent.lower()) is not None:
+            cus_docs.append(doc)
+    print(min(sample_size, len(cus_docs)))
+    indexes = sorted(random.sample(range(0, len(cus_docs)), min(sample_size, len(cus_docs))))
     documents = []
     for index in indexes:
-        response = doccano_client.get_document_list(project_id, url_parameters={
-            'offset': [index],
-            'limit': [1],
-        })
-        response['results'][0]['meta'] = json.loads(response['results'][0]['meta'])
-        documents.extend(response['results'])
+        documents.append(cus_docs[index])
     # labels_map = build_label_map(doccano_client, project_id)
     documents = to_input_sequence(documents, labels_map)
     return indexes, documents
