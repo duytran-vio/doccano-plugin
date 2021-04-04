@@ -1,4 +1,4 @@
-import os
+from os import path
 import json
 import jsonlines
 import numpy as np
@@ -12,8 +12,12 @@ doccano_client = None
 labels = list(map(lambda x: x['text'], json.load(
     open('./category.labels.json', encoding='utf-8'))))
 
-download_dir = 'download'
 intent_boundary = 6 # max_intent + 1
+
+ROOT = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
+DATA_PATH = path.join(ROOT, 'doccano_project_data')
+DATA_SAMPLE_PATH = path.join(DATA_PATH, 'sample')
+DATA_DOWNLOAD_PATH = path.join(DATA_PATH, 'download')
 
 def handle_request(request, client):
     global doccano_client
@@ -23,7 +27,7 @@ def handle_request(request, client):
     sample_file_name = doccano_client.get_project_detail(project_id)["description"]
     initial_project_id = int(sample_file_name[:sample_file_name.find('-')])
 
-    json_list = list(open(f'tmp/{sample_file_name}', 'r', encoding='utf-8'))
+    json_list = list(open(f'{DATA_SAMPLE_PATH}/{sample_file_name}', 'r', encoding='utf-8'))
     truth_documents = []
     for json_str in json_list:
         result = json.loads(json_str)
@@ -58,7 +62,7 @@ def handle_request(request, client):
             }
             summary.append(entity_summary)
     file_name = f'Tesing_{initial_project_id}_Sample_{project_id}.xlsx'
-    file_path = os.path.join(download_dir, file_name)
+    file_path = path.join(DATA_DOWNLOAD_PATH, file_name)
     pd.DataFrame(summary).to_excel(file_path, index=False, engine='xlsxwriter')
 
     return file_name

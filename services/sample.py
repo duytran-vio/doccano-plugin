@@ -1,3 +1,4 @@
+from os import path
 import json
 import random
 import jsonlines
@@ -7,6 +8,9 @@ import re
 from .common import build_label_map, map_labels, to_input_sequence, replace_double_quotes, get_all_documents
 
 doccano_client = None
+ROOT = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
+DATA_PATH = path.join(ROOT, 'doccano_project_data')
+DATA_SAMPLE_PATH = path.join(DATA_PATH, 'sample')
 
 
 def handle_request(request, client):
@@ -16,7 +20,7 @@ def handle_request(request, client):
     labels_map = build_label_map(doccano_client, project_id)
     indexes, documents = sample_documents(project_id, start, end, sample_size, labels_map)
     file_name = f'{project_id}-{abs(hash(" ".join(map(str, indexes))))}.jsonl'
-    file_path = f'tmp/{file_name}'
+    file_path = f'{DATA_SAMPLE_PATH}/{file_name}'
 
     response = doccano_client.create_project(
         name=f'{new_project_name}-{start}-{end}',
@@ -33,7 +37,7 @@ def handle_request(request, client):
         writer.write_all(documents)
 
     try:
-        doccano_client.post_doc_upload(new_project_id, 'json', file_name, 'tmp')
+        doccano_client.post_doc_upload(new_project_id, 'json', file_name, DATA_SAMPLE_PATH)
     except json.JSONDecodeError:
         pass
 
@@ -111,3 +115,6 @@ def assign_user(project_id, username):
     for user in users:
         if user['username'] == username:
             doccano_client.post(f'v1/projects/{project_id}/roles', data={'role': 1, 'user': user['id']})
+
+if __name__ == "__main__":
+    print(DATA_PATH)
