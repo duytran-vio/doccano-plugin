@@ -8,6 +8,10 @@ from .classifier import classifier as labeling_docs
 
 doccano_client = None
 
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
+DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
+
 def handle_request(request, client):
     global doccano_client
     doccano_client = client
@@ -25,13 +29,13 @@ def handle_request(request, client):
     new_project_id = response['id']
     create_labels(new_project_id)
 
-    file_name = f'{new_project_id}_docs'
-    file_path = f'tmp/{file_name}'
+    file_name = f'{new_project_id}_1-{len(documents)}_docs'
+    file_path = f'{DATA_CREATE_PATH}/{file_name}'
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(documents)
 
     try:
-        doccano_client.post_doc_upload(new_project_id, 'json', file_name, 'tmp')
+        doccano_client.post_doc_upload(new_project_id, 'json', file_name, DATA_CREATE_PATH)
     except json.JSONDecodeError:
         pass
 
