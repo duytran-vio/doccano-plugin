@@ -88,7 +88,7 @@ def download_test_project():
         print('Download test project')
         refresh_client()
         file_name = handle_download_request(flask_request, Client.doccano_client)
-        file_path = os.path.join('download', file_name)
+        file_path = os.path.join(DATA_DOWNLOAD_PATH, file_name)
         return send_file(file_path, as_attachment=True)
     except Exception as e:
         logging.exception(e)
@@ -100,7 +100,7 @@ def download_summary_project():
         print('Download summary project')
         refresh_client()
         summary_name = handle_summary_request(flask_request, Client.doccano_client)
-        summary_path = os.path.join('download', summary_name)
+        summary_path = os.path.join(DATA_DOWNLOAD_PATH, summary_name)
         return send_file(summary_path, as_attachment=True)
     except Exception as e:
         logging.exception(e)

@@ -7,8 +7,11 @@ from .common import build_label_map, map_labels, get_all_documents
 
 
 doccano_client: DoccanoClient = None
-download_dir = 'download'
 intent_boundary = 6 # max_intent + 1
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
+DATA_SAMPLE_PATH = os.path.join(DATA_PATH, 'sample')
+DATA_DOWNLOAD_PATH = os.path.join(DATA_PATH, 'download')
 
 def handle_request(request, client: DoccanoClient):
     global doccano_client
@@ -32,7 +35,7 @@ def handle_request(request, client: DoccanoClient):
     summary = summary.append({'label':'Labeled docs', 'count': n_is_label}, ignore_index = True)
 
     summary_file_name = f'{project_id}-{start}-{end}_summary.xlsx'
-    summary_path = os.path.join(download_dir, summary_file_name)
+    summary_path = os.path.join(DATA_DOWNLOAD_PATH, summary_file_name)
     summary.to_excel(summary_path, index=False, engine='xlsxwriter')
     return summary_file_name
 

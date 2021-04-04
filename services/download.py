@@ -7,8 +7,12 @@ from .common import build_label_map, map_labels, get_all_documents
 
 
 doccano_client: DoccanoClient = None
-download_dir = 'download'
 intent_boundary = 6 # max_intent + 1
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
+DATA_SAMPLE_PATH = os.path.join(DATA_PATH, 'sample')
+DATA_DOWNLOAD_PATH = os.path.join(DATA_PATH, 'download')
 
 def handle_request(request, client: DoccanoClient):
     global doccano_client
@@ -25,7 +29,7 @@ def handle_request(request, client: DoccanoClient):
             sequence_label_table[k][labels_map[i]] = '|/|'.join(sequence_label_table[k][labels_map[i]])
 
     file_name = f'{project_id}.xlsx'
-    file_path = os.path.join(download_dir, file_name)
+    file_path = os.path.join(DATA_DOWNLOAD_PATH, file_name)
     pd.DataFrame(sequence_label_table).to_excel(file_path, index=False, engine='xlsxwriter')
     return file_name
 
