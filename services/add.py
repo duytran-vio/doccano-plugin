@@ -12,6 +12,7 @@ doccano_client = None
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
 DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
+DATA_UPLOAD_PATH = os.path.join(DATA_PATH, 'upload')
 
 def handle_request(request, client):
     global doccano_client
@@ -48,7 +49,7 @@ def extract_request(request):
     project_id = request.form['projectId']
     file = request.files['file']
     filename = secure_filename(file.filename)
-    path = os.path.join('upload', filename)
+    path = os.path.join(DATA_UPLOAD_PATH, filename)
     file.save(path)
     return project_id, path
 
