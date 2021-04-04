@@ -30,7 +30,7 @@ def handle_request(request, client):
     new_project_id = response['id']
     create_labels(new_project_id)
 
-    file_name = f'{new_project_id}_1-{len(documents)}_docs'
+    file_name = f'{new_project_id}_1-{len(documents)}_docs.jsonl'
     file_path = f'{DATA_CREATE_PATH}/{file_name}'
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(documents)

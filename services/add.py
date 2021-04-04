@@ -23,7 +23,7 @@ def handle_request(request, client):
     new_documents = df_documents.to_dict('records')
     current_total = doccano_client.get_project_statistics(project_id)['total']
 
-    file_name = f'{project_id}_{current_total + 1}-{current_total + len(new_documents)}_docs'
+    file_name = f'{project_id}_{current_total + 1}-{current_total + len(new_documents)}_docs.jsonl'
     file_path = f'{DATA_CREATE_PATH}/{file_name}'
     with jsonlines.open(file_path, mode='w') as writer:
         writer.write_all(new_documents)
