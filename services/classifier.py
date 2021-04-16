@@ -21,8 +21,9 @@ import time
 import concurrent.futures
 
 MODELS_PATH = path.join(BASE_DIR, 'models')
-list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return', 'Done']
+# list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return', 'Done']
 # list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order'] ### remove Return and Changing
+intent_list = ['Hello', 'Done', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return']
 
 ### resolve later:
 ### ### need rules-based method: 'size_product', 'amount_product', 'size customer', 'phone members', \
@@ -59,6 +60,17 @@ def worker(intent, svm_models, sent_tfidf):
     prediction = svm_models[intent].predict(sent_tfidf)
     return np.concatenate([prediction, np.array([intent])])
 
+def worker(sent_tfidf, svm_models):
+    return svm_models.predict(sent_tfidf)
+
+def load_svm_multiclass_models(input_path='/content/svm_models/'):
+    
+    filename = path.join(input_path,'hungne')
+    # model = joblib.load(filename+'.joblib')
+    model = pickle.load(open(filename, 'rb'))
+    
+    return model
+
 def classifier(data_file_path):
     print('Start classifying')
 
@@ -66,27 +78,34 @@ def classifier(data_file_path):
     df_data = df_data.rename(columns = {0 : 'text'})
     df_data['labels'] = np.empty((len(df_data), 0)).tolist()
 
-    svm_models = load_svm_models(list_intents, MODELS_PATH)
+    # svm_models = load_svm_models(list_intents, MODELS_PATH)
+    start_time = time.time()
+    svm_models = load_svm_multiclass_models(MODELS_PATH)
     tfidfconverter = make_tfidf_model(corpus=None, pretrained_path=path.join(MODELS_PATH,'tfidf.pickle'))
     sent_tfidf = tfidfconverter.transform(sentences).toarray()
 
-    start_time = time.time()
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        results = [executor.submit(worker, intent,svm_models, sent_tfidf) for intent in list_intents]
+    # with concurrent.futures.ProcessPoolExecutor() as executor:
+    #     results = [executor.submit(worker, intent,svm_models, sent_tfidf) for intent in list_intents]
 
-    results = [i.result() for i in results]
+    # results = [i.result() for i in results]
 
+    # for i in range(len(sentences)):
+    #     sentence = sentences[i]
+    #     list_intent_label = [results[j][-1] for j in range(len(list_intents)) if float(results[j][i])==1]
+    #     # list_intent_label = get_intent(list_intents, tfidfconverter, svm_models, sentence)
+    #     n_intents = 0
+    #     ls_intents = []
+    #     for label in list_intent_label:
+    #         ls_intents.append([n_intents, n_intents + 1, label])
+    #         n_intents = n_intents + 1
+    #     df_data['labels'][i] = ls_intents
+    #     # if i % 100 == 0: print(i)
+
+    sents_intent = worker(sent_tfidf, svm_models)
     for i in range(len(sentences)):
-        sentence = sentences[i]
-        list_intent_label = [results[j][-1] for j in range(len(list_intents)) if float(results[j][i])==1]
-        # list_intent_label = get_intent(list_intents, tfidfconverter, svm_models, sentence)
-        n_intents = 0
-        ls_intents = []
-        for label in list_intent_label:
-            ls_intents.append([n_intents, n_intents + 1, label])
-            n_intents = n_intents + 1
-        df_data['labels'][i] = ls_intents
-        # if i % 100 == 0: print(i)
+        if re.search('.*shop.*:', df_data['text'][i].lower()) is None:
+            df_data['labels'][i] = [[0, 1, intent_list[int(sents_intent[i])]]]
+        
 
     end_time_intent = time.time()
     print('Get all intents in ', end_time_intent-start_time, 's.')

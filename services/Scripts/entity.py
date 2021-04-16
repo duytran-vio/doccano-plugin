@@ -156,7 +156,10 @@ def merge(ner_entity, list_sq):
     return ner_entity
 
 def reduce_label(list_sq, boundary):
-    res = [e for e in list_sq if e[1] > boundary]
+    if boundary < 0:
+        res = list_sq
+    else:
+        res = [e for e in list_sq if e[1] > boundary]
     return res
 
 def preprocess_ner(sentence):
