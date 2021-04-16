@@ -103,7 +103,7 @@ def classifier(data_file_path):
 
     sents_intent = worker(sent_tfidf, svm_models)
     for i in range(len(sentences)):
-        if re.search('.*shop.*:', df_data['text'][i].lower()) is None:
+        if re.search('.*khách.*:', df_data['text'][i].lower()) is not None: 
             df_data['labels'][i] = [[0, 1, intent_list[int(sents_intent[i])]]]
         
 
