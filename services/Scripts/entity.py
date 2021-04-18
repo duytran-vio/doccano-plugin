@@ -97,7 +97,7 @@ pattern_list = {
     ]
 }
 
-df_id_product = pd.read_excel(path.join(MODELS_PATH, 'ID_product_2.xlsx'), header=None)
+df_id_product = pd.read_excel(path.join(MODELS_PATH, 'ID_product_2.xlsx'), header=None, engine='openpyxl')
 ls_id = df_id_product[0].tolist()
 ls_id = [str(w) for w in ls_id]
 
