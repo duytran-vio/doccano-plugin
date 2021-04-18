@@ -2,6 +2,8 @@ from vncorenlp import VnCoreNLP
 from os import path
 import re
 import pandas as pd
+import numpy as np
+import time
 
 BASEDIR = path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__)))))
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
@@ -61,8 +63,8 @@ pt_size = r'{}|{}|{}'.format(pt_size_1, pt_size_2, pt_size_3)
 
 ### list of pattern
 list_entity_using_regex = ['phone', 'weight customer', 'height customer', 
-                            'size', 'color_product',
-                            'amount_product', 'material_product'
+                            'size', 'color_product','cost_product', 'shiping fee',
+                            'amount_product', 'material_product', 'ID_product'
                             ]
 pattern_list = {
     'phone': [
@@ -95,6 +97,34 @@ pattern_list = {
     ]
 }
 
+df_id_product = pd.read_excel(path.join(MODELS_PATH, 'ID_product_2.xlsx'), header=None)
+ls_id = df_id_product[0].tolist()
+ls_id = [str(w) for w in ls_id]
+
+list_char = []
+for text in ls_id:
+    list_char.extend(list(text))
+list_char = list(np.unique(list_char))
+
+list_char.append('en')
+dictionary = dict.fromkeys(list_char, None)
+trie = []
+
+def create_trie_node():
+    node = dictionary.copy()
+    node['en'] = False
+    return node
+
+
+def make_trie(trie):
+    trie.append(create_trie_node())
+    start_time = time.time()
+    for text in ls_id:
+        if len(text) > 4:
+            trie = add_trie(trie, text)
+    # trie = add_trie(trie, 'ao coptop nư')
+    print(time.time() - start_time)
+
 
 def label_entity(sentences):
     '''
@@ -124,14 +154,23 @@ def label_entity(sentences):
     '''
     Using regex
     '''
-    for entity in list_entity_using_regex:
-        for i in range(len(sentences)):
-            sent = sentences[i].lower()
-            list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
+    make_trie(trie)
+    for i in range(len(sentences)):
+        sent = sentences[i].lower()
+        result = []
+        for entity in list_entity_using_regex:
+            if entity == 'ID_product':
+                list_entity_sq = infer_ID_product(trie, sent)
+            elif entity == 'cost_product' or entity == 'shiping fee':
+                list_sq = label_full_string(sent)
+                list_entity_sq = [e for e in list_sq if e[2] == entity]
+            else:
+                list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
             list_entity_sq = join_continuous_sq(list_entity_sq, sent)
             list_entity_sq = reduce_label(list_entity_sq, sent.find(':'))
             if len(list_entity_sq) > 0:
-                sents_entity[i].extend(list_entity_sq)
+                result.extend(list_entity_sq)
+        sents_entity[i] = remove_duplicate_entity(result, len(sent))
 
     ## Merge Id member to sents_entity
     '''
@@ -230,6 +269,141 @@ def join_continuous_sq(list_sq, sentences):
             res[-1][1] = sequence[1]
         else:
             res.append(sequence)
+    return res
+
+def return_pre_words(string, start, num_of_words):
+  word = ""
+  pre = start - 2
+  pre_words = num_of_words
+  while (pre >= 0 and pre_words > 0):
+    word = string[pre] + word
+    pre = pre - 1
+    if (string[pre] == " "):
+        pre_words = pre_words - 1
+  
+  return word
+
+def return_next_words(string, end, num_of_words):
+  word = ""
+  next = end + 1
+  next_words = num_of_words
+  while (next < len(string) and next_words > 0):
+    word = word + string[next]
+    if (string[next] == " "):
+        next_words = next_words - 1
+    next = next + 1
+  return word
+
+def get_string_in_range(string, neighbor, start, end):
+    new_str = return_pre_words(string, start, neighbor) + " " + string[start:end] + " " + return_next_words(string, end, neighbor)
+    return new_str
+
+def label_shipping_and_cost(string, neighbor=2):
+    shipping = r'\b(ship|cod|phí|phi)\b'
+    string = string.lower()
+    find = re.search(cost_pt_sum, string)
+    if (find):
+        k = find.span()
+        cost_sq = string[k[0]:k[1]]
+        new_str = get_string_in_range(string, neighbor, k[0], k[1])
+        re_value = re.search('\d+', cost_sq)
+        value_idx = re_value.span()
+        value = int(cost_sq[value_idx[0]: value_idx[1]])
+        small_cost_60 = value <= 60 and re.search('tr((iệ|ie)u)*|t[ỉiỷy]', cost_sq) is None
+        small_cost_30 = value <= 30 and re.search('tr((iệ|ie)u)*|t[ỉiỷy]', cost_sq) is None
+
+        if re.search('free\s*ship', new_str) is None and ((small_cost_60 and re.findall(shipping, new_str)) or small_cost_30):
+          return list(k) + ["shiping fee"]
+        else: return list(k) + ["cost_product"]
+    else: return [-1, -1, -1]
+  
+
+def additional_shipfee(sent):
+    shipping = r'\b(ship|cod|phí|phi)\b'
+    add_ship_pt = r'\b\d{2}\b'
+    list_sq = findall_index(add_ship_pt, sent, 'shiping fee')
+    ship_sq = []
+    for e in list_sq:
+        new_str = get_string_in_range(string = sent, neighbor=2, start=e[0], end=e[1])
+        if re.search(shipping, new_str) is not None:
+            ship_sq.append(e)
+    return ship_sq
+
+def label_full_string(input):
+    input = input.lower()
+    out = [-1, -1, -1]
+    re = []
+    string = input
+    start = 0
+    while True:
+        check = label_shipping_and_cost(string)
+        if check == out: break
+        check[0] += start
+        check[1] += start
+        re.append(check)
+        start = check[1]
+        string = input[start:]
+    freeship_sq = findall_index(r'((miễn|free)\s*)ship', input, 'shiping fee')
+    add_shipfee = additional_shipfee(input)
+    if len(freeship_sq) > 0:
+        re.extend(freeship_sq)
+    if len(add_shipfee) > 0:
+        re.extend(add_shipfee)
+    if re == []:
+        return []
+    return re
+
+def remove_duplicate_entity(sent_entities, sent_len):
+    a = [x for x in range(len(sent_entities))]
+    a.sort(key = lambda x: sent_entities[x][1] - sent_entities[x][0], reverse=True)
+    check = [False] * (sent_len + 1)
+    final_entities = []
+    for x in a:
+        seq_label = sent_entities[x]
+        if check[seq_label[0]] or check[seq_label[1]]: 
+            continue
+        for i in range(seq_label[0], seq_label[1]):
+            check[i] = True
+        final_entities.append(seq_label)
+    return final_entities
+
+def add_trie(a, s):
+    root = 0
+    for c in s:
+        if a[root][c] is None:
+            a.append(create_trie_node())
+            a[root][c] = len(a) - 1
+        root = a[root][c]
+    a[root]['en'] = True
+    return a
+
+def find_trie(a, s):
+    cnt = 0
+    cnt_space = 0
+    root = 0
+    res = 0
+    for c in s:
+        if (c not in list_char) or (a[root][c] is None):
+            break
+        cnt = cnt + 1
+        root = a[root][c]
+        if c == ' ':
+            cnt_space += 1
+        if a[root]['en']:
+            res = cnt
+        else:
+            if c == ' ' and cnt_space >= 3:
+                res = cnt - 1
+    return res
+
+def infer_ID_product(a, sent):
+    res = []
+    for i in range(len(sent)):
+        sub = sent[i:]
+        end_offset = find_trie(a, sub)
+        if end_offset > 0:
+            res.append([i, end_offset + i, 'ID_product'])
+    res = remove_duplicate_entity(res, len(sent))
     return res
 
 if __name__ == "__main__":
