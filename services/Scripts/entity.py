@@ -4,6 +4,7 @@ import re
 import pandas as pd
 import numpy as np
 import time
+import json
 
 BASEDIR = path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__)))))
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
@@ -97,34 +98,10 @@ pattern_list = {
     ]
 }
 
-df_id_product = pd.read_excel(path.join(MODELS_PATH, 'ID_product_2.xlsx'), header=None, engine='openpyxl')
-ls_id = df_id_product[0].tolist()
-ls_id = [str(w) for w in ls_id]
-
-list_char = []
-for text in ls_id:
-    list_char.extend(list(text))
-list_char = list(np.unique(list_char))
-
-list_char.append('en')
-dictionary = dict.fromkeys(list_char, None)
-trie = []
-
-def create_trie_node():
-    node = dictionary.copy()
-    node['en'] = False
-    return node
-
-
-def make_trie(trie):
-    trie.append(create_trie_node())
-    start_time = time.time()
-    for text in ls_id:
-        if len(text) > 4:
-            trie = add_trie(trie, text)
-    # trie = add_trie(trie, 'ao coptop nư')
-    print(time.time() - start_time)
-
+file_char = open(path.join(MODELS_PATH, 'list_char.json'), 'r')
+file_ID_product = open(path.join(MODELS_PATH, 'ID_product.json'), 'r')
+list_char = json.load(file_char)
+trie = json.load(file_ID_product)
 
 def label_entity(sentences):
     '''
@@ -154,7 +131,6 @@ def label_entity(sentences):
     '''
     Using regex
     '''
-    make_trie(trie)
     for i in range(len(sentences)):
         sent = sentences[i].lower()
         result = []
@@ -367,23 +343,17 @@ def remove_duplicate_entity(sent_entities, sent_len):
         final_entities.append(seq_label)
     return final_entities
 
-def add_trie(a, s):
-    root = 0
-    for c in s:
-        if a[root][c] is None:
-            a.append(create_trie_node())
-            a[root][c] = len(a) - 1
-        root = a[root][c]
-    a[root]['en'] = True
-    return a
-
 def find_trie(a, s):
     cnt = 0
     cnt_space = 0
     root = 0
     res = 0
     for c in s:
-        if (c not in list_char) or (a[root][c] is None):
+        if (c not in list_char):
+            break
+        try:
+            a[root][c]
+        except:
             break
         cnt = cnt + 1
         root = a[root][c]
