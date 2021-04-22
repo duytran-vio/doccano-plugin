@@ -69,7 +69,7 @@ list_entity_using_regex = ['phone', 'weight customer', 'height customer',
                             ]
 pattern_list = {
     'phone': [
-        r'[0-9]{4}\.*[0-9]{3}\.*[0-9]{2,}'
+        r'\b[0-9]{4}\.*[0-9]{3}\.*[0-9]{3,4}\b'
     ],
     'weight customer': [
         r'\d+\s*(kg|ky|ký|ki+|kí+)'
