@@ -13,4 +13,3 @@ def make_tfidf_model(corpus, save_path = None, pretrained_path = None):
         print("Model is loaded from ", pretrained_path)
 
     return tfidfconverter    
-    

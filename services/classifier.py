@@ -14,7 +14,7 @@ from Scripts.dataset import *
 
 from Scripts.tfidf import *
 from Scripts.entity import label_entity
-
+import re
 
 import time
 
@@ -71,7 +71,7 @@ def load_svm_multiclass_models(input_path='/content/svm_models/'):
     
     return model
 
-def classifier(data_file_path):
+def classifier(data_file_path, address_inp):
     print('Start classifying')
 
     sentences, df_data = corpus_from_file(corpus_path = data_file_path)
@@ -112,7 +112,7 @@ def classifier(data_file_path):
 
 
     ### label entity
-    sents_entity = label_entity(df_data['text'].tolist())
+    sents_entity = label_entity(df_data['text'].tolist(), address_inp)
     for i in range(len(df_data)):
         df_data['labels'][i].extend(sents_entity[i])
 

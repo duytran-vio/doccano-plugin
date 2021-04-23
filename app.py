@@ -10,6 +10,11 @@ from services.summary import handle_request as handle_summary_request
 from services.create import handle_request as handle_create_request
 from services.add import handle_request as handle_add_request
 
+from services.Scripts.address import prepare_dec, prepare_enc, prepare_id2w, prepare_disown
+from services.Scripts.address import prepare_ward_s_district
+from services.Scripts.address import expected_output, express_addr
+
+
 
 HOST = '0.0.0.0'
 PORT = 5500
@@ -25,6 +30,13 @@ DATA_SAMPLE_PATH = os.path.join(DATA_PATH, 'sample')
 DATA_DOWNLOAD_PATH = os.path.join(DATA_PATH, 'download')
 DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
 
+enc, dec, id2w, disown = prepare_enc(), prepare_dec(), prepare_id2w(), prepare_disown()
+ward_dis = prepare_ward_s_district(disown[2])
+
+street_enc, vill_enc, ward_enc, district_enc, province_enc = enc
+street_dec, vill_dec, ward_dec, district_dec, province_dec = dec
+street_id2w, vill_id2w, ward_id2w, district_id2w, province_id2w = id2w
+dis_street, dis_vill, dis_ward, dis_province = disown
 
 
 @app.route('/')
@@ -113,7 +125,8 @@ def create_create_project():
     try:
         print('Create project')
         refresh_client()
-        new_project_id = handle_create_request(flask_request, Client.doccano_client)
+        address_inp = (enc, dec, id2w, disown, ward_dis)
+        new_project_id = handle_create_request(flask_request, Client.doccano_client,address_inp)
         print(f'Project ID: {new_project_id}')
         return jsonify({
             'status': 'OK',

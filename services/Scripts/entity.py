@@ -2,6 +2,7 @@ from vncorenlp import VnCoreNLP
 from os import path
 import re
 import pandas as pd
+from services.Scripts.address import address_entity
 
 BASEDIR = path.dirname(path.dirname(path.dirname(path.dirname(path.abspath(__file__)))))
 # BASEDIR = 'D:\\GitHub\\VnCoreNLP'
@@ -96,7 +97,7 @@ pattern_list = {
 }
 
 
-def label_entity(sentences):
+def label_entity(sentences, address_inp):
     '''
     Argument: 
         sentences: one string need to label
@@ -104,7 +105,8 @@ def label_entity(sentences):
     return:
         sents_entity: list [start_offset, end_offset, label_name]
     '''
-
+    sentences = [re.sub('-|,', ' ', sent) for sent in sentences]
+    sentences = [re.sub('xxx', ' xx', sent) for sent in sentences]
     sents_entity = [[] for i in range(len(sentences))]
     ner_entity = [[] for i in range(len(sentences))]
 
@@ -132,7 +134,8 @@ def label_entity(sentences):
             list_entity_sq = reduce_label(list_entity_sq, sent.find(':'))
             if len(list_entity_sq) > 0:
                 sents_entity[i].extend(list_entity_sq)
-
+                # print(list_entity_sq)
+    
     ## Merge Id member to sents_entity
     '''
     Uncomment below to get Id member entity
@@ -140,7 +143,34 @@ def label_entity(sentences):
     # for i in range(len(sentences)):
     #     sents_entity[i] = merge(ner_entity[i], sents_entity[i])
 
+    ### FOR ADDRESS
+    for i in range(len(sentences)):
+        sent = sentences[i].lower()
+        start, end, ent, score = address_entity(sent, address_inp)
+        if score > 12:
+            start, end = decode_start_end(sent, start, end)
+            sent = str(sent)
+            start, end = int(start), int(end)
+            sents_entity[i].extend([(start, end, ent)])
+    
     return sents_entity
+
+def decode_start_end(sent, start, end):
+    from unidecode import unidecode
+    sent = sent.lower()
+    dec_sent = unidecode(sent)
+
+    j = 0
+    for i in range(len(dec_sent)):
+        while unidecode(sent[j]) != dec_sent[i]:
+            j+=1
+        if i == start:
+            dec_start = j
+        elif i == end-1:
+            dec_end = j
+            break
+        j+=1
+    return dec_start, dec_end+1
 
 def merge(ner_entity, list_sq):
     list_sq.sort(key= lambda i: i[1] - i[0], reverse=True)
