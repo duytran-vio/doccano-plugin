@@ -139,9 +139,10 @@ def create_create_project():
 @app.route('/add', methods=['POST'])
 def create_add_project():
     try:
-        print('Create project')
+        print('Add to project')
         refresh_client()
-        project_id = handle_add_request(flask_request, Client.doccano_client)
+        address_inp = (enc, dec, id2w, disown, ward_dis)
+        project_id = handle_add_request(flask_request, Client.doccano_client, address_inp)
         print(f'Project ID: {project_id}')
         return jsonify({
             'status': 'OK',
