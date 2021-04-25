@@ -14,12 +14,12 @@ DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
 DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
 DATA_UPLOAD_PATH = os.path.join(DATA_PATH, 'upload')
 
-def handle_request(request, client):
+def handle_request(request, client, address_inp):
     global doccano_client
     doccano_client = client
     project_id, documents_file = extract_request(request)
 
-    df_documents = labeling_docs(data_file_path=documents_file)
+    df_documents = labeling_docs(data_file_path=documents_file, address_inp = address_inp)
     new_documents = df_documents.to_dict('records')
     current_total = doccano_client.get_project_statistics(project_id)['total']
 

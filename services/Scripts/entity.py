@@ -2,7 +2,7 @@ from vncorenlp import VnCoreNLP
 from os import path
 import re
 import pandas as pd
-from services.Scripts.address import address_entity
+from .address import address_entity
 import numpy as np
 import time
 import json
@@ -112,8 +112,6 @@ def label_entity(sentences, address_inp):
     return:
         sents_entity: list [start_offset, end_offset, label_name]
     '''
-    sentences = [re.sub('-|,', ' ', sent) for sent in sentences]
-    sentences = [re.sub('xxx', ' xx', sent) for sent in sentences]
     sents_entity = [[] for i in range(len(sentences))]
     ner_entity = [[] for i in range(len(sentences))]
 
@@ -153,16 +151,24 @@ def label_entity(sentences, address_inp):
 
         ### ADDRESS
         sent = sentences[i].lower()
-        start_time = time.time()
+        # start_time = time.time()
         start, end, ent, score = address_entity(sent, address_inp)
-        address_time += time.time() - start_time
+        # address_time += time.time() - start_time
         if score > 12:
-            start_time = time.time()
+            # start_time = time.time()
             start, end = decode_start_end(sent, start, end)
-            address_comp_time += time.time() - start_time
+            # address_comp_time += time.time() - start_time
             result.extend([(start, end, ent)])
-        print("ADDRESS TIME = ", address_time)
-        print("ADDRESS COMPARE TIME = ", address_comp_time)
+        # print("ADDRESS TIME = ", address_time)
+        # print("ADDRESS COMPARE TIME = ", address_comp_time)
+        ### ADDRESS
+        sent = sentences[i].lower()
+        sent = re.sub('-|,', ' ', sent)
+        sent = re.sub('xxx', ' xx', sent)
+        start, end, ent, score = address_entity(sent, address_inp)
+        if score > 12:
+            start, end = decode_start_end(sent, start, end)
+            result.extend([(start, end, ent)])
         sents_entity[i] = remove_duplicate_entity(result, len(sent))
 
     ## Merge Id member to sents_entity
@@ -172,7 +178,6 @@ def label_entity(sentences, address_inp):
     # for i in range(len(sentences)):
     #     sents_entity[i] = merge(ner_entity[i], sents_entity[i])
 
-    
     return sents_entity
 
 def decode_start_end(sent, start, end):
