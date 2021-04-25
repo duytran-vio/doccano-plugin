@@ -133,6 +133,8 @@ def label_entity(sentences, address_inp):
     '''
     Using regex
     '''
+    address_time = 0
+    address_comp_time = 0
     for i in range(len(sentences)):
         sent = sentences[i].lower()
         result = []
@@ -149,12 +151,18 @@ def label_entity(sentences, address_inp):
             if len(list_entity_sq) > 0:
                 result.extend(list_entity_sq)
 
-            ### ADDRESS
-            sent = sentences[i].lower()
-            start, end, ent, score = address_entity(sent, address_inp)
-            if score > 12:
-                start, end = decode_start_end(sent, start, end)
-                result.extend([(start, end, ent)])
+        ### ADDRESS
+        sent = sentences[i].lower()
+        start_time = time.time()
+        start, end, ent, score = address_entity(sent, address_inp)
+        address_time += time.time() - start_time
+        if score > 12:
+            start_time = time.time()
+            start, end = decode_start_end(sent, start, end)
+            address_comp_time += time.time() - start_time
+            result.extend([(start, end, ent)])
+        print("ADDRESS TIME = ", address_time)
+        print("ADDRESS COMPARE TIME = ", address_comp_time)
         sents_entity[i] = remove_duplicate_entity(result, len(sent))
 
     ## Merge Id member to sents_entity
