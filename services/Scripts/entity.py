@@ -150,17 +150,17 @@ def label_entity(sentences, address_inp):
                 result.extend(list_entity_sq)
 
         ### ADDRESS
-        sent = sentences[i].lower()
-        # start_time = time.time()
-        start, end, ent, score = address_entity(sent, address_inp)
-        # address_time += time.time() - start_time
-        if score > 12:
-            # start_time = time.time()
-            start, end = decode_start_end(sent, start, end)
-            # address_comp_time += time.time() - start_time
-            result.extend([(start, end, ent)])
-        # print("ADDRESS TIME = ", address_time)
-        # print("ADDRESS COMPARE TIME = ", address_comp_time)
+        # sent = sentences[i].lower()
+        # # start_time = time.time()
+        # start, end, ent, score = address_entity(sent, address_inp)
+        # # address_time += time.time() - start_time
+        # if score > 12:
+        #     # start_time = time.time()
+        #     start, end = decode_start_end(sent, start, end)
+        #     # address_comp_time += time.time() - start_time
+        #     result.extend([(start, end, ent)])
+        # # print("ADDRESS TIME = ", address_time)
+        # # print("ADDRESS COMPARE TIME = ", address_comp_time)
         ### ADDRESS
         sent = sentences[i].lower()
         sent = re.sub('-|,', ' ', sent)
