@@ -65,6 +65,12 @@ def get_all_documents(doccano_client: DoccanoClient, project_id):
         doc['meta'] = json.loads(doc['meta'])
     return documents
 
+def get_documents(doccano_client: DoccanoClient, project_id, start, end):
+    documents = doccano_client.get_document_list(project_id, {
+        'limit': [end - start],
+        'offset': [start],
+    })['results']
+    return documents
 
 def get_user_by_name(doccano_client: DoccanoClient, username):
     users = doccano_client.get_user_list()
