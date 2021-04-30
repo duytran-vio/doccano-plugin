@@ -68,7 +68,7 @@ def extract_request(request):
     users = doccano_client.get_user_list()
     if not any([user['username'] == username for user in users]):
         raise Exception('User is not found.')
-    return project_id, start, end, sample_size, new_project_name, username
+    return project_id, start - 1, end, sample_size, new_project_name, username
 
 
 def sample_documents(project_id, start, end, sample_size, labels_map):
