@@ -40,7 +40,6 @@ def handle_request(request, client):
         doccano_client.post_doc_upload(new_project_id, 'json', file_name, DATA_SAMPLE_PATH)
     except json.JSONDecodeError:
         pass
-
     return new_project_id
 
 def extract_request(request):
@@ -69,12 +68,12 @@ def extract_request(request):
     users = doccano_client.get_user_list()
     if not any([user['username'] == username for user in users]):
         raise Exception('User is not found.')
-
     return project_id, start, end, sample_size, new_project_name, username
 
 
 def sample_documents(project_id, start, end, sample_size, labels_map):
     orig_docs = get_documents(doccano_client, project_id, start, end)
+    print(orig_docs)
     cus_docs = []
     for doc in orig_docs:
         sent = doc['text']
