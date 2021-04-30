@@ -3,7 +3,7 @@ import jsonlines
 import pandas as pd
 from doccano_api_client import DoccanoClient
 
-from .common import build_label_map, map_labels, get_all_documents
+from .common import build_label_map, map_labels, get_documents
 
 
 doccano_client: DoccanoClient = None
@@ -17,8 +17,7 @@ def handle_request(request, client: DoccanoClient):
     global doccano_client
     doccano_client = client
     project_id, start, end = extract_request(request)
-    truth_documents = get_all_documents(doccano_client, project_id)
-    truth_documents = truth_documents[start:end]
+    truth_documents = get_documents(client, project_id, start, end)
     labels_map = build_label_map(doccano_client, project_id)
     sequence_label_table = to_label_table(truth_documents, labels_map)
 

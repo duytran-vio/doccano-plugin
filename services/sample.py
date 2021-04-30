@@ -5,7 +5,7 @@ import jsonlines
 import pandas as pd
 import re
 
-from .common import build_label_map, map_labels, to_input_sequence, replace_double_quotes, get_all_documents
+from .common import build_label_map, map_labels, to_input_sequence, replace_double_quotes, get_documents
 
 doccano_client = None
 ROOT = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
@@ -23,7 +23,7 @@ def handle_request(request, client):
     file_path = f'{DATA_SAMPLE_PATH}/{file_name}'
 
     response = doccano_client.create_project(
-        name=f'{new_project_name}-{start}-{end}',
+        name=f'{new_project_name}-{start + 1}-{end}',
         description=file_name,
         project_type='SequenceLabeling',
         resourcetype= "SequenceLabelingProject",
@@ -74,7 +74,7 @@ def extract_request(request):
 
 
 def sample_documents(project_id, start, end, sample_size, labels_map):
-    orig_docs = get_all_documents(doccano_client,project_id)[start:end]
+    orig_docs = get_documents(doccano_client, project_id, start, end)
     cus_docs = []
     for doc in orig_docs:
         sent = doc['text']
@@ -82,7 +82,6 @@ def sample_documents(project_id, start, end, sample_size, labels_map):
         sent = re.sub('^\s+','', sent)
         if re.search('^khách', sent.lower()) is not None:
             cus_docs.append(doc)
-    print(min(sample_size, len(cus_docs)))
     indexes = sorted(random.sample(range(0, len(cus_docs)), min(sample_size, len(cus_docs))))
     documents = []
     for index in indexes:

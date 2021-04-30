@@ -7,7 +7,7 @@ function createSampleProject(e) {
     }
     lock = true;
     const projectId = document.getElementById('projectId').value;
-    const start = parseInt(document.getElementById('start').value) - 1;
+    const start = parseInt(document.getElementById('start').value);
     const end = parseInt(document.getElementById('end').value);
     const sampleSize = parseInt(document.getElementById('sampleSize').value);
     const newProjectName = document.getElementById('newProjectName').value;

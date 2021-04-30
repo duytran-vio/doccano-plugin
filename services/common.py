@@ -70,6 +70,8 @@ def get_documents(doccano_client: DoccanoClient, project_id, start, end):
         'limit': [end - start],
         'offset': [start],
     })['results']
+    for doc in documents:
+        doc['meta'] = json.loads(doc['meta'])
     return documents
 
 def get_user_by_name(doccano_client: DoccanoClient, username):
