@@ -4,6 +4,10 @@ import re
 import json
 import sys
 
+from sklearn import svm,metrics
+import pickle
+import numpy as np
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE_DIR)
 
@@ -20,6 +24,28 @@ DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
 DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
 
 intent_list = ['Hello', 'Done', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return']
+
+tfidf_path = 'services/models/tfidf.pickle'
+orig_data_path = 'services/models/orig_data'
+orig_label_path = 'services/models/orig_label'
+svm_path = 'services/models/hungne'
+
+tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
+X_tfidf = pickle.load(open(orig_data_path, 'rb'))
+label = pickle.load(open(orig_label_path, 'rb'))
+
+### To retrain svm model base on original labels and new labels
+### args: sents and their labels
+def retrain(new_sents, new_labels):
+    X_new = tfidfconverter.transform(new_sents).toarray()
+    print(X_new.shape)
+    X = np.concatenate([X_new, X_tfidf], axis = 0)
+    lbl = label + new_labels
+    clf = svm.LinearSVC()
+    clf = clf.fit(X, lbl)
+    pickle.dump(X, open(orig_data_path, 'wb'))
+    pickle.dump(lbl, open(orig_label_path, 'wb'))
+    pickle.dump(clf, open(svm_path, 'wb'))
 
 def get_id_start_end(file_name):
     '''
@@ -95,6 +121,7 @@ def correct_label(project_id, start, end):
     correct_docs = get_documents(doccano_client, project_id, start - 1, end)
     labels_map = build_label_map(doccano_client, project_id)
     result = []
+    new_sents, new_labels = [], []
     for i in range(len(correct_docs)):
         model_intents, _ = get_sequence_truth_doc(model_docs[i])
         correct_intents, _ = get_sequence(correct_docs[i], labels_map)
@@ -106,9 +133,10 @@ def correct_label(project_id, start, end):
                 'text': text,
                 'label': intent_num
             }
+            new_sents.append(text)
+            new_labels.append(intent_num)
             result.append(intent_summary)
-    return result
-
+    retrain(new_sents, new_labels)
 
 if __name__ == '__main__':
     correct_label(643, 3, 5)
