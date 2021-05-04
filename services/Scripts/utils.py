@@ -32,6 +32,7 @@ def preprocess(doc, remove_empty=False):
         result = str(doc[i])
 
         # Remove all the special characters
+        result = re.sub('.*: ', '', result)
         result = re.sub(r'\W', ' ', str(result))
 
         # Substituting multiple spaces with single space
@@ -49,7 +50,6 @@ def preprocess(doc, remove_empty=False):
             continue
         
         #Remove customers' names
-        result = re.sub('.*: ', '', result)
 
         results.append(result)
 
