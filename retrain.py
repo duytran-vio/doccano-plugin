@@ -34,11 +34,16 @@ tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
 X_tfidf = pickle.load(open(orig_data_path, 'rb'))
 label = pickle.load(open(orig_label_path, 'rb'))
 
+def macro_f1(report):
+    main_keys = list(report.keys())[0:-3]
+    result = 0
+    for i in main_keys: result += report[i]['f1-score']
+    return result/len(main_keys)
+
 ### To retrain svm model base on original labels and new labels
 ### args: sents and their labels
 def retrain(new_sents, new_labels):
     X_new = tfidfconverter.transform(new_sents).toarray()
-    print(X_new.shape)
     X = np.concatenate([X_new, X_tfidf], axis = 0)
     lbl = label + new_labels
     clf = svm.LinearSVC()
