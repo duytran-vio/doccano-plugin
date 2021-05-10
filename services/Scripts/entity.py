@@ -63,10 +63,18 @@ pt_size_3 = r'\b(\d*(x*s|x*l))\b'
 pt_size = r'{}|{}|{}'.format(pt_size_1, pt_size_2, pt_size_3)
 ###------------------------------------------
 
+### 3V
+pt_3V = r'\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*'
+V1_pre = r'\b(ng[u|ự]c|v1|v[o|ò]ng\s*1)\b'
+V2_pre = r'\b(eo|v2|v[o|ò]ng\s*2|b[u|ụ]ng)\b'
+V3_pre = r'\b(m[o|ô]ng|v3|v[o|ò]ng\s*3)\b'
+pt_V = r'\b\d{2,3}(\s*cm)*((\-|\s)\d{2,3}(\s*cm)*)*\b'  
+### ------------------------------------------
+
 ### list of pattern
-list_entity_using_regex = ['phone', 'weight customer', 'height customer', 
+list_entity_using_regex = ['V1', 'V2', 'V3', 'phone', 'weight customer', 'height customer', 
                             'size', 'color_product','cost_product', 'shiping fee',
-                            'amount_product', 'material_product', 'ID_product'
+                            'amount_product', 'material_product', 'ID_product',
                             ]
 pattern_list = {
     'phone': [
@@ -74,10 +82,6 @@ pattern_list = {
     ],
     'weight customer': [
         r'\d+\s*(kg|ky|ký|ki+|kí+)'
-    ],
-    'shiping fee':[
-        r'((miễn|free|\d+k*)\s*)*ship(\s*\d+k*)*', 
-        r'((\d+k*\s*)*(phí|giá|gia|phi|tiền|tien)\s*)ship(\s*\d+k*)*'
     ],
     'height customer':[
         r'((\dm|m)\d+|\d+cm)'
@@ -88,15 +92,18 @@ pattern_list = {
     'color_product':[
         pt_color
     ],
-    'cost_product':[
-        cost_pt_sum
-    ],
     'amount_product':[
         amount_pt_sum
     ],
     'material_product':[
         pt_material
     ]
+}
+
+list_pre = {
+    'V1' : V1_pre,
+    'V2' : V2_pre,
+    'V3' : V3_pre
 }
 
 file_char = open(path.join(MODELS_PATH, 'list_char.json'), 'r')
@@ -137,7 +144,12 @@ def label_entity(sentences, address_inp):
         sent = sentences[i].lower()
         result = []
         for entity in list_entity_using_regex:
-            if entity == 'ID_product':
+            if entity == 'V1' or entity == 'V2' or entity == 'V3':
+                list_entity_sq = infer_V(sent, entity)
+                combine_3V = infer_3V(sent)
+                if (len(combine_3V) > 0):
+                    list_entity_sq.extend(combine_3V)
+            elif entity == 'ID_product':
                 list_entity_sq = infer_ID_product(trie, sent)
             elif entity == 'cost_product' or entity == 'shiping fee':
                 list_sq = label_full_string(sent)
@@ -150,25 +162,14 @@ def label_entity(sentences, address_inp):
                 result.extend(list_entity_sq)
 
         ### ADDRESS
-        # sent = sentences[i].lower()
-        # # start_time = time.time()
-        # start, end, ent, score = address_entity(sent, address_inp)
-        # # address_time += time.time() - start_time
-        # if score > 12:
-        #     # start_time = time.time()
-        #     start, end = decode_start_end(sent, start, end)
-        #     # address_comp_time += time.time() - start_time
-        #     result.extend([(start, end, ent)])
-        # # print("ADDRESS TIME = ", address_time)
-        # # print("ADDRESS COMPARE TIME = ", address_comp_time)
-        ### ADDRESS
-        sent = sentences[i].lower()
-        sent = re.sub('-|,', ' ', sent)
-        sent = re.sub('xxx', ' xx', sent)
-        start, end, ent, score = address_entity(sent, address_inp)
-        if score > 12:
-            start, end = decode_start_end(sent, start, end)
-            result.extend([(start, end, ent)])
+        if address_inp is not None:
+            sent = sentences[i].lower()
+            sent = re.sub('-|,', ' ', sent)
+            sent = re.sub('xxx', ' xx', sent)
+            start, end, ent, score = address_entity(sent, address_inp)
+            if score > 12:
+                start, end = decode_start_end(sent, start, end)
+                result.extend([(start, end, ent)])
         sents_entity[i] = remove_duplicate_entity(result, len(sent))
 
     ## Merge Id member to sents_entity
@@ -415,6 +416,46 @@ def infer_ID_product(a, sent):
             res.append([i, end_offset + i, 'ID_product'])
     res = remove_duplicate_entity(res, len(sent))
     return res
+
+def sep_3V(sent, offset):
+    start = 0
+    idx_V1 = re.search(r'\d{2,3}(\s*cm)*', sent).span()
+    V1 = [idx_V1[0] + offset, idx_V1[1] + offset, 'V1']
+    start = start + idx_V1[1]
+    idx_V2 = re.search(r'\d{2,3}(\s*cm)*', sent[start: ]).span()
+    V2 = [start + idx_V2[0] + offset, start + idx_V2[1] + offset, 'V2']
+    start = start + idx_V2[1]
+    idx_V3 = re.search(r'\d{2,3}(\s*cm)*', sent[start: ]).span()
+    V3 = [start + idx_V3[0] + offset, start + idx_V3[1] + offset, 'V3']
+    return V1, V2, V3
+def infer_3V(sent):
+    list_sub = []
+    k = 0
+    while True:
+        p = re.search(pt_3V, sent[k: ])
+        if p is None: break
+        idx = p.span()
+        V1, V2, V3 = sep_3V(sent[k: ][idx[0]: idx[1]], idx[0] + k)
+        list_sub.extend([V1, V2, V3])
+        k = k + idx[1]
+    return list_sub
+
+def infer_V(sent, entity):
+    list_sub = []
+    k = 0
+    while True:
+        p = re.search(list_pre[entity], sent[k: ])
+        if p is None: break
+        v_size = re.search(pt_V, sent[k:][p.span()[0]:])
+        if v_size is not None:
+            idx = v_size.span()
+            start = k + p.span()[0] + idx[0]
+            end = k + p.span()[0] + idx[1]
+            list_sub.append([start, end, entity])
+            k = end
+        else:
+            k = k + p.span()[1]  
+    return list_sub
 
 if __name__ == "__main__":
     print(MODELS_PATH)

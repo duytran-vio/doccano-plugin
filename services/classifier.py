@@ -144,6 +144,6 @@ def remove_duplicate_entity(sent_entities, sent_len):
     return final_entities
 
 if __name__ == "__main__":
-    # df_data = classifier(data_file_path='data.txt')
-    df_data = classifier(data_file_path='data_3k.txt')
-    # print(df_data)
+    df_data = classifier(data_file_path='data.txt',address_inp= None)
+    # df_data = classifier(data_file_path='data_3k.txt')
+    print(df_data)
