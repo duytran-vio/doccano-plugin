@@ -71,10 +71,21 @@ V3_pre = r'\b(m[o|ô]ng|v3|v[o|ò]ng\s*3)\b'
 pt_V = r'\b\d{2,3}(\s*cm)*((\-|\s)\d{2,3}(\s*cm)*)*\b'  
 ### ------------------------------------------
 
+### TIME
+pt_time_pre = r'sáng|trưa|chiều|tối'
+pt_day = r'nay|mai|kia|mốt'
+pt_hour = r'\d{1,2}(\-\d{1,2})*\s*(h|tiếng|g(iờ)*)(\s*\d{1,2}[\'|p(hút)*]*)*'
+pt_date = r't(h[ứ|ư|u])*\s*\d(-\d)*|cn'
+pt_num_pre = r'\d+(\-\d+)*\s*({}|ngày|hôm)'.format(pt_time_pre)
+pt_pre_day_date = r'({}|ngày|hôm)\s({}|{}|qua)'.format(pt_time_pre,pt_day,pt_date)
+pt_time_phrase = r'(gi|h)ờ\shành\schính(ngày\sthường)*'
+pt_time_summary = r'\b({}|{}|{}|{}|{}|{}|{})\b'.format(pt_pre_day_date, pt_num_pre, pt_date, pt_hour, pt_day, pt_time_pre,pt_time_phrase)
+###-------------------------------------------
+
 ### list of pattern
 list_entity_using_regex = ['V1', 'V2', 'V3', 'phone', 'weight customer', 'height customer', 
                             'size', 'color_product','cost_product', 'shiping fee',
-                            'amount_product', 'material_product', 'ID_product',
+                            'amount_product', 'material_product', 'ID_product', 'Time'
                             ]
 pattern_list = {
     'phone': [
@@ -97,6 +108,9 @@ pattern_list = {
     ],
     'material_product':[
         pt_material
+    ],
+    'Time':[
+        pt_time_summary
     ]
 }
 
