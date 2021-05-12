@@ -38,7 +38,7 @@ pt_color = r'\b({}|{})\b'.format(pt_color_1, pt_color_2)
 ### COST_PRODUCT
 dong_pt = r'đồng|dong|đ|dog|VND|VNĐ'
 cost_pt = r'\d+\s*(k(\s{0:}|\d*)*|tr((iệ|ie)u)*(\s{0:}|\d*)*|ng[a|à]n(\s{0:}|\d*)*|t[ỉiỷy](\s{0:}|\d*)*|{0:})'.format(dong_pt)
-cost_pt_sum = '\b({})\b'.format(cost_pt)
+cost_pt_sum = r'\b({})\b'.format(cost_pt)
 ###------------------------------------------
 
 ### AMOUNT_PRODUCT
@@ -490,4 +490,5 @@ def infer_V(sent, entity):
     return list_sub
 
 if __name__ == "__main__":
-    print(MODELS_PATH)
+    result = label_entity(['áo 165k còn không lấy chị 2 cái '], None)
+    print(result)
