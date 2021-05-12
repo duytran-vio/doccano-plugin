@@ -30,22 +30,22 @@ colors = df_colors[0].tolist()
 colors_2 = df_colors_2[0].tolist()
 
 pt_color_pref = r'(m[à|a]u|{}|{})'.format(product_pt, pt_amount_suf)
-pt_color_1 = r'\b('+ '|'.join(colors) + r')(\s(đậm|dam|nhạt|nhat))*\b'
-pt_color_2 = r'\b({})\s*('.format(pt_color_pref) + '|'.join(colors_2) + r')(\s(đậm|dam|nhạt|nhat))*\b'
+pt_color_1 = r'('+ '|'.join(colors) + r')(\s(đậm|dam|nhạt|nhat))*'
+pt_color_2 = r'({})\s*('.format(pt_color_pref) + '|'.join(colors_2) + r')(\s(đậm|dam|nhạt|nhat))*'
 
-pt_color = r'{}|{}'.format(pt_color_1, pt_color_2)
+pt_color = r'\b({}|{})\b'.format(pt_color_1, pt_color_2)
 ###------------------------------------------
 ### COST_PRODUCT
 dong_pt = r'đồng|dong|đ|dog|VND|VNĐ'
-cost_pt = r'\b\d+\s*(k(\s{0:}|\d*)*|tr((iệ|ie)u)*(\s{0:}|\d*)*|ng[a|à]n(\s{0:}|\d*)*|t[ỉiỷy](\s{0:}|\d*)*|{0:})\b'.format(dong_pt)
-cost_pt_sum = '{}'.format(cost_pt)
+cost_pt = r'\d+\s*(k(\s{0:}|\d*)*|tr((iệ|ie)u)*(\s{0:}|\d*)*|ng[a|à]n(\s{0:}|\d*)*|t[ỉiỷy](\s{0:}|\d*)*|{0:})'.format(dong_pt)
+cost_pt_sum = '\b({})\b'.format(cost_pt)
 ###------------------------------------------
 
 ### AMOUNT_PRODUCT
 
 amount_pt = r'(\d+-)*\d+\s*(' + '|'.join(amount_suf) + r')((\s({})*)|(?=[^a-z]|$))'.format(product_pt) 
 amount_pt_2 = r'(\d+-)*\d+\s*({})'.format(product_pt)
-amount_pt_sum = r'{0:}|{1:}'.format(amount_pt, amount_pt_2)
+amount_pt_sum = r'\b({0:}|{1:})\b'.format(amount_pt, amount_pt_2)
 ###------------------------------------------
 
 ### MATERIAL_PRODUCT
@@ -57,10 +57,10 @@ pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(mater
 ### SIZE
 size_pref = r'size|sai|sz|c[a|á]i'
 size_main = r'\d*(x*s|m|x*l|a|nhỏ|lớn|nho|lon)'
-pt_size_1 = r'\b({}|{})\s{}\b'.format(size_pref, product_pt, size_main)
-pt_size_2 = r'\b({})\s\d+\b'.format(size_pref)
-pt_size_3 = r'\b(\d*(x*s|x*l))\b'
-pt_size = r'{}|{}|{}'.format(pt_size_1, pt_size_2, pt_size_3)
+pt_size_1 = r'({}|{})((\,\s*|\s){})+'.format(size_pref, product_pt, size_main)
+pt_size_2 = r'({})((\,\s*|\s)\d+)+'.format(size_pref)
+# pt_size_3 = r'(\d*(x*s|x*l))'
+pt_size = r'\b({}|{})\b'.format(pt_size_1, pt_size_2)
 ###------------------------------------------
 
 ### 3V
@@ -92,10 +92,10 @@ pattern_list = {
         r'\b[0-9]{4}\.*[0-9]{3}\.*[0-9]{3,4}\b'
     ],
     'weight customer': [
-        r'\d+\s*(kg|ky|ký|ki+|kí+)'
+        r'\b\d+\s*(kg|ky|ký|ki+|kí+)\b'
     ],
     'height customer':[
-        r'((\dm|m)\d+|\d+cm)'
+        r'\b((\dm|m)\s*\d+|\d+\s*cm)\b'
     ],
     'size':[
         pt_size
@@ -117,7 +117,8 @@ pattern_list = {
 list_pre = {
     'V1' : V1_pre,
     'V2' : V2_pre,
-    'V3' : V3_pre
+    'V3' : V3_pre,
+    'size': size_pref + '|' + product_pt
 }
 
 file_char = open(path.join(MODELS_PATH, 'list_char.json'), 'r')
@@ -128,10 +129,10 @@ trie = json.load(file_ID_product)
 def label_entity(sentences, address_inp):
     '''
     Argument: 
-        sentences: one string need to label
+        sentences: list of string need to label
 
     return:
-        sents_entity: list [start_offset, end_offset, label_name]
+        sents_entity: list of [start_offset, end_offset, label_name]
     '''
     sents_entity = [[] for i in range(len(sentences))]
     ner_entity = [[] for i in range(len(sentences))]
@@ -171,6 +172,7 @@ def label_entity(sentences, address_inp):
             else:
                 list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
             list_entity_sq = join_continuous_sq(list_entity_sq, sent)
+            list_entity_sq = delete_pre(list_entity_sq, sent)
             list_entity_sq = reduce_label(list_entity_sq, sent.find(':'))
             if len(list_entity_sq) > 0:
                 result.extend(list_entity_sq)
@@ -201,6 +203,8 @@ def decode_start_end(sent, start, end):
     dec_sent = unidecode(sent)
 
     j = 0
+    dec_start = 0
+    dec_end = 0
     for i in range(len(dec_sent)):
         while unidecode(sent[j]) != dec_sent[i]:
             j+=1
@@ -397,6 +401,20 @@ def remove_duplicate_entity(sent_entities, sent_len):
             check[i] = True
         final_entities.append(seq_label)
     return final_entities
+
+def delete_pre(list_sq, sent):
+    for sequence in list_sq:
+        start = sequence[0]
+        end = sequence[1]
+        entity = sequence[2]
+        text = sent[start: end]
+        if entity not in list_pre.keys() : continue
+        p = re.search(list_pre[entity], text)
+        if p is not None:
+            offset = p.span()[1]
+            start = start + offset + 1
+            sequence[0] = start
+    return list_sq
 
 def find_trie(a, s):
     cnt = 0
