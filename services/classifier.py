@@ -23,7 +23,9 @@ import concurrent.futures
 MODELS_PATH = path.join(BASE_DIR, 'models')
 # list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return', 'Done']
 # list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order'] ### remove Return and Changing
-intent_list = ['Hello', 'Done', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return']
+intent_list = ['hello', 'done', 'inform', 'order', 'connect', 'feedback', 'changing', 'return'] \
+    + ['request_phone', 'request_weight customer', None, 'request_color_product','request_cost_product', \
+    'request_shiping fee', 'request_amount_product', 'request_material_product', None, None, 'request_size', 'request_address']
 
 ### resolve later:
 ### ### need rules-based method: 'size_product', 'amount_product', 'size customer', 'phone members', \
