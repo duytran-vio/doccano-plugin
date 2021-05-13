@@ -65,6 +65,9 @@ def summary():
 def add():
     return render_template('add.html')
 
+@app.route('/retrain')
+def retrain():
+    return render_template('retrain.html')
 
 @app.route('/api/sample', methods=['POST'])
 def create_sample_test_project():
@@ -152,6 +155,17 @@ def create_add_project():
         logging.exception(e)
         return jsonify({'error': str(e)}), 500
 
+@app.route('/retrain', methods=['GET'])
+def retrain_test_project():
+    try:
+        print('Retrain test project')
+        refresh_client()
+        file_name = handle_download_request(flask_request, Client.doccano_client)
+        file_path = os.path.join(DATA_DOWNLOAD_PATH, file_name)
+        return send_file(file_path, as_attachment=True)
+    except Exception as e:
+        logging.exception(e)
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT, debug=debug)
