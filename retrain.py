@@ -5,9 +5,13 @@ import json
 import sys
 import time
 
+import smtplib
+from email.message import EmailMessage
+
 from sklearn import svm,metrics
 import pickle
 import numpy as np
+from sklearn.metrics import classification_report
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE_DIR)
@@ -24,35 +28,97 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
 DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
 
-intent_list = ['Hello', 'Done', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return']
 
 projectFile_path = 'project.csv'
-tfidf_path = 'services/models/tfidf.pickle'
-orig_data_path = 'services/models/orig_data'
-orig_label_path = 'services/models/orig_label'
+X_train_path = 'services/retrain/X_train.txt'
+X_test_path = 'services/retrain/X_test.txt'
+y_train_path = 'services/retrain/y_train.pkl'
+y_test_path = 'services/retrain/y_test.pkl'
+f1_history_path = 'services/retrain/f1_history.pkl'
 svm_path = 'services/models/hungne'
 
+accum_data_path = 'services/retrain/accum_data.txt'
+accum_label_path = 'services/retrain/accum_label.txt'
+
+tfidf_path = 'services/retrain/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
-X_tfidf = pickle.load(open(orig_data_path, 'rb'))
-label = pickle.load(open(orig_label_path, 'rb'))
+
+intent_list = ['hello', 'done', 'inform', 'order', 'connect', 'feedback', 'changing', 'return'] \
+    + ['request_phone', 'request_weight customer', None, 'request_color_product','request_cost_product', \
+    'request_shiping fee', 'request_amount_product', 'request_material_product', None, None, 'request_size', 'request_address']
+
+
+def write_text_to_file(file_path, data):
+    f = open(file_path, 'w')
+    for i in data:
+        f.write(i)
+        f.write('\n')
+    f.close()
 
 def macro_f1(report):
-    main_keys = list(report.keys())[0:-3]
-    result = 0
-    for i in main_keys: result += report[i]['f1-score']
-    return result/len(main_keys)
+    return report['macro avg']['f1-score'], report['weighted avg']['f1-score']
 
-### To retrain svm model base on original labels and new labels
+def read_vars():
+    X_train = pd.read_csv(X_train_path, sep='\n').values[:,0]
+    X_test = tfidfconverter.transform(pd.read_csv(X_test_path, sep='\n').values[:,0])
+    y_train = pickle.load(open(y_train_path, 'rb'))
+    y_test = pickle.load(open(y_test_path, 'rb'))
+    f1_history = pickle.load(open(f1_history_path, 'rb'))
+    return X_train, X_test, y_train, y_test, f1_history
+
+### Input: new sentences and labels
+### If it can improve model -> apply and save
+### Else send email to Bach to raise warning
 ### args: sents and their labels
 def retrain(new_sents, new_labels):
-    X_new = tfidfconverter.transform(new_sents).toarray()
-    X = np.concatenate([X_new, X_tfidf], axis = 0)
-    lbl = label + new_labels
+    ### Accumulate data until enough to start retraining
+    accum_data = pd.read_csv(accum_data_path, sep='\n').values[:,0]
+    accum_label = pd.read_csv(accum_label_path, sep='\n').values[:, 0]
+    accum_label = [int(i) for i in accum_label]
+    
+    accum_data += new_sents
+    accum_label += new_labels
+
+    ### If data is not enough, save and wait, not train
+    if len(accum_data) < 100:
+        write_text_to_file(accum_data_path, accum_data)
+        write_text_to_file(accum_label_path, accum_label)
+        return None
+
+    
+    X_new = tfidfconverter.transform(accum_data).toarray()
+    X_train, X_test, y_train, y_test, f1_history = read_vars()
+    X_train, X_test = tfidfconverter.transform(X_train), tfidfconverter.transform(X_test)
+
+    X_train = np.concatenate([X_new, X_train], axis = 0)
+    lbl = accum_label + y_train
+
     clf = svm.LinearSVC()
-    clf = clf.fit(X, lbl)
-    pickle.dump(X, open(orig_data_path, 'wb'))
-    pickle.dump(lbl, open(orig_label_path, 'wb'))
-    pickle.dump(clf, open(svm_path, 'wb'))
+    clf = clf.fit(X_train, lbl)
+
+    y_pred = clf.predict(X_test)
+    result = classification_report(y_test, y_pred, output_dict = True,\
+                    target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None])
+    new_macrof1 = macro_f1(result)
+
+    ### If the model is improved
+    if new_macrof1[0] > f1_history[-1][0] and new_macrof1[1] > f1_history[-1][1]:
+        f1_history.append(new_macrof1)
+        pickle.dump(f1_history, open(f1_history_path, 'wb'))
+        pickle.dump(y_train, open(y_train_path, 'wb'))
+        pickle.dump(clf, open(svm_path, 'wb'))
+        write_text_to_file(X_train_path, X_train)
+        write_text_to_file(accum_data_path, [])
+        write_text_to_file(accum_label_path, [])
+    else: ### Raise warning
+        msg = EmailMessage() 
+        msg['Subject'] = 'WARNING FROM RETRAIN TMT CHATBOT'
+        msg['From'] = "automessage.tmt@gmail.com"
+        msg['To'] = "ltb1002.edmail@gmail.com"
+        msg.set_content("Open the following data and label files to see what is the problem.")
+        msg.add_attachment(open(accum_data_path, "r").read(), filename="data.txt")
+        msg.add_attachment(open(accum_label_path, "r").read(), filename="label.txt")
+        server.sendmail(msg)
 
 def get_id_start_end(file_name):
     '''
@@ -153,4 +219,8 @@ def use_retrain_model():
     time.sleep(3600 * 24 * 7)
 
 if __name__ == '__main__':
+    ### setup to send email
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login("automessage.tmt@gmail.com", "tmtpassword")
     correct_label(643, 3, 5)
