@@ -3,6 +3,7 @@ import os
 import re
 import json
 import sys
+import time
 
 from sklearn import svm,metrics
 import pickle
@@ -25,6 +26,7 @@ DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
 
 intent_list = ['Hello', 'Done', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return']
 
+projectFile_path = 'project.csv'
 tfidf_path = 'services/models/tfidf.pickle'
 orig_data_path = 'services/models/orig_data'
 orig_label_path = 'services/models/orig_label'
@@ -142,6 +144,13 @@ def correct_label(project_id, start, end):
             new_labels.append(intent_num)
             result.append(intent_summary)
     retrain(new_sents, new_labels)
+    # save result to test data
+
+def use_retrain_model():
+    df_project = pd.read_csv(projectFile_path, header=True)
+    for project in df_project:
+        correct_label(project['id'], project['start'], project['end'])
+    time.sleep(3600 * 24 * 7)
 
 if __name__ == '__main__':
     correct_label(643, 3, 5)
