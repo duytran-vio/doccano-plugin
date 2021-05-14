@@ -9,6 +9,7 @@ from services.download import handle_request as handle_download_request
 from services.summary import handle_request as handle_summary_request
 from services.create import handle_request as handle_create_request
 from services.add import handle_request as handle_add_request
+from services.retrain import handle_request as handle_retrain_request
 
 from services.Scripts.address import prepare_dec, prepare_enc, prepare_id2w, prepare_disown
 from services.Scripts.address import prepare_ward_s_district
@@ -155,14 +156,15 @@ def create_add_project():
         logging.exception(e)
         return jsonify({'error': str(e)}), 500
 
-@app.route('/retrain', methods=['GET'])
+@app.route('/api/retrain', methods=['GET'])
 def retrain_test_project():
     try:
-        print('Retrain test project')
+        print('Retrain project')
         refresh_client()
-        file_name = handle_download_request(flask_request, Client.doccano_client)
-        file_path = os.path.join(DATA_DOWNLOAD_PATH, file_name)
-        return send_file(file_path, as_attachment=True)
+        handle_retrain_request(flask_request, Client.doccano_client)
+        return jsonify({
+            'status': 'OK'
+        }), 200
     except Exception as e:
         logging.exception(e)
         return jsonify({'error': str(e)}), 500

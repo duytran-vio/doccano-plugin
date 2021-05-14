@@ -1,3 +1,4 @@
+from services.retrain import RETRAIN_PATH
 import pandas as pd
 import os
 import re
@@ -29,7 +30,7 @@ DATA_PATH = os.path.join(ROOT, 'doccano_project_data')
 DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
 
 
-projectFile_path = 'project.csv'
+RETRAIN_PROJECT_PATH = 'services/retrain/retrain_project.csv'
 X_train_path = 'services/retrain/X_train.txt'
 X_test_path = 'services/retrain/X_test.txt'
 y_train_path = 'services/retrain/y_train.pkl'
@@ -40,10 +41,10 @@ svm_path = 'services/models/hungne'
 accum_data_path = 'services/retrain/accum_data.txt'
 accum_label_path = 'services/retrain/accum_label.txt'
 
-tfidf_path = 'services/retrain/tfidf.pickle'
+tfidf_path = 'services/models/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
 
-intent_list = ['hello', 'done', 'inform', 'order', 'connect', 'feedback', 'changing', 'return'] \
+intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return'] \
     + ['request_phone', 'request_weight customer', None, 'request_color_product','request_cost_product', \
     'request_shiping fee', 'request_amount_product', 'request_material_product', None, None, 'request_size', 'request_address']
 
@@ -209,18 +210,22 @@ def correct_label(project_id, start, end):
             new_sents.append(text)
             new_labels.append(intent_num)
             result.append(intent_summary)
+    # print(result)
     retrain(new_sents, new_labels)
-    # save result to test data
 
 def use_retrain_model():
-    df_project = pd.read_csv(projectFile_path, header=True)
-    for project in df_project:
-        correct_label(project['id'], project['start'], project['end'])
-    time.sleep(3600 * 24 * 7)
+    df_project = pd.read_csv(RETRAIN_PROJECT_PATH)
+    for i in range(len(df_project)):
+        project = df_project.iloc[i]
+        if not project['status']:
+            correct_label(project['id'], project['start'], project['end'])
+            # df_project['status'][i] = True
+    df_project.to_csv(RETRAIN_PROJECT_PATH, index = False)
+    time.sleep(3600 * 24 * 7) #comment to debug
 
 if __name__ == '__main__':
     ### setup to send email
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login("automessage.tmt@gmail.com", "tmtpassword")
-    correct_label(643, 3, 5)
+    use_retrain_model()
