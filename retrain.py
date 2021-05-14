@@ -7,7 +7,7 @@ import sys
 import time
 
 import smtplib
-from email.message import EmailMessage
+from email.mime.text import MIMEText
 
 from sklearn import svm,metrics
 import pickle
@@ -44,7 +44,7 @@ accum_label_path = 'services/retrain/accum_label.txt'
 tfidf_path = 'services/models/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
 
-intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return'] \
+intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return', 'Other'] \
     + ['request_phone', 'request_weight customer', None, 'request_color_product','request_cost_product', \
     'request_shiping fee', 'request_amount_product', 'request_material_product', None, None, 'request_size', 'request_address']
 
@@ -60,8 +60,8 @@ def macro_f1(report):
     return report['macro avg']['f1-score'], report['weighted avg']['f1-score']
 
 def read_vars():
-    X_train = pd.read_csv(X_train_path, sep='\n').values[:,0]
-    X_test = tfidfconverter.transform(pd.read_csv(X_test_path, sep='\n').values[:,0])
+    X_train = pd.read_csv(X_train_path, sep='\n', header=None).values[:,0]
+    X_test = pd.read_csv(X_test_path, sep='\n', header=None).values[:,0]
     y_train = pickle.load(open(y_train_path, 'rb'))
     y_test = pickle.load(open(y_test_path, 'rb'))
     f1_history = pickle.load(open(f1_history_path, 'rb'))
@@ -73,9 +73,13 @@ def read_vars():
 ### args: sents and their labels
 def retrain(new_sents, new_labels):
     ### Accumulate data until enough to start retraining
-    accum_data = pd.read_csv(accum_data_path, sep='\n').values[:,0]
-    accum_label = pd.read_csv(accum_label_path, sep='\n').values[:, 0]
-    accum_label = [int(i) for i in accum_label]
+    try:
+        accum_data = pd.read_csv(accum_data_path, sep='\n').values[:,0]
+        accum_label = pd.read_csv(accum_label_path, sep='\n').values[:, 0]
+        accum_label = [int(i) for i in accum_label]
+    except:
+        accum_data = []
+        accum_label = []
     
     accum_data += new_sents
     accum_label += new_labels
@@ -86,13 +90,14 @@ def retrain(new_sents, new_labels):
         write_text_to_file(accum_label_path, accum_label)
         return None
 
-    
+
     X_new = tfidfconverter.transform(accum_data).toarray()
     X_train, X_test, y_train, y_test, f1_history = read_vars()
-    X_train, X_test = tfidfconverter.transform(X_train), tfidfconverter.transform(X_test)
+    X_train, X_test = tfidfconverter.transform(X_train).toarray(), tfidfconverter.transform(X_test).toarray()
 
-    X_train = np.concatenate([X_new, X_train], axis = 0)
-    lbl = accum_label + y_train
+
+    X_train = np.concatenate((X_new, X_train), axis = 0)
+    lbl = accum_label + list(y_train)
 
     clf = svm.LinearSVC()
     clf = clf.fit(X_train, lbl)
@@ -112,14 +117,17 @@ def retrain(new_sents, new_labels):
         write_text_to_file(accum_data_path, [])
         write_text_to_file(accum_label_path, [])
     else: ### Raise warning
-        msg = EmailMessage() 
+        with open('services/retrain/text.txt', 'rb') as fp:
+            # Create a text/plain message
+            msg = MIMEText(" ")
+        # msg = MIMEText() 
         msg['Subject'] = 'WARNING FROM RETRAIN TMT CHATBOT'
         msg['From'] = "automessage.tmt@gmail.com"
         msg['To'] = "ltb1002.edmail@gmail.com"
-        msg.set_content("Open the following data and label files to see what is the problem.")
-        msg.add_attachment(open(accum_data_path, "r").read(), filename="data.txt")
-        msg.add_attachment(open(accum_label_path, "r").read(), filename="label.txt")
-        server.sendmail(msg)
+        # msg.set_content("Open the following data and label files to see what is the problem.")
+        # msg.add_attachment(open(accum_data_path, "r").read(), filename="data.txt")
+        # msg.add_attachment(open(accum_label_path, "r").read(), filename="label.txt")
+        server.sendmail('automessage.tmt@gmail.com', 'ltb1002.edmail@gmail.com', msg.as_string())
 
 def get_id_start_end(file_name):
     '''
