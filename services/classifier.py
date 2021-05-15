@@ -24,8 +24,8 @@ MODELS_PATH = path.join(BASE_DIR, 'models')
 # list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return', 'Done']
 # list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order'] ### remove Return and Changing
 intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return'] \
-    + ['request_phone', 'request_weight customer', None, 'request_color_product','request_cost_product', \
-    'request_shiping fee', 'request_amount_product', 'request_material_product', None, None, 'request_size', 'request_address']
+    + ['Request_phone', 'Request_weight customer', None, 'Request_color_product','Request_cost_product', \
+    'Request_shiping fee', 'Request_amount_product', 'Request_material_product', None, None, 'Request_size', 'Request_address']
 
 ### resolve later:
 ### ### need rules-based method: 'size_product', 'amount_product', 'size customer', 'phone members', \
@@ -106,7 +106,14 @@ def classifier(data_file_path, address_inp):
     sents_intent = worker(sent_tfidf, svm_models)
     for i in range(len(sentences)):
         if re.search('.*khách.*:', df_data['text'][i].lower()) is not None: 
-            df_data['labels'][i] = [[0, 1, intent_list[int(sents_intent[i])]]]
+            # df_data['labels'][i] = [[0, 1, intent_list[int(sents_intent[i])]]]
+            intent = intent_list[int(sents_intent[i])]
+            if intent.find('Request_') >= 0:
+                entity = intent[intent.find('_') + 1: ]
+                ls_intent = [[0, 1, 'Request'], [1, 2, entity]]
+            else:
+                ls_intent = [[0, 1, intent]]
+            df_data['labels'][i] = ls_intent
         
 
     end_time_intent = time.time()

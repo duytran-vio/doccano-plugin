@@ -45,8 +45,8 @@ tfidf_path = 'services/models/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
 
 intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return', 'Other'] \
-    + ['request_phone', 'request_weight customer', None, 'request_color_product','request_cost_product', \
-    'request_shiping fee', 'request_amount_product', 'request_material_product', None, None, 'request_size', 'request_address']
+    + ['Request_phone', 'Request_weight customer', None, 'Request_color_product','Request_cost_product', \
+    'Request_shiping fee', 'Request_amount_product', 'Request_material_product', None, None, 'Request_size', 'Request_address']
 
 
 def write_text_to_file(file_path, data):
@@ -189,6 +189,12 @@ def get_model_docs(project_id, start, end):
 def intent_to_num(ls_intent):
     if len(ls_intent) == 1:
         return intent_list.index(ls_intent[0])
+    else:
+        try:
+            intent = ls_intent[0] + '_' + ls_intent[1]
+            return intent_list.index(intent)
+        except:
+            return -1
 
 def correct_label(project_id, start, end):
     '''
@@ -211,6 +217,8 @@ def correct_label(project_id, start, end):
 
         if model_intents != correct_intents and len(correct_intents) > 0:
             intent_num = intent_to_num(correct_intents)
+            if intent_num == -1: 
+                continue
             intent_summary = {
                 'text': text,
                 'label': intent_num
