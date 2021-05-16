@@ -23,7 +23,7 @@ import concurrent.futures
 MODELS_PATH = path.join(BASE_DIR, 'models')
 # list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order', 'Changing', 'Return', 'Done']
 # list_intents = ['Hello', 'Inform', 'Request', 'feedback', 'Connect', 'Order'] ### remove Return and Changing
-intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return'] \
+intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return', 'Other'] \
     + ['Request_phone', 'Request_weight customer', None, 'Request_color_product','Request_cost_product', \
     'Request_shiping fee', 'Request_amount_product', 'Request_material_product', None, None, 'Request_size', 'Request_address']
 
