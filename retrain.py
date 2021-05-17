@@ -235,7 +235,7 @@ def use_retrain_model():
         project = df_project.iloc[i]
         if not project['status']:
             correct_label(project['id'], project['start'], project['end'])
-            # df_project['status'][i] = True
+            df_project['status'][i] = True
     df_project.to_csv(RETRAIN_PROJECT_PATH, index = False)
     time.sleep(3600 * 24 * 7) #comment to debug
 
