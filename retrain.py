@@ -187,14 +187,14 @@ def get_model_docs(project_id, start, end):
     return docs
 
 def intent_to_num(ls_intent):
-    if len(ls_intent) == 1:
-        return intent_list.index(ls_intent[0])
-    else:
-        try:
+    try:
+        if len(ls_intent) == 1:
+            return intent_list.index(ls_intent[0])
+        else:
             intent = ls_intent[0] + '_' + ls_intent[1]
             return intent_list.index(intent)
-        except:
-            return -1
+    except:
+        return -1
 
 def correct_label(project_id, start, end):
     '''
