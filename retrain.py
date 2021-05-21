@@ -1,10 +1,11 @@
 from services.retrain import RETRAIN_PATH
 import pandas as pd
 import os
-import re
 import json
 import sys
 import time
+from datetime import datetime
+
 
 import smtplib
 from email.mime.text import MIMEText
@@ -237,7 +238,12 @@ def use_retrain_model():
             correct_label(project['id'], project['start'], project['end'])
             df_project['status'][i] = True
     df_project.to_csv(RETRAIN_PROJECT_PATH, index = False)
-    time.sleep(3600 * 24 * 7) #comment to debug
+
+def write_to_log():
+    fi = open('retrain_logs.txt', 'a')
+    now = datetime.now()
+    t =  str(now.strftime('%Y-%m-%d %H:%M:%S')) + '\n'
+    fi.write(t)
 
 if __name__ == '__main__':
     ### setup to send email
@@ -245,3 +251,5 @@ if __name__ == '__main__':
     server.starttls()
     server.login("automessage.tmt@gmail.com", "tmtpassword")
     use_retrain_model()
+    write_to_log()
+    time.sleep(3600*24*7) #comment to debug

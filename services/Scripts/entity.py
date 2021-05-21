@@ -1,4 +1,4 @@
-from vncorenlp import VnCoreNLP
+# from vncorenlp import VnCoreNLP
 from os import path
 import re
 import pandas as pd

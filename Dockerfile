@@ -1,8 +1,8 @@
 FROM python:3
 
-WORKDIR D:\Github\doccano_plugin
+WORKDIR /retrain
 
-COPY . .
+COPY ./requirements.txt .
 
 RUN pip install -r requirements.txt
 
