@@ -41,6 +41,8 @@ svm_path = 'services/models/hungne'
 
 accum_data_path = 'services/retrain/accum_data.txt'
 accum_label_path = 'services/retrain/accum_label.txt'
+new_datatest_path = 'services/retrain/new_data_test.txt'
+new_labeltest_path = 'services/retrain/new_label_test.txt'
 
 tfidf_path = 'services/models/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
@@ -108,15 +110,30 @@ def retrain(new_sents, new_labels):
                     target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None])
     new_macrof1 = macro_f1(result)
 
+    new_data_test = pd.read_csv(new_datatest_path, sep='\n').values[:,0]
+    new_label_test = pd.read_csv(new_labeltest_path, sep='\n').values[:,0]
+    y_pred = clf.predict(new_data_test)
+    result = classification_report(new_label_test, y_pred, output_dict = True,\
+                    target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None]) 
+    new_macrof1_1 = macro_f1(result)
+
     ### If the model is improved
-    if new_macrof1[0] > f1_history[-1][0] and new_macrof1[1] > f1_history[-1][1]:
-        f1_history.append(new_macrof1)
+    if new_macrof1[0] >= f1_history[-1][0] and new_macrof1[1] >= f1_history[-1][1] \
+        and new_macrof1_1[0] >= f1_history[-1][2] and new_macrof1_1[1] >= f1_history[-1][3]:
+        f1_history.append([new_macrof1[0], new_macrof1[1], new_macrof1_1[0], new_macrof1_1[1]])
         pickle.dump(f1_history, open(f1_history_path, 'wb'))
         pickle.dump(y_train, open(y_train_path, 'wb'))
         pickle.dump(clf, open(svm_path, 'wb'))
         write_text_to_file(X_train_path, X_train)
         write_text_to_file(accum_data_path, [])
         write_text_to_file(accum_label_path, [])
+
+        new_data_test += new_sents
+        new_label_test += new_labels
+        write_text_to_file(new_datatest_path, new_data_test)
+        write_text_to_file(new_labeltest_path, new_label_test)
+
+
     else: ### Raise warning
         with open('services/retrain/text.txt', 'rb') as fp:
             # Create a text/plain message
