@@ -98,7 +98,6 @@ def retrain(new_sents, new_labels):
     X_train, X_test, y_train, y_test, f1_history = read_vars()
     X_train, X_test = tfidfconverter.transform(X_train).toarray(), tfidfconverter.transform(X_test).toarray()
 
-
     X_train = np.concatenate((X_new, X_train), axis = 0)
     lbl = accum_label + list(y_train)
 
@@ -141,11 +140,12 @@ def retrain(new_sents, new_labels):
         # msg = MIMEText() 
         msg['Subject'] = 'WARNING FROM RETRAIN TMT CHATBOT'
         msg['From'] = "automessage.tmt@gmail.com"
-        msg['To'] = "ltb1002.edmail@gmail.com"
+        # msg['To'] = "ltb1002.edmail@gmail.com"
         # msg.set_content("Open the following data and label files to see what is the problem.")
         # msg.add_attachment(open(accum_data_path, "r").read(), filename="data.txt")
         # msg.add_attachment(open(accum_label_path, "r").read(), filename="label.txt")
         server.sendmail('automessage.tmt@gmail.com', 'ltb1002.edmail@gmail.com', msg.as_string())
+        server.sendmail('automessage.tmt@gmail.com', 'hoalt@tmtsofts.com', msg.as_string())
 
 def get_id_start_end(file_name):
     '''
