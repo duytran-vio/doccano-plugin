@@ -2,7 +2,7 @@
 from os import path
 import re
 import pandas as pd
-from .address import address_entity
+# from .address import address_entity
 import numpy as np
 import time
 import json
@@ -59,12 +59,12 @@ size_pref = r'size|sai|sz|c[a|á]i'
 size_main = r'\d*(x*s|m|x*l|a|nhỏ|lớn|nho|lon)'
 pt_size_1 = r'({}|{})((\,\s*|\s){})+'.format(size_pref, product_pt, size_main)
 pt_size_2 = r'({})((\,\s*|\s)\d+)+'.format(size_pref)
-# pt_size_3 = r'(\d*(x*s|x*l))'
+pt_size_3 = r'\b(\d*(x*s|x*l|m))\b'
 pt_size = r'\b({}|{})\b'.format(pt_size_1, pt_size_2)
 ###------------------------------------------
 
 ### 3V
-pt_3V = r'\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*'
+pt_3V = r'\b\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*\b'
 V1_pre = r'\b(ng[u|ự]c|v1|v[o|ò]ng\s*1)\b'
 V2_pre = r'\b(eo|v2|v[o|ò]ng\s*2|b[u|ụ]ng)\b'
 V3_pre = r'\b(m[o|ô]ng|v3|v[o|ò]ng\s*3)\b'
@@ -82,6 +82,15 @@ pt_time_phrase = r'(gi|h)ờ\shành\schính(ngày\sthường)*'
 pt_time_summary = r'\b({}|{}|{}|{}|{}|sáng|trưa|tối|mai|mốt)\b'.format(pt_pre_day_date, pt_num_pre, pt_date, pt_hour,pt_time_phrase)
 ###-------------------------------------------
 
+### HEIGHT_WEIGHT
+pt_weight_1 = r'\b\d+\s*(kg|ky|ký|ki+|kí+|cân)\b'
+pt_weight_2 = r'\bnặng\s*\d+(\s*(kg|ky|ký|ki+|kí+|cân))*\b'
+pt_weight = r'{}|{}'.format(pt_weight_1, pt_weight_2)
+pt_height_1 = r'\b((\dm|m)\s*\d+|\d+(\,\d+)*\s*cm)\b'
+pt_height_2 = r'\bcao\s*\d+(\,\d+)*\b'
+pt_height = r'{}|{}'.format(pt_height_1, pt_height_2)
+###-------------------------------------------
+
 ### list of pattern
 list_entity_using_regex = ['V1', 'V2', 'V3', 'phone', 'weight customer', 'height customer', 
                             'size', 'color_product','cost_product', 'shiping fee',
@@ -92,10 +101,10 @@ pattern_list = {
         r'\b[0-9]{4}\.*[0-9]{3}\.*[0-9]{3,4}\b'
     ],
     'weight customer': [
-        r'\b\d+\s*(kg|ky|ký|ki+|kí+)\b'
+        pt_weight
     ],
     'height customer':[
-        r'\b((\dm|m)\s*\d+|\d+\s*cm)\b'
+        pt_height
     ],
     'size':[
         pt_size
@@ -119,6 +128,13 @@ list_pre = {
     'V2' : V2_pre,
     'V3' : V3_pre,
     'size': size_pref + '|' + product_pt
+}
+
+list_post = {
+    'V1': pt_V,
+    'V2': pt_V,
+    'V3': pt_V,
+    'size': pt_size_3
 }
 
 file_char = open(path.join(MODELS_PATH, 'list_char.json'), 'r')
@@ -171,6 +187,11 @@ def label_entity(sentences, address_inp):
                 list_entity_sq = [e for e in list_sq if e[2] == entity]
             else:
                 list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
+            if i > 0:
+                entity_pre_sent = get_entity_with_pre_sent(sentences[i - 1].lower(), sent, entity)
+                if len(entity_pre_sent) > 0:
+                    list_entity_sq.extend(entity_pre_sent)
+
             list_entity_sq = join_continuous_sq(list_entity_sq, sent)
             list_entity_sq = delete_pre(list_entity_sq, sent)
             list_entity_sq = reduce_label(list_entity_sq, sent.find(':'))
@@ -489,6 +510,17 @@ def infer_V(sent, entity):
             k = k + p.span()[1]  
     return list_sub
 
+def get_entity_with_pre_sent(pre_sent, sent, entity):
+    try:
+        if len(findall_index(list_pre[entity], pre_sent, entity)) > 0:
+            return findall_index(list_post[entity], sent, entity)
+        else:
+            return []
+    except:
+        return []
+        
 if __name__ == "__main__":
-    result = label_entity(['áo 165k còn không lấy chị 2 cái '], None)
-    print(result)
+    # result = label_entity(['0905 893 795'], None)
+    # print(result)
+    list_entity_sq = get_entity_with_pre_sent('eo 50 thì mang size j e?', 'mặc m nha chị', 'size')
+    print(list_entity_sq)
