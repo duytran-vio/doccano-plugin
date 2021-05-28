@@ -1,10 +1,11 @@
 from services.retrain import RETRAIN_PATH
 import pandas as pd
 import os
-import re
 import json
 import sys
 import time
+from datetime import datetime
+
 
 import smtplib
 from email.mime.text import MIMEText
@@ -40,6 +41,8 @@ svm_path = 'services/models/hungne'
 
 accum_data_path = 'services/retrain/accum_data.txt'
 accum_label_path = 'services/retrain/accum_label.txt'
+new_datatest_path = 'services/retrain/new_data_test.txt'
+new_labeltest_path = 'services/retrain/new_label_test.txt'
 
 tfidf_path = 'services/models/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
@@ -95,7 +98,6 @@ def retrain(new_sents, new_labels):
     X_train, X_test, y_train, y_test, f1_history = read_vars()
     X_train, X_test = tfidfconverter.transform(X_train).toarray(), tfidfconverter.transform(X_test).toarray()
 
-
     X_train = np.concatenate((X_new, X_train), axis = 0)
     lbl = accum_label + list(y_train)
 
@@ -107,15 +109,30 @@ def retrain(new_sents, new_labels):
                     target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None])
     new_macrof1 = macro_f1(result)
 
+    new_data_test = pd.read_csv(new_datatest_path, sep='\n').values[:,0]
+    new_label_test = pd.read_csv(new_labeltest_path, sep='\n').values[:,0]
+    y_pred = clf.predict(new_data_test)
+    result = classification_report(new_label_test, y_pred, output_dict = True,\
+                    target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None]) 
+    new_macrof1_1 = macro_f1(result)
+
     ### If the model is improved
-    if new_macrof1[0] > f1_history[-1][0] and new_macrof1[1] > f1_history[-1][1]:
-        f1_history.append(new_macrof1)
+    if new_macrof1[0] >= f1_history[-1][0] and new_macrof1[1] >= f1_history[-1][1] \
+        and new_macrof1_1[0] >= f1_history[-1][2] and new_macrof1_1[1] >= f1_history[-1][3]:
+        f1_history.append([new_macrof1[0], new_macrof1[1], new_macrof1_1[0], new_macrof1_1[1]])
         pickle.dump(f1_history, open(f1_history_path, 'wb'))
         pickle.dump(y_train, open(y_train_path, 'wb'))
         pickle.dump(clf, open(svm_path, 'wb'))
         write_text_to_file(X_train_path, X_train)
         write_text_to_file(accum_data_path, [])
         write_text_to_file(accum_label_path, [])
+
+        new_data_test += new_sents
+        new_label_test += new_labels
+        write_text_to_file(new_datatest_path, new_data_test)
+        write_text_to_file(new_labeltest_path, new_label_test)
+
+
     else: ### Raise warning
         with open('services/retrain/text.txt', 'rb') as fp:
             # Create a text/plain message
@@ -123,11 +140,12 @@ def retrain(new_sents, new_labels):
         # msg = MIMEText() 
         msg['Subject'] = 'WARNING FROM RETRAIN TMT CHATBOT'
         msg['From'] = "automessage.tmt@gmail.com"
-        msg['To'] = "ltb1002.edmail@gmail.com"
+        # msg['To'] = "ltb1002.edmail@gmail.com"
         # msg.set_content("Open the following data and label files to see what is the problem.")
         # msg.add_attachment(open(accum_data_path, "r").read(), filename="data.txt")
         # msg.add_attachment(open(accum_label_path, "r").read(), filename="label.txt")
         server.sendmail('automessage.tmt@gmail.com', 'ltb1002.edmail@gmail.com', msg.as_string())
+        server.sendmail('automessage.tmt@gmail.com', 'hoalt@tmtsofts.com', msg.as_string())
 
 def get_id_start_end(file_name):
     '''
@@ -187,14 +205,14 @@ def get_model_docs(project_id, start, end):
     return docs
 
 def intent_to_num(ls_intent):
-    if len(ls_intent) == 1:
-        return intent_list.index(ls_intent[0])
-    else:
-        try:
+    try:
+        if len(ls_intent) == 1:
+            return intent_list.index(ls_intent[0])
+        else:
             intent = ls_intent[0] + '_' + ls_intent[1]
             return intent_list.index(intent)
-        except:
-            return -1
+    except:
+        return -1
 
 def correct_label(project_id, start, end):
     '''
@@ -235,9 +253,14 @@ def use_retrain_model():
         project = df_project.iloc[i]
         if not project['status']:
             correct_label(project['id'], project['start'], project['end'])
-            # df_project['status'][i] = True
+            df_project['status'][i] = True
     df_project.to_csv(RETRAIN_PROJECT_PATH, index = False)
-    time.sleep(3600 * 24 * 7) #comment to debug
+
+def write_to_log():
+    fi = open('retrain_logs.txt', 'a')
+    now = datetime.now()
+    t =  str(now.strftime('%Y-%m-%d %H:%M:%S')) + '\n'
+    fi.write(t)
 
 if __name__ == '__main__':
     ### setup to send email
@@ -245,3 +268,5 @@ if __name__ == '__main__':
     server.starttls()
     server.login("automessage.tmt@gmail.com", "tmtpassword")
     use_retrain_model()
+    write_to_log()
+    time.sleep(3600*24*7) #comment to debug

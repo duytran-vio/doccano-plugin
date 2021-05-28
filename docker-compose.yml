@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  retrain:
+    container_name: retrain_container
+    build: .
+    image: retrain_image
+    network_mode: "host"
+    restart: always
+    # environment:
+    #   CONFIGS: ../conf_folder/configs.json
+    volumes:
+      - ./:/retrain
+      - ../doccano_project_data/:/doccano_project_data
