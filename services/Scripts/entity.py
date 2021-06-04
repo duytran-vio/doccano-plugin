@@ -55,7 +55,7 @@ pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(mater
 ###------------------------------------------
 
 ### SIZE
-size_pref = r'size|sai|sz|c[a|á]i'
+size_pref = r'size|sai|sz|c[a|á]i|m[ặ|a]c|l[ấ|a]y'
 size_main = r'\d*(x*s|m|x*l|a|nhỏ|lớn|nho|lon)'
 pt_size_1 = r'({}|{})((\,\s*|\s){})+'.format(size_pref, product_pt, size_main)
 pt_size_2 = r'({})((\,\s*|\s)\d+)+'.format(size_pref)
@@ -97,30 +97,14 @@ list_entity_using_regex = ['V1', 'V2', 'V3', 'phone', 'weight customer', 'height
                             'amount_product', 'material_product', 'ID_product', 'Time'
                             ]
 pattern_list = {
-    'phone': [
-        r'\b[0-9]{4}\.*[0-9]{3}\.*[0-9]{3,4}\b'
-    ],
-    'weight customer': [
-        pt_weight
-    ],
-    'height customer':[
-        pt_height
-    ],
-    'size':[
-        pt_size
-    ],
-    'color_product':[
-        pt_color
-    ],
-    'amount_product':[
-        amount_pt_sum
-    ],
-    'material_product':[
-        pt_material
-    ],
-    'Time':[
-        pt_time_summary
-    ]
+    'phone': r'\b[0-9]{4}\.*[0-9]{3}\.*[0-9]{3,4}\b',
+    'weight customer': pt_weight,
+    'height customer': pt_height,
+    'size': pt_size,
+    'color_product': pt_color,
+    'amount_product': amount_pt_sum,
+    'material_product': pt_material,
+    'Time': pt_time_summary,
 }
 
 list_pre = {
@@ -176,7 +160,7 @@ def label_entity(sentences, address_inp):
         result = []
         for entity in list_entity_using_regex:
             if entity == 'V1' or entity == 'V2' or entity == 'V3':
-                list_entity_sq = infer_V(sent, entity)
+                list_entity_sq = infer_V_size(sent, entity)
                 combine_3V = infer_3V(sent)
                 if (len(combine_3V) > 0):
                     list_entity_sq.extend(combine_3V)
@@ -186,7 +170,12 @@ def label_entity(sentences, address_inp):
                 list_sq = label_full_string(sent)
                 list_entity_sq = [e for e in list_sq if e[2] == entity]
             else:
-                list_entity_sq = get_entity_sq_from_list_pt(pattern_list[entity], sent, entity)
+                list_entity_sq = findall_index(pattern_list[entity], sent, entity)
+                if (entity == 'size'):
+                    add_size = infer_V_size(sent, entity)
+                    if len(add_size) > 0:
+                        list_entity_sq.extend(add_size)
+            
             if i > 0:
                 entity_pre_sent = get_entity_with_pre_sent(sentences[i - 1].lower(), sent, entity)
                 if len(entity_pre_sent) > 0:
@@ -304,14 +293,6 @@ def findall_index(pattern, sent, entity):
         list_sub.append([idx[0] + k, idx[1] + k, entity])
         k = k + idx[1]
     return list_sub
-
-def get_entity_sq_from_list_pt(list_pattern, sent, entity):
-    list_entity_sq = []
-    for pattern in list_pattern:
-        list_index_pt = findall_index(pattern, sent, entity)
-        if len(list_index_pt) > 0:
-            list_entity_sq.extend(list_index_pt)
-    return list_entity_sq
 
 def join_continuous_sq(list_sq, sentences):
     res = []
@@ -493,21 +474,21 @@ def infer_3V(sent):
         k = k + idx[1]
     return list_sub
 
-def infer_V(sent, entity):
+def infer_V_size(sent, entity):
     list_sub = []
     k = 0
+    p = re.search(list_pre[entity], sent[k: ])
+    if p is None: return []
+    k = p.span()[1]
     while True:
-        p = re.search(list_pre[entity], sent[k: ])
-        if p is None: break
-        v_size = re.search(pt_V, sent[k:][p.span()[0]:])
-        if v_size is not None:
-            idx = v_size.span()
-            start = k + p.span()[0] + idx[0]
-            end = k + p.span()[0] + idx[1]
-            list_sub.append([start, end, entity])
-            k = end
-        else:
-            k = k + p.span()[1]  
+        pp = re.search(list_post[entity], sent[k:])
+        if pp is None: 
+            break
+        idx = pp.span()
+        start = k + idx[0]
+        end = k + idx[1]
+        list_sub.append([start, end, entity])
+        k = end 
     return list_sub
 
 def get_entity_with_pre_sent(pre_sent, sent, entity):
@@ -520,7 +501,7 @@ def get_entity_with_pre_sent(pre_sent, sent, entity):
         return []
         
 if __name__ == "__main__":
-    # result = label_entity(['0905 893 795'], None)
-    # print(result)
-    list_entity_sq = get_entity_with_pre_sent('eo 50 thì mang size j e?', 'mặc m nha chị', 'size')
-    print(list_entity_sq)
+    result = label_entity(['@@@@@ Khách 100: mặc dc M ko, hay size S?'], None)
+    print(result)
+    # list_entity_sq = get_entity_with_pre_sent('eo 50 thì mang size j e?', 'mặc m nha chị', 'size')
+    # print(list_entity_sq)
