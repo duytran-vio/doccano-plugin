@@ -1,0 +1,97 @@
+# FROM python:3
+
+# WORKDIR /retrain
+
+# COPY ./requirements.txt .
+
+# RUN pip install -r requirements.txt
+
+# CMD ["python", "./retrain.py"]
+
+# FROM nvidia/cuda:11.3.1-runtime-ubuntu20.04
+FROM nvidia/cuda:9.0-runtime-ubuntu16.04
+# SHELL := /bin/bash
+# FROM ubuntu:20.04
+
+# RUN apt-get update && apt-get -y install apt-t`ransport-https curl
+RUN apt-get update && apt-get upgrade -y
+
+WORKDIR /retrain    
+
+COPY test.py .
+
+COPY ./docker/GPU_install/cudnn-9.0-linux-x64-v7.2.1.38.tgz .
+COPY ./docker/get-pip.py .
+COPY ./docker/Python-3.6.3.tgz .
+COPY ./docker/libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb .
+COPY ./docker/libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb .
+COPY ./docker/libnccl2_2.1.4-1+cuda9.0_amd64.deb .
+COPY ./docker/libnccl-dev_2.1.4-1+cuda9.0_amd64.deb . 
+
+RUN apt-get install -y apt-transport-https && \
+    apt-get update 
+
+RUN apt-get update &&\
+    apt-get install -y g++ freeglut3-dev build-essential \
+    libx11-dev libxmu-dev libxi-dev \
+    libglu1-mesa libglu1-mesa-dev
+
+# RUN apt install gcc-6 g++-6
+
+# RUN apt-get install -y cuda-9.0
+    
+
+# RUn export PATH=/usr/local/cuda/bin:$PATH &&\
+#     export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+    # source ~/.bashrc
+
+
+# RUN tar -xzvf cudnn-9.0-linux-x64-v7.2.1.38.tgz && \
+#     cp -P cuda/include/cudnn.h /usr/local/cuda-9.0/include && \
+#     cp -P cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/ && \
+#     cp -P cuda/include/cudnn.h /usr/local/cuda/include && \
+#     cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64/ && \
+#     chmod a+r /usr/local/cuda-9.0/lib64/libcudnn* && \
+#     chmod a+r /usr/local/cuda/lib64/libcudnn*
+
+# RUN export PATH=/usr/local/cuda/bin:$PATH &&\
+#     export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH && \
+#     . ~/.bashrc
+
+# RUN apt install -y nvidia-cuda-toolkit
+
+RUN dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb && \
+    dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb && \
+    dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb && \
+    dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb && \
+    apt-get update && \
+    apt-get install -y libcudnn7-dev && \ 
+    apt-get install -y libnccl-dev 
+
+RUN export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}} && \
+    export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+
+
+RUN nvcc -V
+
+# RUN apt-get update
+# RUN apt install -y software-properties-common &&\
+#     apt-get update
+# RUN apt-get install -y python3
+
+RUN apt-get install -y wget
+
+RUN tar -xvf Python-3.6.3.tgz && \
+    apt-get install -y software-properties-common python-software-properties && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update &&\
+    apt-get install -y python3.6
+
+# RUN python3.6 -m pip3 install
+RUN python3.6 get-pip.py
+RUN pip3 install --upgrade pip
+RUN pip3 install thundersvm
+
+# # RUN nvidia-smi && nvcc -V
+CMD ["python3.6", "./test.py"]

@@ -1,13 +1,18 @@
 version: "3.7"
 services:
-  retrain:
-    container_name: retrain_container
+  tdsvm_:
+    container_name: svm
     build: .
-    image: retrain_image
+    image: svm
     network_mode: "host"
     restart: always
     # environment:
     #   CONFIGS: ../conf_folder/configs.json
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
     volumes:
       - ./:/retrain
       - ../doccano_project_data/:/doccano_project_data
