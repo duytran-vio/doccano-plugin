@@ -31,7 +31,6 @@ def re_search(sent, dec, info='DistrictCode'):
     words = sent.split(' ')
     lens = [len(i) for i in words]
     lens = [np.sum(lens[0:i])+i for i in range(len(words))]
-
     for l in range(4):
         for i in range(len(words)-l):
         # for i in range(len(sent)-l):
@@ -42,7 +41,7 @@ def re_search(sent, dec, info='DistrictCode'):
                 if word not in tmp:
                     result += [(dis, (lens[i], lens[i]+len(word), len(word) ), len(word) ) for dis in dec[word][info] ]
                     # result += [(dis, (i, i+l ), len(word) ) for dis in dec[word][info] ]
-                    tmp.append(word)
+                    # tmp.append(word)
             except KeyError:
                 continue
     return list(set(result))
@@ -91,7 +90,7 @@ def get_address(sent, enc, dec, disown, ward_dis):
         
         all_matches = set(re_search(sent, province_dec, 'ProvinceCode'))
         for ret in all_matches:
-            if ret[0] in dis_province[d]:
+            if ret[0] in dis_province[d] and ret[1][0] > mini[i]:
                 d_list[i][4] += [ret]
         if len(d_list[i][4]) < 1:
             for province in dis_province[d]:
