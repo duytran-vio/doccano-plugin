@@ -185,7 +185,7 @@ def retrain(new_sents, new_labels):
         msg['Subject'] = 'WARNING FROM RETRAIN TMT CHATBOT'
         msg['From'] = "automessage.tmt@gmail.com"
         server.sendmail('automessage.tmt@gmail.com', 'ltb1002.edmail@gmail.com', msg.as_string())
-        # server.sendmail('automessage.tmt@gmail.com', 'hoalt@tmtsofts.com', msg.as_string())
+        server.sendmail('automessage.tmt@gmail.com', 'hoalt@tmtsofts.com', msg.as_string())
         print("MODEL GET WORSE, WARNING MAIL SENT!")
     print("OLD f1:", old_f1)
     print("OLD TEST f1:", old_test_f1)
