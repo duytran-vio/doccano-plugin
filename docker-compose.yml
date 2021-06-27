@@ -1,9 +1,9 @@
 version: "3.7"
 services:
   tdsvm_:
-    container_name: svm
+    container_name: doccano_plugin
     build: .
-    image: svm
+    image: doccano_plugin
     network_mode: "host"
     restart: always
     # environment:
@@ -12,7 +12,9 @@ services:
       resources:
         reservations:
           devices:
-            - capabilities: [gpu]
+            - driver: nvidia
+              device_ids: ['`']
+              capabilities: [gpu]
     volumes:
-      - ./:/retrain
+      - ./:/doccano-plugin
       - ../doccano_project_data/:/doccano_project_data

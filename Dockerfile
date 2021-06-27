@@ -1,11 +1,10 @@
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
-WORKDIR /retrain    
+WORKDIR /doccano-plugin   
 
 COPY ./docker/get-pip.py .
 COPY ./docker/Python-3.6.3.tgz .
 COPY ./requirements.txt .
-COPY ./test.py .
 
 # RUN nvcc -V
 
@@ -30,5 +29,4 @@ RUN pip3 install --upgrade pip && \
     pip3 install thundersvm
 
 # # RUN nvidia-smi && nvcc -V
-CMD ["python3.6", "./test.py"]
-# CMD ["python", "./retrain.py"]
+CMD ["python3.6", "./app.py"]

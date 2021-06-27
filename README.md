@@ -23,3 +23,10 @@ The credential to connect to the server is hard-coded, so remember to change thi
 
 # For service create
 You have to extract models.rar and put it to services folder
+
+# For docker run
+1. API:
+    - Unzip files in services/Scripts/savedfiles
+    - Get svm model from google drive (name hungne) and put into services/models/
+    - Docker compose build for app in doccano-plugin
+2. Docker compose build for retrain in doccano-plugin/retrain
