@@ -6,11 +6,13 @@ import sys
 import time
 from datetime import datetime
 
+from thundersvm import SVC
+
 
 import smtplib
 from email.mime.text import MIMEText
 
-from sklearn import svm,metrics
+from sklearn import svm, metrics
 import pickle
 import numpy as np
 from sklearn.metrics import classification_report
@@ -37,29 +39,32 @@ X_test_path = 'services/retrain/X_test.txt'
 y_train_path = 'services/retrain/y_train.pkl'
 y_test_path = 'services/retrain/y_test.pkl'
 f1_history_path = 'services/retrain/f1_history.pkl'
+f1_logs_path = 'services/retrain/f1_logs.pkl'
 svm_path = 'services/models/hungne'
 
 accum_data_path = 'services/retrain/accum_data.txt'
 accum_label_path = 'services/retrain/accum_label.txt'
 new_datatest_path = 'services/retrain/new_data_test.txt'
-new_labeltest_path = 'services/retrain/new_label_test.txt'
+new_labeltest_path = 'services/retrain/new_label_test.pkl'
 
 tfidf_path = 'services/models/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
 
-intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return', 'Other'] \
-    + ['Request_phone', 'Request_weight customer', None, 'Request_color_product','Request_cost_product', \
-    'Request_shiping fee', 'Request_amount_product', 'Request_material_product', None, None, 'Request_size', 'Request_address']
+intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing',\
+            'Return', 'Other', 'Ok'] + ['Request_phone', 'Request_weight customer', None, \
+            'Request_color_product','Request_cost_product', 'Request_shiping fee', \
+            'Request_amount_product', 'Request_material_product', None, None, 'Request_size',\
+            'Request_address', 'Request_product_image']
 
 
 def write_text_to_file(file_path, data):
-    f = open(file_path, 'w')
+    f = open(file_path, 'w',encoding='utf-8')
     for i in data:
-        f.write(i)
+        f.write(str(i))
         f.write('\n')
     f.close()
 
-def macro_f1(report):
+def extract_f1(report):
     return report['macro avg']['f1-score'], report['weighted avg']['f1-score']
 
 def read_vars():
@@ -68,13 +73,19 @@ def read_vars():
     y_train = pickle.load(open(y_train_path, 'rb'))
     y_test = pickle.load(open(y_test_path, 'rb'))
     f1_history = pickle.load(open(f1_history_path, 'rb'))
-    return X_train, X_test, y_train, y_test, f1_history
+    f1_logs = pickle.load(open(f1_logs_path, 'rb'))
+    return X_train, X_test, y_train, y_test, f1_history, f1_logs
 
 ### Input: new sentences and labels
 ### If it can improve model -> apply and save
 ### Else send email to Bach to raise warning
 ### args: sents and their labels
-def retrain(new_sents, new_labels):
+
+def retrain(new_sents, new_labels):                     
+    # for i in range(len(new_sents)):
+    #     print(new_sents[i], intent_list[new_labels[i]])
+    # return 
+
     ### Accumulate data until enough to start retraining
     try:
         accum_data = pd.read_csv(accum_data_path, sep='\n').values[:,0]
@@ -84,54 +95,87 @@ def retrain(new_sents, new_labels):
         accum_data = []
         accum_label = []
     
-    accum_data += new_sents
-    accum_label += new_labels
+    accum_data = np.concatenate([accum_data, new_sents], axis=0)
+    accum_label = np.concatenate([accum_label, new_labels], axis=0)
 
     ### If data is not enough, save and wait, not train
-    if len(accum_data) < 100:
+    if len(accum_data) < 1000:
         write_text_to_file(accum_data_path, accum_data)
         write_text_to_file(accum_label_path, accum_label)
+        print(len(accum_data) )
+        print("NOT ENOUGH DATA, SAVE!")
         return None
 
+    print(len(accum_data) )
+    print("ENOUGH DATA, START RETRAINING")
+    # for i in range(len(intent_list)):
+    #     print(intent_list[i], ': ', np.count_nonzero(np.array(new_labels)==i))
+    # print('------------------------------------')
 
     X_new = tfidfconverter.transform(accum_data).toarray()
-    X_train, X_test, y_train, y_test, f1_history = read_vars()
-    X_train, X_test = tfidfconverter.transform(X_train).toarray(), tfidfconverter.transform(X_test).toarray()
+    X_train_txt, X_test_txt, y_train, y_test, f1_his, f1_logs = read_vars()
+    X_train, X_test = tfidfconverter.transform(X_train_txt).toarray(), tfidfconverter.transform(X_test_txt).toarray()
+
+    X_train_txt = np.concatenate([accum_data, X_train_txt], axis = 0)
 
     X_train = np.concatenate((X_new, X_train), axis = 0)
-    lbl = accum_label + list(y_train)
+    lbl = np.concatenate([accum_label,y_train], axis=0)
+    # lbl = y_train
 
-    clf = svm.LinearSVC()
+    # print(X_train.shape[0]) 
+    # for i in range(len(intent_list)):
+    #     print(intent_list[i], ': ', np.count_nonzero(lbl==i))
+    # print('------------------------------------')
+
+    clf = SVC(kernel='rbf', C=2, gamma=0.05)
     clf = clf.fit(X_train, lbl)
 
     y_pred = clf.predict(X_test)
-    result = classification_report(y_test, y_pred, output_dict = True,\
+    new_f1_logs = classification_report(y_test, y_pred, output_dict = False, digits=3,\
                     target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None])
-    new_macrof1 = macro_f1(result)
+    new_report_f1 = classification_report(y_test, y_pred, output_dict = True,\
+                    target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None])
+    new_f1 = extract_f1(new_report_f1)
 
-    new_data_test = pd.read_csv(new_datatest_path, sep='\n').values[:,0]
-    new_label_test = pd.read_csv(new_labeltest_path, sep='\n').values[:,0]
-    y_pred = clf.predict(new_data_test)
-    result = classification_report(new_label_test, y_pred, output_dict = True,\
-                    target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None]) 
-    new_macrof1_1 = macro_f1(result)
+    try:
+        new_data_test = list(pd.read_csv(new_datatest_path, sep='\n', header=None).values[:,0])
+        new_label_test = pickle.load(open(new_labeltest_path, 'rb'))
+        X_new_test = tfidfconverter.transform(new_data_test).toarray()
+        y_pred = clf.predict(X_new_test)
+        tmp_labels = [i for i in range(len(intent_list)) if intent_list[i] != None]
+        new_test_report_f1 = classification_report(new_label_test, y_pred, output_dict = True, labels = tmp_labels,\
+                        target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None]) 
+        new_test_f1_logs = classification_report(new_label_test, y_pred, output_dict = False, digits=3, labels = tmp_labels,\
+                        target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None]) 
+    except pd.errors.EmptyDataError:
+        new_data_test, new_label_test = [], []
+        new_test_report_f1 = {'macro avg':{'f1-score':0},'weighted avg':{'f1-score':0}}
+        new_test_f1_logs = None
+    new_test_f1 = extract_f1(new_test_report_f1)
+
+    ### The data is stored in f1_history as a list, where
+    ### each element is a 2-tuple (f1, f1_test)
+    old_f1 = extract_f1(f1_his[-1][0])
+    old_test_f1 = extract_f1(f1_his[-1][1])
 
     ### If the model is improved
-    if new_macrof1[0] >= f1_history[-1][0] and new_macrof1[1] >= f1_history[-1][1] \
-        and new_macrof1_1[0] >= f1_history[-1][2] and new_macrof1_1[1] >= f1_history[-1][3]:
-        f1_history.append([new_macrof1[0], new_macrof1[1], new_macrof1_1[0], new_macrof1_1[1]])
-        pickle.dump(f1_history, open(f1_history_path, 'wb'))
-        pickle.dump(y_train, open(y_train_path, 'wb'))
+    if new_f1[0]+0.015 >= old_f1[0] and new_f1[1]+0.015 >= old_f1[1] and \
+        new_test_f1[0]+0.015 >= old_test_f1[0] and new_test_f1[1]+0.015 >= old_test_f1[1]:
+        f1_his.append((new_report_f1, new_test_report_f1))
+        f1_logs.append((new_f1_logs, new_test_f1_logs, str(datetime.now())  ))
+        pickle.dump(f1_logs, open(f1_logs_path, 'wb'))
+        pickle.dump(f1_his, open(f1_history_path, 'wb'))
+        pickle.dump(lbl, open(y_train_path, 'wb'))
         pickle.dump(clf, open(svm_path, 'wb'))
-        write_text_to_file(X_train_path, X_train)
+        write_text_to_file(X_train_path, X_train_txt)
         write_text_to_file(accum_data_path, [])
         write_text_to_file(accum_label_path, [])
 
         new_data_test += new_sents
         new_label_test += new_labels
         write_text_to_file(new_datatest_path, new_data_test)
-        write_text_to_file(new_labeltest_path, new_label_test)
-
+        pickle.dump(new_label_test, open(new_labeltest_path, 'wb'))
+        print("SUCCESSFULLY UPDATE MODEL!")
 
     else: ### Raise warning
         with open('services/retrain/text.txt', 'rb') as fp:
@@ -140,12 +184,15 @@ def retrain(new_sents, new_labels):
         # msg = MIMEText() 
         msg['Subject'] = 'WARNING FROM RETRAIN TMT CHATBOT'
         msg['From'] = "automessage.tmt@gmail.com"
-        # msg['To'] = "ltb1002.edmail@gmail.com"
-        # msg.set_content("Open the following data and label files to see what is the problem.")
-        # msg.add_attachment(open(accum_data_path, "r").read(), filename="data.txt")
-        # msg.add_attachment(open(accum_label_path, "r").read(), filename="label.txt")
         server.sendmail('automessage.tmt@gmail.com', 'ltb1002.edmail@gmail.com', msg.as_string())
-        server.sendmail('automessage.tmt@gmail.com', 'hoalt@tmtsofts.com', msg.as_string())
+        # server.sendmail('automessage.tmt@gmail.com', 'hoalt@tmtsofts.com', msg.as_string())
+        print("MODEL GET WORSE, WARNING MAIL SENT!")
+    print("OLD f1:", old_f1)
+    print("OLD TEST f1:", old_test_f1)
+    print("NEW f1:", new_f1)
+    print("NEW TEST f1", new_test_f1)
+    # for k in new_report_f1.keys():
+    #     print(k, ': ', new_report_f1[k])
 
 def get_id_start_end(file_name):
     '''
@@ -269,4 +316,4 @@ if __name__ == '__main__':
     server.login("automessage.tmt@gmail.com", "tmtpassword")
     use_retrain_model()
     write_to_log()
-    time.sleep(3600*24*7) #comment to debug
+    # time.sleep(3600*24*7) #comment to debug
