@@ -13,7 +13,7 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              device_ids: ['`']
+              device_ids: ['1']
               capabilities: [gpu]
     volumes:
       - ./:/doccano-plugin
