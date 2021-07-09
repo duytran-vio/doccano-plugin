@@ -2,7 +2,7 @@
 from os import path
 import re
 import pandas as pd
-from .address import address_entity
+# from .address import address_entity
 import numpy as np
 import time
 import json
@@ -296,18 +296,21 @@ def findall_index(pattern, sent, entity):
 
 def join_continuous_sq(list_sq, sentences):
     res = []
+    last_entity = None
     for sequence in list_sq:
         if len(res) == 0:
             res.append(sequence)
+            last_entity = sequence[2]
             continue
         start = res[-1][1]
         end = sequence[0]
-        if re.search(r'^\s+$', sentences[start:end]) is not None or start == end:
+        if (re.search(r'^\s+$', sentences[start:end]) is not None or start == end) and last_entity == sequence[2]:
             res[-1][1] = sequence[1]
         else:
             res.append(sequence)
+            last_entity = sequence[2]
     return res
-
+    
 def return_pre_words(string, start, num_of_words):
   word = ""
   pre = start - 2
@@ -501,7 +504,7 @@ def get_entity_with_pre_sent(pre_sent, sent, entity):
         return []
         
 if __name__ == "__main__":
-    result = label_entity(['@@@@@ Khách 100: mặc dc M ko, hay size S?'], None)
+    result = label_entity(['84cm 80cm 90 cm'], None)
     print(result)
     # list_entity_sq = get_entity_with_pre_sent('eo 50 thì mang size j e?', 'mặc m nha chị', 'size')
     # print(list_entity_sq)
