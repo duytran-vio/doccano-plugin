@@ -73,7 +73,6 @@ def extract_request(request):
 
 def sample_documents(project_id, start, end, sample_size, labels_map):
     orig_docs = get_documents(doccano_client, project_id, start, end)
-    print(orig_docs)
     cus_docs = []
     for doc in orig_docs:
         sent = doc['text']
