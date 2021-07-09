@@ -72,14 +72,15 @@ pt_V = r'\b\d{2,3}(\s*cm)*((\-|\s)\d{2,3}(\s*cm)*)*\b'
 ### ------------------------------------------
 
 ### TIME
-pt_time_pre = r'sáng|trưa|tối|chiều|ngày|hôm'
+pt_time_pre = r'sáng|trưa|tối|chiều|ng[à|a]y|h[ô|u|o]m|mùng|tuần|bữa'
 pt_day = r'nay|mai|kia|mốt'
-pt_hour = r'\d{1,2}(\-\d{1,2})*\s*(h|tiếng|g(iờ)*)(\s*\d{1,2}[\'|p(hút)*]*)*(\s(sáng|trưa|tối|chiều))*'
-pt_date = r'(t(h[ứ|ư|u])*\s*\d(-\d)*|cn)(\s{})*'.format(pt_time_pre)
-pt_num_pre = r'\d+(\-\d+)*\s*({})'.format(pt_time_pre)
-pt_pre_day_date = r'({})\s({}|{}|qua)'.format(pt_time_pre,pt_day,pt_date)
-pt_time_phrase = r'(gi|h)ờ\shành\schính(ngày\sthường)*'
-pt_time_summary = r'\b({}|{}|{}|{}|{}|sáng|trưa|tối|mai|mốt)\b'.format(pt_pre_day_date, pt_num_pre, pt_date, pt_hour,pt_time_phrase)
+pt_hour = r'\d{1,2}((\-|\s|_|\sđến\s|\shoặc\s)\d{1,2})*\s*(h|tiếng|g(iờ)*|\'|phút|giây)(\s*\d{1,2}[\'|p(hút)*]*)*(\s(sáng|trưa|tối|chiều))*'
+pt_date = r'(t(h[ứ|ư|u])*\s*\d((\-|\s|_|\sđến\s|\shoặc\s)\d)*|cn)(\s{})*'.format(pt_time_pre)
+pt_num_pre = r'\d+((\-|\s|_|\sđến\s|\shoặc\s)\d+)*\s*({})'.format(pt_time_pre)
+pt_pre_day_date = r'((\d+|{})\s*)*({})\s({}|{}|qua|tr(ướ)*c)'.format(pt_time_pre,pt_time_pre,pt_day,pt_date)
+pt_time_phrase = r'(gi|h)ờ\shành\sch[á|í]nh(ngày\sthường)*'
+pt_spec_date = r'({})'.format(pt_time_pre) + r'\s\d{1,2}((\s|-|\/)\d{1,2}((\s|-|\/)\d{2,4})*)*'
+pt_time_summary = r'\b({}|{}|{}|{}|{}|{}|sáng|trưa|tối|mai|mốt|chủ\snhật)\b'.format(pt_pre_day_date, pt_num_pre, pt_date, pt_hour,pt_time_phrase, pt_spec_date)
 ###-------------------------------------------
 
 ### HEIGHT_WEIGHT
@@ -310,7 +311,7 @@ def join_continuous_sq(list_sq, sentences):
             res.append(sequence)
             last_entity = sequence[2]
     return res
-    
+
 def return_pre_words(string, start, num_of_words):
   word = ""
   pre = start - 2
