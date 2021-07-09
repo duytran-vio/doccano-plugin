@@ -311,9 +311,11 @@ def write_to_log():
 
 if __name__ == '__main__':
     ### setup to send email
+    print("Start to set up email")
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login("automessage.tmt@gmail.com", "tmtpassword")
+    server.login("automessage.tmt@gmail.com", "tmtpassw")
+    print("Successfully log in, start service")
     use_retrain_model()
     write_to_log()
     time.sleep(3600*24*7) #comment to debug
