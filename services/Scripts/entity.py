@@ -51,7 +51,7 @@ amount_pt_sum = r'\b({0:}|{1:})\b'.format(amount_pt, amount_pt_2)
 ### MATERIAL_PRODUCT
 df_material = pd.read_csv(path.join(MODELS_PATH, 'material.csv'), header = None)
 material = df_material[0].tolist()
-pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(material) + r')(\sc[u|ứ]ng|\sm[e|ề]m)*\b'
+pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(material) + r')(\sc[u|ứ]ng|\sm[e|ề]m|\sm[i|ị]n)*\b'
 ###------------------------------------------
 
 ### SIZE
@@ -97,7 +97,7 @@ list_entity_using_regex = ['V1', 'V2', 'V3', 'phone', 'weight customer', 'height
                             'amount_product', 'material_product', 'ID_product', 'Time'
                             ]
 pattern_list = {
-    'phone': r'\b[0-9]{4}\.*[0-9]{3}\.*[0-9]{3,4}\b',
+    'phone': r'\b[0-9]{4}(\s|\.)*[0-9]{2,3}(\s|\.)*[0-9]{3,4}\b',
     'weight customer': pt_weight,
     'height customer': pt_height,
     'size': pt_size,
@@ -383,7 +383,7 @@ def label_full_string(input):
         re.append(check)
         start = check[1]
         string = input[start:]
-    freeship_sq = findall_index(r'((miễn|free)\s*)ship', input, 'shiping fee')
+    freeship_sq = findall_index(r'((mi[ễêe]n(\sph[ií])*|free)\s*)ship', input, 'shiping fee')
     add_shipfee = additional_shipfee(input)
     if len(freeship_sq) > 0:
         re.extend(freeship_sq)
@@ -395,7 +395,7 @@ def label_full_string(input):
 
 def remove_duplicate_entity(sent_entities, sent_len):
     a = [x for x in range(len(sent_entities))]
-    a.sort(key = lambda x: sent_entities[x][1] - sent_entities[x][0], reverse=True)
+    a.sort(key = lambda x: list_entity_using_regex.index(sent_entities[x][2]), reverse=False)
     check = [False] * (sent_len + 1)
     final_entities = []
     for x in a:
@@ -504,7 +504,7 @@ def get_entity_with_pre_sent(pre_sent, sent, entity):
         return []
         
 if __name__ == "__main__":
-    result = label_entity(['84cm 80cm 90 cm'], None)
+    result = label_entity(['0918 206 399'], None)
     print(result)
     # list_entity_sq = get_entity_with_pre_sent('eo 50 thì mang size j e?', 'mặc m nha chị', 'size')
     # print(list_entity_sq)
