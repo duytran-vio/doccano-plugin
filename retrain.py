@@ -318,4 +318,4 @@ if __name__ == '__main__':
     print("Successfully log in, start service")
     use_retrain_model()
     write_to_log()
-    time.sleep(3600*24*7) #comment to debug
+    time.sleep(3600*24) #comment to debug
