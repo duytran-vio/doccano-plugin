@@ -2,7 +2,7 @@
 from os import path
 import re
 import pandas as pd
-from .address import address_entity
+# from .address import address_entity
 import numpy as np
 import time
 import json
@@ -45,7 +45,8 @@ cost_pt_sum = r'\b({})\b'.format(cost_pt)
 
 amount_pt = r'(\d+-)*\d+\s*(' + '|'.join(amount_suf) + r')((\s({})*)|(?=[^a-z]|$))'.format(product_pt) 
 amount_pt_2 = r'(\d+-)*\d+\s*({})'.format(product_pt)
-amount_pt_sum = r'\b({0:}|{1:})\b'.format(amount_pt, amount_pt_2)
+amount_pt_3 = r's[o|ố]\sl(ượ|uo)ng(\s|:\s*)\d+'
+amount_pt_sum = r'\b({0:}|{1:}|{2:})\b'.format(amount_pt, amount_pt_2, amount_pt_3)
 ###------------------------------------------
 
 ### MATERIAL_PRODUCT
@@ -55,7 +56,7 @@ pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(mater
 ###------------------------------------------
 
 ### SIZE
-size_pref = r'size|sai|sz|c[a|á]i|m[ặ|a]c|l[ấ|a]y'
+size_pref = r'size|sai|sz|c[a|á]i|m[ặ|a]c|l[ấ|a]y|đ[ặ|a]t'
 size_main = r'\d*(x*s|m|x*l|a|nhỏ|lớn|nho|lon)'
 pt_size_1 = r'({}|{})((\,\s*|\s){})+'.format(size_pref, product_pt, size_main)
 pt_size_2 = r'({})((\,\s*|\s)\d+)+'.format(size_pref)
@@ -64,7 +65,7 @@ pt_size = r'\b({}|{})\b'.format(pt_size_1, pt_size_2)
 ###------------------------------------------
 
 ### 3V
-pt_3V = r'\b\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*(-|\s)\d{2,3}(\s*cm)*\b'
+pt_3V = r'\b\d{2,3}(\s*cm)*(\s*-\s*|\s|,\s*)\d{2,3}(\s*cm)*(\s*-\s*|\s|,\s*)\d{2,3}(\s*cm)*\b'
 V1_pre = r'\b(ng[u|ự]c|v1|v[o|ò]ng\s*1)\b'
 V2_pre = r'\b(eo|v2|v[o|ò]ng\s*2|b[u|ụ]ng)\b'
 V3_pre = r'\b(m[o|ô]ng|v3|v[o|ò]ng\s*3)\b'
@@ -87,15 +88,15 @@ pt_time_summary = r'\b({}|{}|{}|{}|{}|{}|sáng|trưa|tối|mai|mốt|chủ\snh�
 pt_weight_1 = r'\b\d+\s*(kg|ky|ký|ki+|kí+|cân)\b'
 pt_weight_2 = r'\bnặng\s*\d+(\s*(kg|ky|ký|ki+|kí+|cân))*\b'
 pt_weight = r'{}|{}'.format(pt_weight_1, pt_weight_2)
-pt_height_1 = r'\b((\dm|m)\s*\d+|\d+(\,\d+)*\s*cm)\b'
+pt_height_1 = r'\b((\dm|m)\s*\d+|\d+(\,\d+)*\s*cm)|\d+[.,]\d+\s*m\b'
 pt_height_2 = r'\bcao\s*\d+(\,\d+)*\b'
 pt_height = r'{}|{}'.format(pt_height_1, pt_height_2)
 ###-------------------------------------------
 
 ### list of pattern
-list_entity_using_regex = ['V1', 'V2', 'V3', 'phone', 'weight customer', 'height customer', 
-                            'size', 'color_product','cost_product', 'shiping fee',
-                            'amount_product', 'material_product', 'ID_product', 'Time'
+list_entity_using_regex = ['V1', 'V2', 'V3', 'phone', 'weight customer', 'height customer',
+                            'cost_product', 'shiping fee', 'ID_product',
+                            'amount_product', 'size', 'Time', 'color_product', 'material_product',
                             ]
 pattern_list = {
     'phone': r'\b[0-9]{4}(\s|\.)*[0-9]{2,3}(\s|\.)*[0-9]{3,4}\b',
@@ -174,8 +175,14 @@ def label_entity(sentences, address_inp):
                 list_entity_sq = findall_index(pattern_list[entity], sent, entity)
                 if (entity == 'size'):
                     add_size = infer_V_size(sent, entity)
+                    add_size = infer_size_from_ID(result, sent, add_size)
                     if len(add_size) > 0:
                         list_entity_sq.extend(add_size)
+                    print(list_entity_sq)
+                elif entity == "amount_product":
+                    add_amount = infer_amount_from_ID(result, sent)
+                    if len(add_amount) > 0:
+                        list_entity_sq.extend(add_amount)
             
             if i > 0:
                 entity_pre_sent = get_entity_with_pre_sent(sentences[i - 1].lower(), sent, entity)
@@ -503,9 +510,33 @@ def get_entity_with_pre_sent(pre_sent, sent, entity):
             return []
     except:
         return []
+
+def infer_amount_from_ID(list_sq, sent):
+    list_sq = [s for s in list_sq if s[2] == 'ID_product']
+    ls = []
+    for s in list_sq:
+        end = s[0]
+        start = max(end - 5, 0)
+        sq = sent[start: end]
+        p = re.search(r'\d+', sq)
+        if p is not None:
+            ls.append([p.span()[0] + start, p.span()[1] + start, 'amount_product'])
+    return ls
+
+def infer_size_from_ID(list_sq, sent, ls):
+    list_sq = [s for s in list_sq if s[2] == 'ID_product']
+    for s in list_sq:
+        start = s[1]
+        end = min(start + 3, len(sent))
+        sq = sent[start: end]
+        p = re.search(r'\d+|{}'.format(pt_size_3), sq)
+        if p is not None:
+            ls.append([p.span()[0] + start, p.span()[1] + start, 'size'])
+    return ls
+
         
 if __name__ == "__main__":
-    result = label_entity(['0918 206 399'], None)
-    print(result)
-    # list_entity_sq = get_entity_with_pre_sent('eo 50 thì mang size j e?', 'mặc m nha chị', 'size')
-    # print(list_entity_sq)
+    sent = 'lay 2s Vậy cho e 1 set vàng L, giao đến 1646A Võ văn kiệt, phường 16 quận 8, hcm, điện thoại 0938723986 nhé'
+    result = label_entity([sent], None)
+    for e in result[0]:
+        print(sent[e[0]: e[1]], e[2])
