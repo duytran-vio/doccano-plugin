@@ -125,12 +125,13 @@ def classifier(data_file_path, address_inp):
 
 
     ### label entity
+    start_time = time.time()
     sents_entity = label_entity(df_data['text'].tolist(), address_inp)
     for i in range(len(df_data)):
         df_data['labels'][i].extend(sents_entity[i])
 
     end_time_entity = time.time()
-    print('Get all entities in ', end_time_entity - end_time_intent, 's.')    
+    print('Get all entities in ', end_time_entity - start_time, 's.')    
 
     return df_data
 
