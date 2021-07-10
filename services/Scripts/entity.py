@@ -203,8 +203,10 @@ def label_entity(sentences, address_inp):
             start, end, ent, score = address_entity(sent, address_inp)
             start, end = decode_start_end(sent, start, end)
             if score >= 5: result.extend([(start, end, ent)])
-        sents_entity[i] = remove_duplicate_entity(result, len(sent))
         address_time += time.time() - start_time
+
+        sents_entity[i] = remove_duplicate_entity(result, len(sent))
+
     print("Address time:", address_time)
 
     ## Merge Id member to sents_entity
@@ -404,7 +406,7 @@ def label_full_string(input):
 
 def remove_duplicate_entity(sent_entities, sent_len):
     a = [x for x in range(len(sent_entities))]
-    a.sort(key = lambda x: list_entity_using_regex.index(sent_entities[x][2]), reverse=False)
+    a.sort(key = lambda x: (list_entity_using_regex + ['address']).index(sent_entities[x][2]), reverse=False)
     check = [False] * (sent_len + 1)
     final_entities = []
     for x in a:
@@ -539,5 +541,5 @@ def infer_size_from_ID(list_sq, sent, ls):
 if __name__ == "__main__":
     sent = 'lay 2s Vậy cho e 1 set vàng L, giao đến 1646A Võ văn kiệt, phường 16 quận 8, hcm, điện thoại 0938723986 nhé'
     result = label_entity([sent], None)
-    for e in result[0]:
-        print(sent[e[0]: e[1]], e[2])
+    # for e in result[0]:
+    #     print(sent[e[0]: e[1]], e[2])
