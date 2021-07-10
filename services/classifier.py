@@ -26,7 +26,7 @@ MODELS_PATH = path.join(BASE_DIR, 'models')
 intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing', 'Return', 'Other', \
     'OK', 'Request_phone', 'Request_weight customer', 'Request_height customer', 'Request_color_product','Request_cost_product', \
     'Request_shiping fee', 'Request_amount_product', 'Request_material_product', None, None, 'Request_size', 'Request_address',\
-    'Request_product_image']
+    'Shop_wrong', 'Client_wrong', 'Request_product_image']
 # intent_list = ['hello', 'done', 'inform', 'order', 'connect', 'feedback', 'changing', 'return', 'other',\
 #     'ok', 'phone', 'weight customer', 'height customer', 'color_product', 'cost_product', \
 #     'shiping fee', 'amount_product', 'material_product', None, None, 'size', 'address', 'product_image']

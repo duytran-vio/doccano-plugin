@@ -30,4 +30,4 @@ RUN pip3 install --upgrade pip && \
 
 # # RUN nvidia-smi && nvcc -V
 # CMD ["python3.6", "./test.py"]
-CMD ["python3.6", "./retrain.py"]
+CMD python3.6 -u ./retrain.py
