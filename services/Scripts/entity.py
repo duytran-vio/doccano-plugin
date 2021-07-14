@@ -196,15 +196,15 @@ def label_entity(sentences, address_inp):
                 result.extend(list_entity_sq)
 
         ### ADDRESS
-        start_time = time.time()
         if address_inp is not None:
-            sent = sentences[i]
-            # sent = re.sub('-|,', ' ', sent)
-            # sent = re.sub('xxx', ' xx', sent)
+            sent = sentences[i].lower()
+            sent = re.sub('-|,', ' ', sent)
+            sent = re.sub('xxx', ' xx', sent)
             start, end, ent, score = address_entity(sent, address_inp)
-            start, end = decode_start_end(sent, start, end)
-            if score >= 5: result.extend([(start, end, ent)])
-        address_time += time.time() - start_time
+            if score > 12:
+                start, end = decode_start_end(sent, start, end)
+                result.extend([(start, end, ent)])
+        sents_entity[i] = remove_duplicate_entity(result, len(sent))
 
         sents_entity[i] = remove_duplicate_entity(result, len(sent))
 
