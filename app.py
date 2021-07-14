@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask, jsonify, render_template, request as flask_request, send_file
+from flask import Flask, jsonify, render_template, request as flask_request, send_file, send_from_directory
 
 from services.client import refresh_client, Client
 from services.sample import handle_request as handle_sample_request
@@ -169,6 +169,13 @@ def retrain_test_project():
     except Exception as e:
         logging.exception(e)
         return jsonify({'error': str(e)}), 500
+
+@app.route('/download_file', methods=['GET'])
+def download_file():
+    DOCCANO_PLUGIN_PATH = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(DOCCANO_PLUGIN_PATH,*['services', 'retrain','finish_project.xlsx'])
+    print(file_path)
+    return send_file(file_path, as_attachment=True, cache_timeout=0)
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT, debug=debug)
