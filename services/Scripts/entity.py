@@ -65,7 +65,7 @@ pt_size = r'\b({}|{})\b'.format(pt_size_1, pt_size_2)
 ###------------------------------------------
 
 ### 3V
-pt_3V = r'\b\d{2,3}(\s*cm)*(\s*-\s*|\s|,\s*)\d{2,3}(\s*cm)*(\s*-\s*|\s|,\s*)\d{2,3}(\s*cm)*\b'
+pt_3V = r'\b\d{2,3}(\s*cm)*(\s*-\s*|\s|\s*,\s*)\d{2,3}(\s*cm)*(\s*-\s*|\s|\s*,\s*)\d{2,3}(\s*cm)*\b'
 V1_pre = r'\b(ng[u|ự]c|v1|v[o|ò]ng\s*1)\b'
 V2_pre = r'\b(eo|v2|v[o|ò]ng\s*2|b[u|ụ]ng)\b'
 V3_pre = r'\b(m[o|ô]ng|v3|v[o|ò]ng\s*3)\b'
@@ -177,7 +177,6 @@ def label_entity(sentences, address_inp):
                     add_size = infer_size_from_ID(result, sent, add_size)
                     if len(add_size) > 0:
                         list_entity_sq.extend(add_size)
-                    print(list_entity_sq)
                 elif entity == "amount_product":
                     add_amount = infer_amount_from_ID(result, sent)
                     if len(add_amount) > 0:
@@ -539,7 +538,7 @@ def infer_size_from_ID(list_sq, sent, ls):
 
         
 if __name__ == "__main__":
-    sent = 'lay 2s Vậy cho e 1 set vàng L, giao đến 1646A Võ văn kiệt, phường 16 quận 8, hcm, điện thoại 0938723986 nhé'
+    sent = '86 , 90 , 90'
     result = label_entity([sent], None)
-    # for e in result[0]:
-    #     print(sent[e[0]: e[1]], e[2])
+    for e in result[0]:
+        print(sent[e[0]: e[1]], e[2])
