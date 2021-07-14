@@ -2,7 +2,8 @@
 from os import path
 import re
 import pandas as pd
-from services.address.address import address_entity
+# from services.address.address import address_entity
+from .address import address_entity
 import numpy as np
 import time
 import json
