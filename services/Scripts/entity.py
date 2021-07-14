@@ -3,7 +3,7 @@ from os import path
 import re
 import pandas as pd
 from services.address.address import address_entity
-from .address import address_entity
+from .address import address_entity   
 import numpy as np
 import time
 import json
@@ -309,7 +309,7 @@ def join_continuous_sq(list_sq, sentences):
     res = []
     last_entity = None
     for sequence in list_sq:
-        if len(res) == 0:
+        if len(res) == 0 or sequence[2] == 'ID_product':
             res.append(sequence)
             last_entity = sequence[2]
             continue
@@ -539,7 +539,7 @@ def infer_size_from_ID(list_sq, sent, ls):
 
         
 if __name__ == "__main__":
-    sent = '86 , 90 , 90'
-    result = label_entity([sent], None)
-    for e in result[0]:
+    sent = 'có đầm caro đầm công sở k'
+    result = label_entity(['vòng 1 chị 86, em cao bn',sent], None)
+    for e in result[1]:
         print(sent[e[0]: e[1]], e[2])
