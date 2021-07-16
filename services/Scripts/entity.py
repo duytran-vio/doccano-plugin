@@ -60,7 +60,7 @@ pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(mater
 size_pref = r'size|sai|sz|c[a|á]i|m[ặ|a]c|l[ấ|a]y|đ[ặ|a]t'
 size_main = r'\d*(x*s|m|x*l|a|nhỏ|lớn|nho|lon)'
 pt_size_1 = r'({}|{})((\,\s*|\s){})+'.format(size_pref, product_pt, size_main)
-pt_size_2 = r'({})((\,\s*|\s)\d+)+'.format(size_pref)
+pt_size_2 = r'(size|sai|sz)((\,\s*|\s)\d+)+'
 pt_size_3 = r'\b(\d*(x*s|x*l|m))\b'
 pt_size = r'\b({}|{})\b'.format(pt_size_1, pt_size_2)
 ###------------------------------------------
@@ -539,7 +539,7 @@ def infer_size_from_ID(list_sq, sent, ls):
 
         
 if __name__ == "__main__":
-    sent = 'có đầm caro đầm công sở k'
+    sent = 'lấy 3 cái đầm caro màu xanh'
     result = label_entity(['vòng 1 chị 86, em cao bn',sent], None)
     for e in result[1]:
         print(sent[e[0]: e[1]], e[2])
