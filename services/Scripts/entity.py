@@ -44,7 +44,7 @@ cost_pt_sum = r'\b({})\b'.format(cost_pt)
 
 ### AMOUNT_PRODUCT
 
-amount_pt = r'(\d+-)*\d+\s*(' + '|'.join(amount_suf) + r')((\s({})*)|(?=[^a-z]|$))'.format(product_pt) 
+amount_pt = r'(\d+-)*\d+\s*(' + '|'.join(amount_suf) + r')((?=[^a-z]|$))'.format(product_pt) 
 amount_pt_2 = r'(\d+-)*\d+\s*({})'.format(product_pt)
 amount_pt_3 = r's[o|ố]\sl(ượ|uo)ng(\s|:\s*)\d+'
 amount_pt_sum = r'\b({0:}|{1:}|{2:})\b'.format(amount_pt, amount_pt_2, amount_pt_3)
