@@ -1,4 +1,4 @@
-from address.common import api_address
+from services.address.common import api_address
 
 def address_entity(sent, address_inp):
     result = api_address(sent, address_inp, 5)
