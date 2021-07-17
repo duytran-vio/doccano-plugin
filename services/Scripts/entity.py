@@ -2,8 +2,8 @@
 from os import path
 import re
 import pandas as pd
-# from services.address.address import address_entity
-from .address import address_entity
+from services.address.address import address_entity
+from .address import address_entity   
 import numpy as np
 import time
 import json
@@ -44,7 +44,7 @@ cost_pt_sum = r'\b({})\b'.format(cost_pt)
 
 ### AMOUNT_PRODUCT
 
-amount_pt = r'(\d+-)*\d+\s*(' + '|'.join(amount_suf) + r')((\s({})*)|(?=[^a-z]|$))'.format(product_pt) 
+amount_pt = r'(\d+-)*\d+\s*(' + '|'.join(amount_suf) + r')((?=[^a-z]|$))'.format(product_pt) 
 amount_pt_2 = r'(\d+-)*\d+\s*({})'.format(product_pt)
 amount_pt_3 = r's[o|ố]\sl(ượ|uo)ng(\s|:\s*)\d+'
 amount_pt_sum = r'\b({0:}|{1:}|{2:})\b'.format(amount_pt, amount_pt_2, amount_pt_3)
@@ -60,13 +60,13 @@ pt_material = r'\b((ch[a|ấ]t(\sli[e|ệ]u)*|lo[a|ạ]i)\s)*(' + '|'.join(mater
 size_pref = r'size|sai|sz|c[a|á]i|m[ặ|a]c|l[ấ|a]y|đ[ặ|a]t'
 size_main = r'\d*(x*s|m|x*l|a|nhỏ|lớn|nho|lon)'
 pt_size_1 = r'({}|{})((\,\s*|\s){})+'.format(size_pref, product_pt, size_main)
-pt_size_2 = r'({})((\,\s*|\s)\d+)+'.format(size_pref)
+pt_size_2 = r'(size|sai|sz)((\,\s*|\s)\d+)+'
 pt_size_3 = r'\b(\d*(x*s|x*l|m))\b'
 pt_size = r'\b({}|{})\b'.format(pt_size_1, pt_size_2)
 ###------------------------------------------
 
 ### 3V
-pt_3V = r'\b\d{2,3}(\s*cm)*(\s*-\s*|\s|,\s*)\d{2,3}(\s*cm)*(\s*-\s*|\s|,\s*)\d{2,3}(\s*cm)*\b'
+pt_3V = r'\b\d{2,3}(\s*cm)*(\s*-\s*|\s|\s*,\s*)\d{2,3}(\s*cm)*(\s*-\s*|\s|\s*,\s*)\d{2,3}(\s*cm)*\b'
 V1_pre = r'\b(ng[u|ự]c|v1|v[o|ò]ng\s*1)\b'
 V2_pre = r'\b(eo|v2|v[o|ò]ng\s*2|b[u|ụ]ng)\b'
 V3_pre = r'\b(m[o|ô]ng|v3|v[o|ò]ng\s*3)\b'
@@ -178,7 +178,6 @@ def label_entity(sentences, address_inp):
                     add_size = infer_size_from_ID(result, sent, add_size)
                     if len(add_size) > 0:
                         list_entity_sq.extend(add_size)
-                    print(list_entity_sq)
                 elif entity == "amount_product":
                     add_amount = infer_amount_from_ID(result, sent)
                     if len(add_amount) > 0:
@@ -310,7 +309,7 @@ def join_continuous_sq(list_sq, sentences):
     res = []
     last_entity = None
     for sequence in list_sq:
-        if len(res) == 0:
+        if len(res) == 0 or sequence[2] == 'ID_product':
             res.append(sequence)
             last_entity = sequence[2]
             continue
@@ -540,7 +539,7 @@ def infer_size_from_ID(list_sq, sent, ls):
 
         
 if __name__ == "__main__":
-    sent = 'lay 2s Vậy cho e 1 set vàng L, giao đến 1646A Võ văn kiệt, phường 16 quận 8, hcm, điện thoại 0938723986 nhé'
-    result = label_entity([sent], None)
-    # for e in result[0]:
-    #     print(sent[e[0]: e[1]], e[2])
+    sent = 'lấy 3 cái đầm caro màu xanh'
+    result = label_entity(['vòng 1 chị 86, em cao bn',sent], None)
+    for e in result[1]:
+        print(sent[e[0]: e[1]], e[2])
