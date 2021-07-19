@@ -34,42 +34,40 @@ DATA_CREATE_PATH = os.path.join(DATA_PATH, 'create')
 
 
 RETRAIN_PROJECT_PATH = 'services/retrain/retrain_project.csv'
-X_train_path = 'services/retrain/X_train.txt'
-X_test_path = 'services/retrain/X_test.txt'
+X_train_path = 'services/retrain/X_train.csv'
+X_test_path = 'services/retrain/X_test.csv'
 y_train_path = 'services/retrain/y_train.pkl'
 y_test_path = 'services/retrain/y_test.pkl'
 f1_history_path = 'services/retrain/f1_history.pkl'
 f1_logs_path = 'services/retrain/f1_logs.pkl'
 svm_path = 'services/models/hungne'
 
-accum_data_path = 'services/retrain/accum_data.txt'
-accum_label_path = 'services/retrain/accum_label.txt'
-new_datatest_path = 'services/retrain/new_data_test.txt'
+accum_data_path = 'services/retrain/accum_data.csv'
+accum_label_path = 'services/retrain/accum_label.csv'
+new_datatest_path = 'services/retrain/new_data_test.csv'
 new_labeltest_path = 'services/retrain/new_label_test.pkl'
 
 tfidf_path = 'services/models/tfidf.pickle'
 tfidfconverter = pickle.load(open(tfidf_path, 'rb'))
 
 intent_list = ['Hello', 'Done', 'Inform', 'Order', 'Connect', 'feedback', 'Changing',\
-            'Return', 'Other', 'Ok'] + ['Request_phone', 'Request_weight customer', None, \
-            'Request_color_product','Request_cost_product', 'Request_shiping fee', \
-            'Request_amount_product', 'Request_material_product', None, None, 'Request_size',\
-            'Request_address', 'Request_product_image']
+            'Return', 'Other', 'Ok'] + ['Request_phone', 'Request_weight customer', \
+            'Request_height customer', 'Request_color_product','Request_cost_product', \
+            'Request_shiping fee', 'Request_amount_product', 'Request_material_product', \
+            None, None, 'Request_size', 'Request_address',  'Shop_wrong', 'Client_wrong',\
+            'Request_product_image']
 
 
 def write_text_to_file(file_path, data):
-    f = open(file_path, 'w',encoding='utf-8')
-    for i in data:
-        f.write(str(i))
-        f.write('\n')
-    f.close()
+    df = pd.DataFrame({'data':data})
+    df.to_csv(file_path)
 
 def extract_f1(report):
     return report['macro avg']['f1-score'], report['weighted avg']['f1-score']
 
 def read_vars():
-    X_train = pd.read_csv(X_train_path, sep='\n', header=None).values[:,0]
-    X_test = pd.read_csv(X_test_path, sep='\n', header=None).values[:,0]
+    X_train = pd.read_csv(X_train_path)['data'].values
+    X_test = pd.read_csv(X_test_path)['data'].values
     y_train = pickle.load(open(y_train_path, 'rb'))
     y_test = pickle.load(open(y_test_path, 'rb'))
     f1_history = pickle.load(open(f1_history_path, 'rb'))
@@ -88,8 +86,8 @@ def retrain(new_sents, new_labels):
 
     ### Accumulate data until enough to start retraining
     try:
-        accum_data = pd.read_csv(accum_data_path, sep='\n').values[:,0]
-        accum_label = pd.read_csv(accum_label_path, sep='\n').values[:, 0]
+        accum_data = pd.read_csv(accum_data_path)['data'].values
+        accum_label = pd.read_csv(accum_label_path)['data'].values
         accum_label = [int(i) for i in accum_label]
     except:
         accum_data = []
@@ -138,7 +136,7 @@ def retrain(new_sents, new_labels):
     new_f1 = extract_f1(new_report_f1)
 
     try:
-        new_data_test = list(pd.read_csv(new_datatest_path, sep='\n', header=None).values[:,0])
+        new_data_test = list(pd.read_csv(new_datatest_path)['data'].values)
         new_label_test = pickle.load(open(new_labeltest_path, 'rb'))
         X_new_test = tfidfconverter.transform(new_data_test).toarray()
         y_pred = clf.predict(X_new_test)
@@ -147,7 +145,7 @@ def retrain(new_sents, new_labels):
                         target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None]) 
         new_test_f1_logs = classification_report(new_label_test, y_pred, output_dict = False, digits=3, labels = tmp_labels,\
                         target_names=[intent_list[i] for i in range(0, len(intent_list)) if intent_list[i] is not None]) 
-    except pd.errors.EmptyDataError:
+    except ValueError:
         new_data_test, new_label_test = [], []
         new_test_report_f1 = {'macro avg':{'f1-score':0},'weighted avg':{'f1-score':0}}
         new_test_f1_logs = None
