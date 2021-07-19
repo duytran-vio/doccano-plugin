@@ -43,6 +43,9 @@ def add_finish(project):
         df = pd.read_excel(FINISH_FILE_PATH, engine='openpyxl')
     except:
         df = pd.DataFrame(columns=['id', 'name', 'finish', 'link'])
+
+    df = df.drop([i for i in range(len(df)) if np.isnan(df['id'][i])])
+
     index = [i for i in range(len(df)) if df['id'][i] == np.int64(project['id'])]
     fdocs = get_fdocs_from_index(index, df)
     fdocs.append([project['start'], project['end']])
